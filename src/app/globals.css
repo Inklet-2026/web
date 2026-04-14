@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f5f3ed;
+  --color-paper-dark: #e8e5db;
+  --color-ink: #1a1a1a;
+  --color-ink-light: #222;
+  --color-ink-muted: #666;
+  --color-ink-faint: #888;
+  --color-device-frame: #2a2a2a;
+  --color-eink-flash: #3a3832;
+  --color-ghost-text: #c0bdb5;
+
+  --font-newsreader: var(--font-newsreader);
+  --font-inter: var(--font-inter);
+  --font-ibm-plex-mono: var(--font-ibm-plex-mono);
+}
+
+/* E-ink text rendering — used inside EInkDisplay */
+.eink-text {
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+.eink-heading {
+  text-shadow: 0.4px 0px 0px #222, 0px 0.4px 0px #222;
+  filter: contrast(0.85) blur(0.2px);
+}
+
+.eink-body-text {
+  text-shadow: 0.3px 0px 0px #444, 0px 0.3px 0px #444;
+  filter: contrast(0.8) blur(0.15px);
+}
+
+.eink-label-text {
+  text-shadow: 0.2px 0px 0px #888;
+  filter: contrast(0.75) blur(0.2px);
+}
