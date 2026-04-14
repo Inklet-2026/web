@@ -1,11 +1,25 @@
+import Nav from "@/components/Nav";
+import Hero from "@/components/Hero";
+import HowItWorks from "@/components/HowItWorks";
+import UseCases from "@/components/UseCases";
+import Privacy from "@/components/Privacy";
+import FAQ from "@/components/FAQ";
+import BottomCTA from "@/components/BottomCTA";
+import Footer from "@/components/Footer";
+
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <div className="flex items-center justify-center h-screen">
-        <h1 className="font-[family-name:var(--font-newsreader)] text-4xl">
-          inklet
-        </h1>
-      </div>
-    </main>
+    <>
+      <Nav />
+      <main>
+        <Hero />
+        <HowItWorks />
+        <UseCases />
+        <Privacy />
+        <FAQ />
+        <BottomCTA />
+      </main>
+      <Footer />
+    </>
   );
 }
