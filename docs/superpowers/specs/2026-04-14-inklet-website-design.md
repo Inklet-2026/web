@@ -70,8 +70,8 @@ inklet is a distributed e-ink display dashboard product launching on Kickstarter
 - 1 or 2 total flashes (random 50/50)
 - Flash uses `#3a3832` at `opacity: 1` — fully covers ghost during flash
 - After flash clears: new content appears, ghost (old text content, faded) visible on top, fades out over remaining time
-- 1-flash path: ~550ms flash + ~1450ms ghost fade = ~2s total
-- 2-flash path: ~750ms flash + ~1250ms ghost fade = ~2s total
+- 1-flash path: ~300ms flash + ~700ms ghost fade = ~1s total
+- 2-flash path: ~500ms flash + ~500ms ghost fade = ~1s total
 - Ghost text styled: lighter color (#c0bdb5), no text-shadow, `blur(0.6px)`, `contrast(0.5)`
 
 **Copy**:
