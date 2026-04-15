@@ -21,7 +21,7 @@ const plans = [
       "Notion, Craft & Obsidian sync",
       "AI-powered content routing",
     ],
-    savings: "$20 + $20 off · + tax",
+    savings: "$20 + $20 off",
     shipping: "Est. shipping by Q4 2026",
     highlight: false,
   },
@@ -35,7 +35,7 @@ const plans = [
       "Cover every room — kitchen, study, hallway, bedroom",
       "AI-powered content routing",
     ],
-    savings: "$100 + $120 off · + tax",
+    savings: "$100 + $120 off",
     shipping: "Est. shipping by Q4 2026",
     highlight: true,
   },
@@ -50,7 +50,7 @@ const plans = [
       "Fully local — no cloud required",
       "All AI processing on your network",
     ],
-    savings: "$100 + $120 off · + tax",
+    savings: "$400 off",
     shipping: "Est. shipping by Q2 2027",
     highlight: false,
   },
@@ -113,6 +113,7 @@ export default function BottomCTA() {
                   <span className="font-[family-name:var(--font-ibm-plex-mono)] text-4xl font-light">
                     ${plan.sale}
                   </span>
+                  <span className="text-[#bbb] text-xs">+ tax</span>
                   <span className="text-[#aaa] line-through text-sm">
                     ${plan.original}
                   </span>
