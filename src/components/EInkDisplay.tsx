@@ -6,9 +6,44 @@ import {
   MdOutlineKitchen,
   MdOutlineMenuBook,
   MdOutlineBed,
+  MdBatteryFull,
 } from "react-icons/md";
 import Image from "next/image";
 import type { Screen } from "@/data/screens";
+
+function StatusBar() {
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      const date = now.toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+      });
+      const clock = now.toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+      setTime(`${date} ${clock}`);
+    };
+    update();
+    const timer = setInterval(update, 30000);
+    return () => clearInterval(timer);
+  }, []);
+
+  if (!time) return null;
+
+  return (
+    <div className="absolute top-2 left-3 right-3 flex items-center justify-between z-[7] eink-label-text">
+      <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[9px] text-[#999]">
+        {time}
+      </span>
+      <MdBatteryFull className="text-[#999]" size={14} />
+    </div>
+  );
+}
 
 const roomIcons: Record<string, React.ComponentType<{ className?: string; size?: number }>> = {
   kitchen: MdOutlineKitchen,
@@ -149,6 +184,9 @@ export default function EInkDisplay({
               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E")`,
             }}
           />
+
+          {/* Status bar — date/time + battery */}
+          <StatusBar />
 
           {/* Flash overlay */}
           <div
