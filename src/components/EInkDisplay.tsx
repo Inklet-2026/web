@@ -1,7 +1,20 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { HiOutlineHome } from "react-icons/hi";
+import {
+  MdOutlineKitchen,
+  MdOutlineMenuBook,
+  MdOutlineBed,
+} from "react-icons/md";
 import type { Screen } from "@/data/screens";
+
+const roomIcons: Record<string, React.ComponentType<{ className?: string; size?: number }>> = {
+  kitchen: MdOutlineKitchen,
+  study: MdOutlineMenuBook,
+  hallway: HiOutlineHome,
+  bedroom: MdOutlineBed,
+};
 
 interface EInkDisplayProps {
   screens: Screen[];
@@ -196,12 +209,18 @@ export default function EInkDisplay({
         <div className="absolute bottom-1.5 right-3.5 w-1.5 h-1.5 rounded-full bg-[#444]" />
       </div>
 
-      {/* Room label */}
-      {showLabel && (
-        <p className="mt-6 text-xs text-[#aaa] text-center font-[family-name:var(--font-ibm-plex-mono)]">
-          — {current.label} —
-        </p>
-      )}
+      {/* Room label with icon */}
+      {showLabel && (() => {
+        const Icon = roomIcons[current.label] || HiOutlineHome;
+        return (
+          <div className="mt-6 flex items-center justify-center gap-2 text-[#aaa]">
+            <Icon size={14} />
+            <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] capitalize">
+              {current.label}
+            </span>
+          </div>
+        );
+      })()}
     </div>
   );
 }
