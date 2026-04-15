@@ -263,7 +263,7 @@ export default function EInkDisplay({
                   key={currentIndex}
                   className="h-full bg-[#ccc] rounded-full"
                   style={{
-                    animation: `progress ${interval}ms cubic-bezier(0.22, 1, 0.36, 1) forwards`,
+                    animation: `progress ${interval}ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards`,
                   }}
                 />
               </div>
