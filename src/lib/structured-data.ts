@@ -10,6 +10,37 @@ export function getProductJsonLd() {
       name: "inklet",
     },
     category: "Smart Home Display",
+    offers: {
+      "@type": "AggregateOffer",
+      lowPrice: "179",
+      highPrice: "1099",
+      priceCurrency: "USD",
+      offerCount: "3",
+      availability: "https://schema.org/PreOrder",
+      offers: [
+        {
+          "@type": "Offer",
+          name: "Single Display",
+          price: "179",
+          priceCurrency: "USD",
+          availability: "https://schema.org/PreOrder",
+        },
+        {
+          "@type": "Offer",
+          name: "Home Bundle",
+          price: "649",
+          priceCurrency: "USD",
+          availability: "https://schema.org/PreOrder",
+        },
+        {
+          "@type": "Offer",
+          name: "Pro Bundle — Self-Hosted Edition",
+          price: "1099",
+          priceCurrency: "USD",
+          availability: "https://schema.org/PreOrder",
+        },
+      ],
+    },
   };
 }
 
