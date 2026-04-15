@@ -10,23 +10,6 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-function PriceTag({
-  original,
-  sale,
-}: {
-  original: number;
-  sale: number;
-}) {
-  return (
-    <div className="flex items-baseline gap-2">
-      <span className="font-[family-name:var(--font-newsreader)] text-4xl font-light">
-        ${sale}
-      </span>
-      <span className="text-[#aaa] line-through text-sm">${original}</span>
-    </div>
-  );
-}
-
 const plans = [
   {
     name: "Single Display",
@@ -34,11 +17,11 @@ const plans = [
     sale: 179,
     features: [
       "1 × inklet e-ink display",
-      "3 months cloud subscription free",
+      "1 month free cloud subscription ($20)",
       "Notion, Craft & Obsidian sync",
       "AI-powered content routing",
     ],
-    savings: "$20 off + $60 free cloud",
+    savings: "$20 off + one month free subscription ($20)",
     highlight: false,
   },
   {
@@ -47,11 +30,11 @@ const plans = [
     sale: 699,
     features: [
       "4 × inklet e-ink displays",
-      "3 months cloud subscription free",
+      "3 months free cloud subscription ($60)",
       "Cover every room — kitchen, study, hallway, bedroom",
       "AI-powered content routing",
     ],
-    savings: "$50 off + $60 free cloud",
+    savings: "$50 off + three months free subscription ($60)",
     highlight: true,
   },
   {
@@ -99,14 +82,14 @@ export default function BottomCTA() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-2xl p-8 flex flex-col ${
+              className={`relative rounded-2xl p-8 flex flex-col bg-white/50 ${
                 plan.highlight
-                  ? "bg-[#1a1a1a] text-[#f5f3ed] ring-1 ring-[#333]"
-                  : "bg-white/50 ring-1 ring-[#e8e5db]"
+                  ? "ring-2 ring-[#1a1a1a]"
+                  : "ring-1 ring-[#e8e5db]"
               }`}
             >
               {plan.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1a1a1a] text-[#f5f3ed] text-[10px] font-medium uppercase tracking-[2px] px-4 py-1 rounded-full border border-[#444]">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1a1a1a] text-[#f5f3ed] text-[10px] font-medium uppercase tracking-[2px] px-4 py-1 rounded-full">
                   Most Popular
                 </span>
               )}
@@ -116,61 +99,56 @@ export default function BottomCTA() {
                   {plan.name}
                 </h3>
                 {plan.subtitle && (
-                  <span
-                    className={`text-xs font-[family-name:var(--font-ibm-plex-mono)] tracking-wide ${
-                      plan.highlight ? "text-[#999]" : "text-[#aaa]"
-                    }`}
-                  >
+                  <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] tracking-wide text-[#aaa]">
                     {plan.subtitle}
                   </span>
                 )}
               </div>
 
               <div className="mb-6">
-                <PriceTag original={plan.original} sale={plan.sale} />
-                <span
-                  className={`text-xs font-[family-name:var(--font-ibm-plex-mono)] mt-1 block ${
-                    plan.highlight ? "text-[#888]" : "text-[#aaa]"
-                  }`}
-                >
-                  Kickstarter early bird · {plan.savings}
+                <div className="flex items-baseline gap-2">
+                  <span className="font-[family-name:var(--font-ibm-plex-mono)] text-4xl font-light">
+                    ${plan.sale}
+                  </span>
+                  <span className="text-[#aaa] line-through text-sm">
+                    ${plan.original}
+                  </span>
+                </div>
+                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] mt-1 block text-[#aaa]">
+                  {plan.savings}
                 </span>
               </div>
 
-              <ul className="space-y-3 mb-8 flex-1">
+              <ul className="space-y-3 flex-1">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2.5 text-sm">
                     <HiOutlineCheck
-                      className={`shrink-0 mt-0.5 ${
-                        plan.highlight ? "text-[#888]" : "text-[#aaa]"
-                      }`}
+                      className="shrink-0 mt-0.5 text-[#aaa]"
                       size={14}
                     />
-                    <span
-                      className={
-                        plan.highlight ? "text-[#ccc]" : "text-[#666]"
-                      }
-                    >
-                      {feature}
-                    </span>
+                    <span className="text-[#666]">{feature}</span>
                   </li>
                 ))}
               </ul>
-
-              <a
-                href={KICKSTARTER_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`block text-center text-sm font-medium py-3 rounded-full transition-colors ${
-                  plan.highlight
-                    ? "bg-[#f5f3ed] text-[#1a1a1a] hover:bg-white"
-                    : "bg-[#1a1a1a] text-[#f5f3ed] hover:bg-[#333]"
-                }`}
-              >
-                Back us on Kickstarter
-              </a>
             </div>
           ))}
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={fadeUp}
+          className="text-center mt-12"
+        >
+          <a
+            href={KICKSTARTER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-8 py-4 bg-[#1a1a1a] text-[#f5f3ed] rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
+          >
+            Back us on Kickstarter →
+          </a>
         </motion.div>
       </div>
     </section>

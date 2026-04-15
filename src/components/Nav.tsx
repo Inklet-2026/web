@@ -8,6 +8,7 @@ const KICKSTARTER_URL = "#"; // Replace with actual Kickstarter pre-launch URL
 const navLinks = [
   { label: "How it Works", href: "#how-it-works" },
   { label: "Use Cases", href: "#use-cases" },
+  { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
 ];
 
