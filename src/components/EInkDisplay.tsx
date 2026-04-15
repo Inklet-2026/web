@@ -7,6 +7,7 @@ import {
   MdOutlineMenuBook,
   MdOutlineBed,
 } from "react-icons/md";
+import Image from "next/image";
 import type { Screen } from "@/data/screens";
 
 const roomIcons: Record<string, React.ComponentType<{ className?: string; size?: number }>> = {
@@ -122,15 +123,28 @@ export default function EInkDisplay({
     return () => clearInterval(timer);
   }, [animated, screens.length, interval, currentIndex, einkRefresh]);
 
+  /*
+   * Layout: the frame PNG (2303×1664) has a transparent cutout.
+   * Cutout insets: top 6.6%, left 4.8%, bottom 18.6%, right 4.8%
+   * We use the frame as an overlay image; content sits behind it
+   * and shows through the transparent hole.
+   */
+
   return (
     <div className="w-full max-w-[620px]">
-      {/* Device frame */}
-      <div className="relative bg-[#2a2a2a] rounded-2xl p-3.5 shadow-[0_20px_60px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]">
-        {/* Bezel */}
-        <div className="relative bg-[#e8e8e8] rounded-md overflow-hidden aspect-video">
+      {/* Device container — aspect ratio matches the frame image */}
+      <div
+        className="relative w-full"
+        style={{ aspectRatio: "2303 / 1664" }}
+      >
+        {/* Screen background — positioned to fill the transparent hole */}
+        <div
+          className="absolute bg-[#e8e8e8]"
+          style={{ top: "6.6%", left: "4.8%", right: "4.8%", bottom: "18.6%" }}
+        >
           {/* Paper grain texture */}
           <div
-            className="absolute inset-0 z-[10] pointer-events-none opacity-40"
+            className="absolute inset-0 z-[1] pointer-events-none opacity-40"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E")`,
             }}
@@ -138,7 +152,7 @@ export default function EInkDisplay({
 
           {/* Pixel grid overlay */}
           <div
-            className="absolute inset-0 z-[11] pointer-events-none opacity-60"
+            className="absolute inset-0 z-[2] pointer-events-none opacity-60"
             style={{
               backgroundImage:
                 "linear-gradient(rgba(0,0,0,0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.012) 1px, transparent 1px)",
@@ -156,7 +170,7 @@ export default function EInkDisplay({
           {/* Ghost layer — old content text */}
           <div
             ref={ghostRef}
-            className="absolute inset-0 z-[4] pointer-events-none opacity-0 flex items-center justify-center p-10"
+            className="absolute inset-0 z-[4] pointer-events-none opacity-0 flex items-center justify-center p-6 md:p-10"
           >
             {ghostContent && (
               <div className="text-center eink-text">
@@ -175,7 +189,7 @@ export default function EInkDisplay({
           </div>
 
           {/* Screen content */}
-          <div className="relative w-full h-full flex items-center justify-center p-10">
+          <div className="relative w-full h-full flex items-center justify-center p-6 md:p-10">
             <div
               className={`text-center eink-text transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
             >
@@ -194,7 +208,7 @@ export default function EInkDisplay({
 
           {/* Dot indicators */}
           {showDots && screens.length > 1 && (
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-[12]">
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-[8]">
               {screens.map((_, i) => (
                 <div
                   key={i}
@@ -205,15 +219,21 @@ export default function EInkDisplay({
           )}
         </div>
 
-        {/* LED indicator */}
-        <div className="absolute bottom-1.5 right-3.5 w-1.5 h-1.5 rounded-full bg-[#444]" />
+        {/* Frame image overlay — sits on top, transparent hole reveals content */}
+        <Image
+          src="/front_frame.png"
+          alt="inklet display"
+          fill
+          className="relative z-[20] pointer-events-none object-contain"
+          priority
+        />
       </div>
 
       {/* Room label with icon */}
       {showLabel && (() => {
         const Icon = roomIcons[current.label] || HiOutlineHome;
         return (
-          <div className="mt-6 flex items-center justify-center gap-2 text-[#aaa]">
+          <div className="mt-4 flex items-center justify-center gap-2 text-[#aaa]">
             <Icon size={14} />
             <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] capitalize">
               {current.label}
