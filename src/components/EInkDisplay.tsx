@@ -114,7 +114,7 @@ export default function EInkDisplay({
       {/* Device frame */}
       <div className="relative bg-[#2a2a2a] rounded-2xl p-3.5 shadow-[0_20px_60px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.05)]">
         {/* Bezel */}
-        <div className="relative bg-[#e8e5db] rounded-md overflow-hidden aspect-video">
+        <div className="relative bg-[#e8e8e8] rounded-md overflow-hidden aspect-video">
           {/* Paper grain texture */}
           <div
             className="absolute inset-0 z-[10] pointer-events-none opacity-40"
