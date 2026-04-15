@@ -9,10 +9,10 @@ export default function Hero() {
       <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20">
         {/* Left: Copy */}
         <div>
-          <h1 className="font-[family-name:var(--font-newsreader)] text-5xl md:text-6xl lg:text-7xl font-light text-[#1a1a1a] leading-[1.1] mb-6">
+          <h1 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light text-[#1a1a1a] leading-[1.1] mb-6">
             Your second brain,
             <br />
-            on display.
+            on eInk display.
           </h1>
           <p className="text-lg text-[#666] leading-relaxed max-w-lg mb-10">
             inklet is a family of e-ink displays that surface the right
