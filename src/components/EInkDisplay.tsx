@@ -6,7 +6,6 @@ import {
   MdOutlineKitchen,
   MdOutlineMenuBook,
   MdOutlineBed,
-  MdBatteryFull,
 } from "react-icons/md";
 import Image from "next/image";
 import type { Screen } from "@/data/screens";
@@ -40,7 +39,16 @@ function StatusBar() {
       <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[9px] text-[#999]">
         {time}
       </span>
-      <MdBatteryFull className="text-[#999]" size={14} />
+      <div className="flex items-center gap-1">
+        <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[9px] text-[#999]">
+          100%
+        </span>
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none" className="text-[#999]">
+          <rect x="0.5" y="0.5" width="14" height="9" rx="1.5" stroke="currentColor" strokeWidth="1" fill="none" />
+          <rect x="2" y="2" width="11" height="6" rx="0.5" fill="currentColor" />
+          <rect x="15" y="3" width="2" height="4" rx="0.5" fill="currentColor" />
+        </svg>
+      </div>
     </div>
   );
 }
