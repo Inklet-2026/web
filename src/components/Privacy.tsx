@@ -5,7 +5,7 @@ import { HiOutlineShieldCheck, HiOutlineServer, HiOutlineWifi, HiOutlineCode } f
 
 const points = [
   { icon: HiOutlineWifi, text: "Self-hosted on your LAN" },
-  { icon: HiOutlineServer, text: "Gemma 4 on-device AI" },
+  { icon: HiOutlineServer, text: "On-device AI" },
   { icon: HiOutlineShieldCheck, text: "No cloud dependency" },
   { icon: HiOutlineCode, text: "Open-source friendly" },
 ];
@@ -36,11 +36,10 @@ export default function Privacy() {
           variants={fadeUp}
           className="text-lg text-[#666] leading-relaxed max-w-2xl mx-auto mb-16"
         >
-          inklet offers a local compute hub powered by Gemma 4 — every note,
-          every query, every AI decision processed entirely on your home
-          network. No cloud. No data leaves your walls. For families and
-          professionals who believe privacy isn&apos;t a feature — it&apos;s a
-          right.
+          inklet offers a local compute hub — every note, every query, every
+          AI decision processed entirely on your home network. No cloud. No
+          data leaves your walls. For families and professionals who believe
+          privacy isn&apos;t a feature — it&apos;s a right.
         </motion.p>
 
         <motion.div
@@ -57,6 +56,16 @@ export default function Privacy() {
             </div>
           ))}
         </motion.div>
+
+        <motion.p
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={fadeUp}
+          className="text-xs text-[#bbb] font-[family-name:var(--font-ibm-plex-mono)] mt-10"
+        >
+          Only available with Pro Bundle
+        </motion.p>
       </div>
     </section>
   );

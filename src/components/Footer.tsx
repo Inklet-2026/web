@@ -7,6 +7,10 @@ export default function Footer() {
           inklet
         </span>
 
+        <span className="text-xs text-[#bbb]">
+          Designed on Earth · Assembled in China
+        </span>
+
         {/* Copyright */}
         <span className="text-sm text-[#aaa]">
           © {new Date().getFullYear()} inklet
