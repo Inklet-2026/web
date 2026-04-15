@@ -139,7 +139,7 @@ export default function EInkDisplay({
       >
         {/* Screen background — positioned to fill the transparent hole */}
         <div
-          className="absolute bg-[#f0f1f3]"
+          className="absolute bg-[#f0f1f3] select-none"
           style={{ top: "6.6%", left: "4.8%", right: "4.8%", bottom: "18.6%" }}
         >
           {/* Matte frosted texture */}
