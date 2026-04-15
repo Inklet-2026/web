@@ -53,6 +53,10 @@ export default function RootLayout({
       lang="en"
       className={`${newsreader.variable} ${inter.variable} ${ibmPlexMono.variable}`}
     >
+      <head>
+        <link rel="icon" href="/logo_light.png" media="(prefers-color-scheme: light)" />
+        <link rel="icon" href="/logo_dark.png" media="(prefers-color-scheme: dark)" />
+      </head>
       <body className="bg-[#f5f3ed] text-[#1a1a1a] font-[family-name:var(--font-inter)] antialiased">
         {children}
         <script
