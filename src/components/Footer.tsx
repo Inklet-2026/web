@@ -7,16 +7,6 @@ export default function Footer() {
           inklet
         </span>
 
-        {/* Links */}
-        <div className="flex items-center gap-6 text-sm text-[#aaa]">
-          <a href="#" className="hover:text-[#666] transition-colors">
-            Privacy
-          </a>
-          <a href="#" className="hover:text-[#666] transition-colors">
-            Terms
-          </a>
-        </div>
-
         {/* Copyright */}
         <span className="text-sm text-[#aaa]">
           © {new Date().getFullYear()} inklet
