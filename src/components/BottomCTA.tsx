@@ -22,6 +22,7 @@ const plans = [
       "AI-powered content routing",
     ],
     savings: "$20 off + one month free subscription ($20)",
+    shipping: "Est. shipping by Q4 2026",
     highlight: false,
   },
   {
@@ -30,11 +31,12 @@ const plans = [
     sale: 699,
     features: [
       "4 × inklet e-ink displays",
-      "3 months free cloud subscription ($60)",
+      "6 months free cloud subscription ($120)",
       "Cover every room — kitchen, study, hallway, bedroom",
       "AI-powered content routing",
     ],
-    savings: "$50 off + three months free subscription ($60)",
+    savings: "$50 off + six months free subscription ($120)",
+    shipping: "Est. shipping by Q4 2026",
     highlight: true,
   },
   {
@@ -49,6 +51,7 @@ const plans = [
       "All AI processing on your network",
     ],
     savings: "$200 off",
+    shipping: "Est. shipping by Q2 2027",
     highlight: false,
   },
 ];
@@ -130,6 +133,10 @@ export default function BottomCTA() {
                   </li>
                 ))}
               </ul>
+
+              <p className="text-[10px] text-[#bbb] font-[family-name:var(--font-ibm-plex-mono)] mt-6 pt-4 border-t border-[#e8e5db]">
+                {plan.shipping}
+              </p>
             </div>
           ))}
         </motion.div>
