@@ -139,14 +139,14 @@ export default function EInkDisplay({
       >
         {/* Screen background — positioned to fill the transparent hole */}
         <div
-          className="absolute bg-[#e8e8e8]"
+          className="absolute bg-[#f0f1f3]"
           style={{ top: "6.6%", left: "4.8%", right: "4.8%", bottom: "18.6%" }}
         >
-          {/* Paper grain texture */}
+          {/* Matte frosted texture */}
           <div
-            className="absolute inset-0 z-[1] pointer-events-none opacity-40"
+            className="absolute inset-0 z-[1] pointer-events-none opacity-30"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E")`,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E")`,
             }}
           />
 
@@ -164,7 +164,7 @@ export default function EInkDisplay({
           <div
             ref={flashRef}
             className="absolute inset-0 z-[6] pointer-events-none opacity-0"
-            style={{ background: "#3a3832" }}
+            style={{ background: "#202020" }}
           />
 
           {/* Ghost layer — old content text */}
