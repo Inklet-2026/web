@@ -252,28 +252,28 @@ export default function EInkDisplay({
         />
       </div>
 
-      {/* Room label + progress bar */}
+      {/* Progress bar + room label */}
       {showLabel && (() => {
         const Icon = roomIcons[current.label] || HiOutlineHome;
         return (
-          <div className="mt-4">
-            <div className="flex items-center justify-center gap-2 text-[#aaa] mb-2">
-              <Icon size={14} />
-              <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] capitalize">
-                {current.label}
-              </span>
-            </div>
+          <div className="mt-2">
             {animated && screens.length > 1 && (
-              <div className="w-full max-w-[200px] mx-auto h-[2px] bg-[#e0e0e0] rounded-full overflow-hidden">
+              <div className="w-full h-[1.5px] bg-[#e8e8e8] overflow-hidden mb-3">
                 <div
                   key={currentIndex}
-                  className="h-full bg-[#aaa] rounded-full"
+                  className="h-full bg-[#ccc] rounded-full"
                   style={{
                     animation: `progress ${interval}ms cubic-bezier(0.22, 1, 0.36, 1) forwards`,
                   }}
                 />
               </div>
             )}
+            <div className="flex items-center justify-center gap-2 text-[#aaa]">
+              <Icon size={14} />
+              <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] capitalize">
+                {current.label}
+              </span>
+            </div>
           </div>
         );
       })()}
