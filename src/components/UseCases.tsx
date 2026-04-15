@@ -56,7 +56,6 @@ export default function UseCases() {
               <EInkDisplay
                 screens={[allScreens[i]]}
                 animated={false}
-                showDots={false}
                 showLabel={false}
               />
               <div className="mt-6">

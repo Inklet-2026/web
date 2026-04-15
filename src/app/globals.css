@@ -40,3 +40,8 @@ html {
   text-shadow: 0.2px 0px 0px #888;
   filter: contrast(0.75) blur(0.2px);
 }
+
+@keyframes progress {
+  from { width: 0%; }
+  to { width: 100%; }
+}

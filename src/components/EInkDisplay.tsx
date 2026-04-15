@@ -65,7 +65,6 @@ interface EInkDisplayProps {
   animated?: boolean;
   interval?: number;
   initialIndex?: number;
-  showDots?: boolean;
   showLabel?: boolean;
 }
 
@@ -74,7 +73,6 @@ export default function EInkDisplay({
   animated = true,
   interval = 5000,
   initialIndex = 0,
-  showDots = true,
   showLabel = true,
 }: EInkDisplayProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
@@ -242,17 +240,6 @@ export default function EInkDisplay({
             </div>
           </div>
 
-          {/* Dot indicators */}
-          {showDots && screens.length > 1 && (
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-[8]">
-              {screens.map((_, i) => (
-                <div
-                  key={i}
-                  className={`w-[5px] h-[5px] rounded-full transition-colors duration-300 ${i === currentIndex ? "bg-[#666]" : "bg-[#ccc]"}`}
-                />
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Frame image overlay — sits on top, transparent hole reveals content */}
@@ -265,15 +252,28 @@ export default function EInkDisplay({
         />
       </div>
 
-      {/* Room label with icon */}
+      {/* Room label + progress bar */}
       {showLabel && (() => {
         const Icon = roomIcons[current.label] || HiOutlineHome;
         return (
-          <div className="mt-4 flex items-center justify-center gap-2 text-[#aaa]">
-            <Icon size={14} />
-            <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] capitalize">
-              {current.label}
-            </span>
+          <div className="mt-4">
+            <div className="flex items-center justify-center gap-2 text-[#aaa] mb-2">
+              <Icon size={14} />
+              <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] capitalize">
+                {current.label}
+              </span>
+            </div>
+            {animated && screens.length > 1 && (
+              <div className="w-full max-w-[200px] mx-auto h-[2px] bg-[#e0e0e0] rounded-full overflow-hidden">
+                <div
+                  key={currentIndex}
+                  className="h-full bg-[#aaa] rounded-full"
+                  style={{
+                    animation: `progress ${interval}ms cubic-bezier(0.22, 1, 0.36, 1) forwards`,
+                  }}
+                />
+              </div>
+            )}
           </div>
         );
       })()}
