@@ -36,10 +36,11 @@ export default function Privacy() {
           variants={fadeUp}
           className="text-lg text-[#666] leading-relaxed max-w-2xl mx-auto mb-16"
         >
-          inklet offers a local compute hub — every note, every query, every
+          inklet offers a local compute hub* — every note, every query, every
           AI decision processed entirely on your home network. No cloud. No
-          data leaves your walls. For families and professionals who believe
-          privacy isn&apos;t a feature — it&apos;s a right.
+          data leaves your walls. OTA updates are still delivered to keep your
+          device secure and up to date. For families and professionals who
+          believe privacy isn&apos;t a feature — it&apos;s a right.
         </motion.p>
 
         <motion.div
@@ -64,7 +65,7 @@ export default function Privacy() {
           variants={fadeUp}
           className="text-xs text-[#bbb] font-[family-name:var(--font-ibm-plex-mono)] mt-10"
         >
-          Only available with Pro Bundle
+          * Only available with Pro Bundle
         </motion.p>
       </div>
     </section>
