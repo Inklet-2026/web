@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://inklet.com/sitemap.xml",
+    sitemap: "https://iminklet.com/sitemap.xml",
   };
 }

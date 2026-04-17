@@ -44,11 +44,22 @@ export function getProductJsonLd() {
   };
 }
 
+export function getWebSiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "inklet",
+    alternateName: ["inklet display", "iminklet"],
+    url: "https://iminklet.com",
+  };
+}
+
 export function getOrganizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "inklet",
+    url: "https://iminklet.com",
     description:
       "Makers of distributed e-ink displays powered by AI.",
   };
