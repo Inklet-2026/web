@@ -35,15 +35,15 @@ function StatusBar() {
   if (!time) return null;
 
   return (
-    <div className="absolute top-2 left-3 right-3 flex items-center justify-between z-[7] eink-label-text">
-      <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[9px] text-[#999]">
+    <div className="absolute top-1 left-1.5 right-1.5 md:top-2 md:left-3 md:right-3 flex items-center justify-between z-[7] eink-label-text">
+      <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[6px] md:text-[9px] text-[#999]">
         {time}
       </span>
-      <div className="flex items-center gap-1">
-        <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[9px] text-[#999]">
+      <div className="flex items-center gap-0.5 md:gap-1">
+        <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[6px] md:text-[9px] text-[#999]">
           100%
         </span>
-        <svg width="18" height="10" viewBox="0 0 18 10" fill="none" className="text-[#999]">
+        <svg className="w-[12px] h-[7px] md:w-[18px] md:h-[10px] text-[#999]" viewBox="0 0 18 10" fill="none">
           <rect x="0.5" y="0.5" width="14" height="9" rx="1.5" stroke="currentColor" strokeWidth="1" fill="none" />
           <rect x="2" y="2" width="11" height="6" rx="0.5" fill="currentColor" />
           <rect x="15" y="3" width="2" height="4" rx="0.5" fill="currentColor" />
@@ -204,18 +204,18 @@ export default function EInkDisplay({
           {/* Ghost layer — old content text */}
           <div
             ref={ghostRef}
-            className="absolute inset-0 z-[4] pointer-events-none opacity-0 flex items-center justify-center p-6 md:p-10"
+            className="absolute inset-0 z-[4] pointer-events-none opacity-0 flex items-center justify-center p-3 md:p-10"
           >
             {ghostContent && (
               <div className="text-center eink-text">
-                <span className="font-[family-name:var(--font-inter)] font-medium text-[11px] tracking-[3px] uppercase text-[#ccc9c0] mb-5 block" style={{ filter: "contrast(0.4) blur(0.5px)" }}>
+                <span className="font-[family-name:var(--font-inter)] font-medium text-[7px] md:text-[11px] tracking-[2px] md:tracking-[3px] uppercase text-[#ccc9c0] mb-2 md:mb-5 block" style={{ filter: "contrast(0.4) blur(0.5px)" }}>
                   {ghostContent.subtitle}
                 </span>
-                <div className="font-[family-name:var(--font-newsreader)] text-[32px] md:text-[38px] text-[#c0bdb5] leading-tight mb-4 whitespace-pre-line" style={{ filter: "contrast(0.5) blur(0.6px)" }}>
+                <div className="font-[family-name:var(--font-newsreader)] text-[18px] md:text-[38px] text-[#c0bdb5] leading-tight mb-2 md:mb-4 whitespace-pre-line" style={{ filter: "contrast(0.5) blur(0.6px)" }}>
                   {ghostContent.title}
                 </div>
-                <div className="w-9 h-[1.5px] bg-[#d5d2c9] mx-auto my-3.5" style={{ filter: "blur(0.3px)" }} />
-                <div className="font-[family-name:var(--font-ibm-plex-mono)] text-[13px] md:text-[14px] text-[#ccc9c0]" style={{ filter: "contrast(0.4) blur(0.5px)" }}>
+                <div className="w-5 md:w-9 h-[1px] md:h-[1.5px] bg-[#d5d2c9] mx-auto my-1.5 md:my-3.5" style={{ filter: "blur(0.3px)" }} />
+                <div className="font-[family-name:var(--font-ibm-plex-mono)] text-[8px] md:text-[14px] text-[#ccc9c0]" style={{ filter: "contrast(0.4) blur(0.5px)" }}>
                   {ghostContent.detail}
                 </div>
               </div>
@@ -223,18 +223,18 @@ export default function EInkDisplay({
           </div>
 
           {/* Screen content */}
-          <div className="relative w-full h-full flex items-center justify-center p-6 md:p-10">
+          <div className="relative w-full h-full flex items-center justify-center p-3 md:p-10">
             <div
               className={`text-center eink-text transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
             >
-              <span className="font-[family-name:var(--font-inter)] font-medium text-[11px] tracking-[3px] uppercase text-[#888] mb-5 block eink-label-text">
+              <span className="font-[family-name:var(--font-inter)] font-medium text-[7px] md:text-[11px] tracking-[2px] md:tracking-[3px] uppercase text-[#888] mb-2 md:mb-5 block eink-label-text">
                 {current.subtitle}
               </span>
-              <div className="font-[family-name:var(--font-newsreader)] text-[32px] md:text-[38px] text-[#222] leading-tight mb-4 whitespace-pre-line eink-heading">
+              <div className="font-[family-name:var(--font-newsreader)] text-[18px] md:text-[38px] text-[#222] leading-tight mb-2 md:mb-4 whitespace-pre-line eink-heading">
                 {current.title}
               </div>
-              <div className="w-9 h-[1.5px] bg-[#bbb] mx-auto my-3.5" style={{ filter: "blur(0.3px)" }} />
-              <div className="font-[family-name:var(--font-ibm-plex-mono)] text-[13px] md:text-[14px] text-[#444] tracking-wide leading-relaxed eink-body-text">
+              <div className="w-5 md:w-9 h-[1px] md:h-[1.5px] bg-[#bbb] mx-auto my-1.5 md:my-3.5" style={{ filter: "blur(0.3px)" }} />
+              <div className="font-[family-name:var(--font-ibm-plex-mono)] text-[8px] md:text-[14px] text-[#444] tracking-wide leading-relaxed eink-body-text">
                 {current.detail}
               </div>
             </div>
