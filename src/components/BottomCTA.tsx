@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { HiOutlineCheck } from "react-icons/hi";
 
-const KICKSTARTER_URL = "#"; // Replace with actual Kickstarter pre-launch URL
+const KICKSTARTER_URL = "https://www.kickstarter.com/projects/clckkkkk/315339880?ref=5bbouo&token=026dc52e";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

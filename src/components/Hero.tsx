@@ -1,7 +1,7 @@
 import EInkDisplay from "@/components/EInkDisplay";
 import { screens } from "@/data/screens";
 
-const KICKSTARTER_URL = "#"; // Replace with actual Kickstarter pre-launch URL
+const KICKSTARTER_URL = "https://www.kickstarter.com/projects/clckkkkk/315339880?ref=5bbouo&token=026dc52e";
 
 export default function Hero() {
   return (
