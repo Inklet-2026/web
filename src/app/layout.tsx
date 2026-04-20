@@ -56,6 +56,12 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/logo_light.png" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="/logo_dark.png" media="(prefers-color-scheme: dark)" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-D0LYSP1FQL" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-D0LYSP1FQL');`,
+          }}
+        />
       </head>
       <body className="bg-[#f5f3ed] text-[#1a1a1a] font-[family-name:var(--font-inter)] antialiased">
         {children}
