@@ -24,11 +24,11 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "inklet — Your Second Brain, On eInk Display",
+  title: "inklet - Your Second Brain, On eInk Display",
   description:
     "inklet is a distributed e-ink display system that surfaces your notes, tasks, and ideas in the right room — powered by AI, with an option for fully private, local processing.",
   openGraph: {
-    title: "inklet — Your Second Brain, On eInk Display",
+    title: "inklet - Your Second Brain, On eInk Display",
     description:
       "A family of e-ink displays that surface the right information in the right room — powered by AI.",
     type: "website",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "inklet — Your Second Brain, On eInk Display",
+    title: "inklet - Your Second Brain, On eInk Display",
     description:
       "A family of e-ink displays that surface the right information in the right room — powered by AI.",
   },
