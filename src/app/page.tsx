@@ -1,7 +1,7 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
-import UseCases from "@/components/UseCases";
+import Showcase3D from "@/components/Showcase3D";
 import Privacy from "@/components/Privacy";
 import FAQ from "@/components/FAQ";
 import BottomCTA from "@/components/BottomCTA";
@@ -14,7 +14,7 @@ export default function Home() {
       <main>
         <Hero />
         <HowItWorks />
-        <UseCases />
+        <Showcase3D />
         <Privacy />
         <FAQ />
         <BottomCTA />
