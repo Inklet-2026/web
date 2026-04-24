@@ -65,11 +65,17 @@ export function FloatingCard({ content, scrollProgress, index, isMobile }: Float
     [0, 1, 1, 0],
   )
 
-  const slideOffset = side === 'left' ? -30 : 30
+  // Desktop: slide in from side. Mobile: slide up from bottom.
+  const slideOffset = isMobile ? 30 : (side === 'left' ? -30 : 30)
   const x = useTransform(
     scrollProgress,
     [rangeStart, fadeInEnd, fadeOutStart, rangeEnd],
-    [slideOffset, 0, 0, slideOffset],
+    isMobile ? [0, 0, 0, 0] : [slideOffset, 0, 0, slideOffset],
+  )
+  const y = useTransform(
+    scrollProgress,
+    [rangeStart, fadeInEnd, fadeOutStart, rangeEnd],
+    isMobile ? [slideOffset, 0, 0, slideOffset] : [0, 0, 0, 0],
   )
 
   return (
@@ -77,25 +83,35 @@ export function FloatingCard({ content, scrollProgress, index, isMobile }: Float
       style={{
         opacity,
         x,
+        y,
         position: 'absolute',
-        top: '50%',
-        translateY: '-50%',
-        ...(side === 'left' ? { left: isMobile ? 16 : 48 } : { right: isMobile ? 16 : 48 }),
-        maxWidth: isMobile ? 280 : 420,
-        width: isMobile ? '85%' : '90%',
+        ...(isMobile
+          ? { bottom: 0, left: 0, right: 0 }
+          : {
+              top: '50%',
+              translateY: '-50%',
+              ...(side === 'left' ? { left: 48 } : { right: 48 }),
+              maxWidth: 420,
+              width: '90%',
+            }),
         zIndex: 10,
         pointerEvents: 'none',
       }}
     >
       <div
         style={{
-          background: 'rgba(245, 243, 237, 0.82)',
+          background: isMobile
+            ? 'rgba(245, 243, 237, 0.92)'
+            : 'rgba(245, 243, 237, 0.82)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
-          borderRadius: isMobile ? 12 : 20,
+          borderRadius: isMobile ? '16px 16px 0 0' : 20,
           border: '1px solid rgba(232, 229, 219, 0.6)',
-          padding: isMobile ? '20px 24px' : '36px 40px',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+          borderBottom: isMobile ? 'none' : undefined,
+          padding: isMobile ? '20px 24px 28px' : '36px 40px',
+          boxShadow: isMobile
+            ? '0 -4px 24px rgba(0, 0, 0, 0.06)'
+            : '0 8px 32px rgba(0, 0, 0, 0.06)',
         }}
       >
         {/* Room label */}
