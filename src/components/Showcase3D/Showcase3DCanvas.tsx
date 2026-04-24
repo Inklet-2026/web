@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { Environment, Html, useProgress } from '@react-three/drei'
+import { AdaptiveDpr, AdaptiveEvents, Environment, Html, useProgress } from '@react-three/drei'
 import { Suspense } from 'react'
 import { HouseModel } from './HouseModel'
 import { ScrollCameraRig } from './ScrollCameraRig'
@@ -39,15 +39,20 @@ export function Showcase3DCanvas({ progressRef, anchors, isMobile }: Props) {
         position: 'absolute',
         inset: 0,
       }}
-      gl={{ alpha: true }}
+      gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       camera={{ position: [4.5, 15, 12.7], fov: 45, near: 0.1, far: 200 }}
       dpr={isMobile ? [1, 1.5] : [1, 2]}
       shadows={false}
+      performance={{ min: 0.5 }}
       onCreated={({ camera }) => {
         camera.up.set(1, 0, 0)
         camera.lookAt(4.5, 0, 12.7)
       }}
     >
+      {/* Automatic DPR scaling — drops resolution when FPS dips */}
+      <AdaptiveDpr pixelated />
+      <AdaptiveEvents />
+
       <ambientLight intensity={0.4} />
       <directionalLight position={[10, 20, 10]} intensity={0.7} />
       <Suspense fallback={<LoaderOverlay />}>

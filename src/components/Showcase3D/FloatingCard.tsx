@@ -17,7 +17,7 @@ export const ROOM_CONTENT: RoomContent[] = [
     tagline: 'The household dashboard everyone walks past',
     description: 'Weather, calendar, family schedule — glanceable from the couch.',
     side: 'left',
-    rangeStart: 0.17,
+    rangeStart: 0.15,
     rangeEnd: 0.30,
   },
   {
@@ -26,23 +26,23 @@ export const ROOM_CONTENT: RoomContent[] = [
     description: 'Sleep data, morning briefing, daily intention.',
     side: 'right',
     rangeStart: 0.35,
-    rangeEnd: 0.52,
+    rangeEnd: 0.50,
   },
   {
     label: 'Guest Bedroom',
     tagline: 'Your focus list, front and center',
     description: 'Tasks, deadlines, meeting notes — no phone required.',
     side: 'left',
-    rangeStart: 0.57,
-    rangeEnd: 0.74,
+    rangeStart: 0.55,
+    rangeEnd: 0.70,
   },
   {
     label: 'Bathroom',
     tagline: 'Your morning routine, simplified',
     description: 'Time, weather, schedule — everything you need before you head out.',
     side: 'right',
-    rangeStart: 0.79,
-    rangeEnd: 1.00,
+    rangeStart: 0.75,
+    rangeEnd: 0.95,
   },
 ]
 
@@ -65,35 +65,29 @@ export function FloatingCard({ content, scrollProgress, index, isMobile }: Float
     [0, 1, 1, 0],
   )
 
-  // Desktop: slide in from side. Mobile: slide up from bottom.
-  const slideOffset = isMobile ? 30 : (side === 'left' ? -30 : 30)
-  const x = useTransform(
-    scrollProgress,
-    [rangeStart, fadeInEnd, fadeOutStart, rangeEnd],
-    isMobile ? [0, 0, 0, 0] : [slideOffset, 0, 0, slideOffset],
-  )
+  // Both desktop & mobile: slide up from below on enter, slide up and out on exit.
+  // Reverse scroll naturally reverses the motion.
   const y = useTransform(
     scrollProgress,
     [rangeStart, fadeInEnd, fadeOutStart, rangeEnd],
-    isMobile ? [slideOffset, 0, 0, slideOffset] : [0, 0, 0, 0],
+    [30, 0, 0, -20],
   )
 
   return (
     <motion.div
       style={{
         opacity,
-        x,
         y,
         position: 'absolute',
         ...(isMobile
           ? { bottom: 0, left: 0, right: 0 }
           : {
-              top: '50%',
-              translateY: '-50%',
-              ...(side === 'left' ? { left: 48 } : { right: 48 }),
-              maxWidth: 420,
-              width: '90%',
-            }),
+            top: '50%',
+            translateY: '-50%',
+            ...(side === 'left' ? { left: 48 } : { right: 48 }),
+            maxWidth: 420,
+            width: '90%',
+          }),
         zIndex: 10,
         pointerEvents: 'none',
       }}

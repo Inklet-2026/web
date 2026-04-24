@@ -162,13 +162,12 @@ export function ScrollCameraRig({ progressRef, anchors }: Props) {
     const pos = positionCurve.getPoint(splineT)
     const target = targetCurve.getPoint(splineT)
 
-    if (hold) {
-      prevPos.current.copy(pos)
-      prevTarget.current.copy(target)
-    } else {
-      prevPos.current.lerp(pos, 0.1)
-      prevTarget.current.lerp(target, 0.1)
-    }
+    // Always lerp — hold zones use a higher factor to settle quickly,
+    // fly zones use a lower factor for cinematic smoothness.
+    // Never snap (copy) to avoid jumps at zone boundaries.
+    const lerpFactor = hold ? 0.18 : 0.1
+    prevPos.current.lerp(pos, lerpFactor)
+    prevTarget.current.lerp(target, lerpFactor)
 
     camera.position.copy(prevPos.current)
 
