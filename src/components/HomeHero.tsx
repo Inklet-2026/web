@@ -49,17 +49,40 @@ export default function HomeHero() {
     <section className="pt-16 mb-32">
       <div className="h-[calc(100dvh-4rem)] relative overflow-visible">
         {/* Text — centered in full viewport height */}
-        <div className="relative z-10 flex flex-col items-center px-6 pt-16 md:pt-24">
+        <div
+          className="relative z-10 flex flex-col items-center px-6 pt-8 md:pt-16 pb-16"
+          style={{
+            background:
+              "linear-gradient(to bottom, #f5f3ed 60%, rgba(245,243,237,0) 100%)",
+          }}
+        >
           <motion.h1
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.15] mb-10 text-center"
+            className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.15] mb-6 text-center"
           >
             Information should find you,
             <br />
             not the other way around.
           </motion.h1>
+          <motion.p
+            initial="hidden"
+            animate="visible"
+            variants={{
+              ...fadeUp,
+              visible: {
+                ...fadeUp.visible,
+                transition: { duration: 0.8, delay: 0.15 },
+              },
+            }}
+            className="text-[#666] text-base md:text-lg leading-relaxed max-w-xl mx-auto text-center mb-8"
+          >
+            Modern technology competes for your attention. We believe the answer
+            to information fragmentation isn&apos;t to reject everything or
+            accept it all uncritically — it&apos;s to organize and surface what
+            matters, right where you need it.
+          </motion.p>
           <motion.div
             initial="hidden"
             animate="visible"
@@ -94,7 +117,7 @@ export default function HomeHero() {
         >
           <div
             ref={deviceRef}
-            className="w-full max-w-[780px] [&>div]:max-w-none"
+            className="w-full max-w-[624px] [&>div]:max-w-none"
           >
             <EInkDisplay screens={screens} />
           </div>
