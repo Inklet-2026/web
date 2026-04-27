@@ -26,21 +26,21 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "inklet — Ambient Information, Everywhere",
+  title: "inklet - Your Second Brain, On eInk Display",
   description:
-    "inklet builds ambient technology that surfaces the right information in the right place. No glowing screens. No pings. Just clarity.",
+    "inklet is a distributed e-ink display system that surfaces your notes, tasks, and ideas in the right room — powered by AI, with an option for fully private, local processing.",
   openGraph: {
-    title: "inklet — Ambient Information, Everywhere",
+    title: "inklet - Your Second Brain, On eInk Display",
     description:
-      "Ambient technology that surfaces the right information in the right place.",
+      "A family of e-ink displays that surface the right information in the right room — powered by AI.",
     type: "website",
     siteName: "inklet",
   },
   twitter: {
     card: "summary_large_image",
-    title: "inklet — Ambient Information, Everywhere",
+    title: "inklet - Your Second Brain, On eInk Display",
     description:
-      "Ambient technology that surfaces the right information in the right place.",
+      "A family of e-ink displays that surface the right information in the right room — powered by AI.",
   },
   robots: { index: true, follow: true },
 };

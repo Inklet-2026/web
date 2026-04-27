@@ -6,7 +6,7 @@ import FAQ from "@/components/FAQ";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Display D1 — inklet",
+  title: "Display D1 - inklet",
   description:
     "inklet Display D1 is an ambient e-ink display that surfaces the right information in the right room — powered by AI.",
 };

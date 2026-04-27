@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Portal — inklet",
+  title: "Portal - inklet",
   description:
     "inklet Portal — your cloud dashboard for ambient life. Coming soon.",
 };
