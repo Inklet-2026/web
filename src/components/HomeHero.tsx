@@ -68,7 +68,7 @@ export default function HomeHero() {
           className="flex justify-center px-6"
         >
           <div
-            className="w-full max-w-[520px]"
+            className="w-full max-w-[780px]"
             style={{ transform: "translateY(32%)" }}
           >
             <EInkDisplay screens={screens} />
