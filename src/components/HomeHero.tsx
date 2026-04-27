@@ -25,7 +25,7 @@ export default function HomeHero() {
     <section className="pt-16">
       {/* Text area fills viewport */}
       <div className="min-h-[calc(100dvh-4rem)] flex flex-col">
-        <div className="flex-1 flex flex-col items-center justify-center px-6">
+        <div className="flex-1 flex flex-col items-center justify-center px-6 pt-12 md:pt-16">
           <motion.h1
             initial="hidden"
             animate="visible"
