@@ -158,7 +158,7 @@ export default function StoreConfigurator() {
           <div className="aspect-[4/3] relative bg-white/50 rounded-2xl overflow-hidden mb-4">
             <Image
               src={activeImage}
-              alt="inklet Display D1"
+              alt="inklet D1"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -196,7 +196,7 @@ export default function StoreConfigurator() {
         {/* Configuration */}
         <div className="flex flex-col">
           <h2 className="font-[family-name:var(--font-newsreader)] text-3xl font-light mb-6">
-            inklet Display D1
+            inklet D1
           </h2>
 
           {/* Plan selector */}
