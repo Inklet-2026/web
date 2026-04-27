@@ -61,6 +61,12 @@ export default function HomeDisplay() {
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
           className="order-1 lg:order-2"
+          style={{
+            WebkitMaskImage:
+              "radial-gradient(ellipse 95% 90% at 55% 50%, black 55%, transparent 90%)",
+            maskImage:
+              "radial-gradient(ellipse 95% 90% at 55% 50%, black 55%, transparent 90%)",
+          }}
         >
           <Image
             src="/inklet-v1-black.png"

@@ -56,6 +56,12 @@ export default function DisplayHero() {
             },
           }}
           className="lg:justify-end"
+          style={{
+            WebkitMaskImage:
+              "radial-gradient(ellipse 95% 90% at 55% 50%, black 55%, transparent 90%)",
+            maskImage:
+              "radial-gradient(ellipse 95% 90% at 55% 50%, black 55%, transparent 90%)",
+          }}
         >
           <Image
             src="/inklet-v1-black.png"
