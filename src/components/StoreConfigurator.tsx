@@ -188,9 +188,9 @@ export default function StoreConfigurator() {
           <div className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa]">
             <span>7.5" e-ink · 800×480 · 2000mAh</span>
           </div>
-          <p className="text-[10px] text-[#bbb] font-[family-name:var(--font-ibm-plex-mono)] mt-2">
+          <div className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] mt-1">
             {planInfo?.shipping ?? "Est. shipping by Q4 2026"}
-          </p>
+          </div>
         </div>
 
         {/* Configuration */}
