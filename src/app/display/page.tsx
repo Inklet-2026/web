@@ -28,7 +28,7 @@ export default function DisplayPage() {
             href="/store"
             className="inline-flex items-center px-8 py-4 bg-[#1a1a1a] text-[#f5f3ed] rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
           >
-            Get yours →
+            Build my own →
           </Link>
         </div>
       </section>

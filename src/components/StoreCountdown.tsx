@@ -29,23 +29,21 @@ export default function StoreCountdown() {
 
   if (!timeLeft) {
     return (
-      <div className="text-center py-8">
-        <span className="font-[family-name:var(--font-ibm-plex-mono)] text-xs tracking-[2px] text-[#7a6a4f]">
-          early bird has ended
-        </span>
-      </div>
+      <span className="font-[family-name:var(--font-ibm-plex-mono)] text-xs tracking-[1px] text-[#7a6a4f]">
+        early bird has ended
+      </span>
     );
   }
 
   return (
-    <div className="text-center py-8">
-      <div className="font-[family-name:var(--font-ibm-plex-mono)] text-xs tracking-[2px] text-[#7a6a4f] mb-3">
-        early bird ends in
-      </div>
-      <div className="font-[family-name:var(--font-ibm-plex-mono)] text-2xl text-[#1a1a1a] tracking-wider">
-        {timeLeft.days}d · {pad(timeLeft.hours)}h · {pad(timeLeft.minutes)}m ·{" "}
-        {pad(timeLeft.seconds)}s
-      </div>
+    <div className="flex items-center gap-3">
+      <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[10px] tracking-[1.5px] text-[#7a6a4f] uppercase">
+        Early bird ends in
+      </span>
+      <span className="font-[family-name:var(--font-ibm-plex-mono)] text-sm text-[#7a6a4f] tabular-nums">
+        {timeLeft.days}d {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:
+        {pad(timeLeft.seconds)}
+      </span>
     </div>
   );
 }

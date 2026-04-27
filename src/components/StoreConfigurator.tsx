@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import StoreCountdown from "./StoreCountdown";
 
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/315339880?ref=5bbouo&token=026dc52e";
@@ -80,9 +81,12 @@ export default function StoreConfigurator() {
 
       {/* Configuration */}
       <div className="flex flex-col justify-center">
-        <h2 className="font-[family-name:var(--font-newsreader)] text-3xl font-light mb-6">
+        <h2 className="font-[family-name:var(--font-newsreader)] text-3xl font-light mb-2">
           inklet Display D1
         </h2>
+        <p className="text-xs text-[#aaa] font-[family-name:var(--font-ibm-plex-mono)] mb-6">
+          Single Display
+        </p>
 
         {/* Color */}
         <div className="mb-6">
@@ -132,8 +136,8 @@ export default function StoreConfigurator() {
           </div>
         </div>
 
-        {/* Price */}
-        <div className="mb-6">
+        {/* Price + Countdown */}
+        <div className="mb-4">
           <div className="flex items-baseline gap-3">
             <span className="font-[family-name:var(--font-ibm-plex-mono)] text-4xl font-light">
               ${totalPrice}
@@ -142,10 +146,13 @@ export default function StoreConfigurator() {
               ${totalOriginal}
             </span>
           </div>
+          <div className="mt-2">
+            <StoreCountdown />
+          </div>
         </div>
 
         {/* Specs */}
-        <div className="mb-8 flex flex-wrap gap-x-4 gap-y-1 text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa]">
+        <div className="mb-6 flex flex-wrap gap-x-4 gap-y-1 text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa]">
           <span>7.5" e-ink</span>
           <span>800×480</span>
           <span>2000mAh</span>

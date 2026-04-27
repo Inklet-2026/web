@@ -5,6 +5,7 @@ import {
   HiOutlineCalendar,
   HiOutlineChartBar,
   HiOutlinePencilAlt,
+  HiOutlineRefresh,
 } from "react-icons/hi";
 
 const fadeUp = {
@@ -12,39 +13,65 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-const icons = [
-  { Icon: HiOutlineCalendar, label: "Schedule" },
-  { Icon: HiOutlineChartBar, label: "Dashboard" },
-  { Icon: HiOutlinePencilAlt, label: "Notes" },
+const features = [
+  {
+    Icon: HiOutlineCalendar,
+    title: "Schedule",
+    desc: "Calendar synced to your walls",
+  },
+  {
+    Icon: HiOutlineChartBar,
+    title: "Dashboard",
+    desc: "Manage all displays from one place",
+  },
+  {
+    Icon: HiOutlinePencilAlt,
+    title: "Notes",
+    desc: "Notion, Craft & Obsidian sync",
+  },
+  {
+    Icon: HiOutlineRefresh,
+    title: "AI Routing",
+    desc: "Right info to the right room",
+  },
 ];
 
 export default function HomePortal() {
   return (
-    <section className="min-h-screen flex items-center bg-[#1a1a1a] text-[#f5f3ed]">
-      <div className="max-w-6xl mx-auto px-6 w-full py-20">
-        <motion.h2
+    <section className="py-32 bg-[#1a1a1a] text-[#f5f3ed]">
+      <div className="max-w-6xl mx-auto px-6 w-full">
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
-          className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mb-16"
+          className="mb-16"
         >
-          inklet Portal
-        </motion.h2>
+          <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3">
+            Software
+          </p>
+          <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mb-5">
+            inklet Portal
+          </h2>
+          <p className="text-[#888] leading-relaxed max-w-lg">
+            Your cloud dashboard for ambient life. Manage what appears on your
+            displays, sync with the tools you already use, and let AI handle the
+            rest.
+          </p>
+        </motion.div>
 
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={fadeUp}
-          className="flex justify-center gap-20 mb-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
         >
-          {icons.map(({ Icon, label }) => (
-            <div key={label} className="flex flex-col items-center gap-3">
-              <Icon size={32} className="text-[#666]" />
-              <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-wider">
-                {label}
-              </span>
+          {features.map(({ Icon, title, desc }) => (
+            <div key={title}>
+              <Icon size={24} className="text-[#555] mb-3" />
+              <h3 className="text-sm font-medium mb-1">{title}</h3>
+              <p className="text-xs text-[#666] leading-relaxed">{desc}</p>
             </div>
           ))}
         </motion.div>
@@ -54,13 +81,7 @@ export default function HomePortal() {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={fadeUp}
-          className="max-w-md"
         >
-          <p className="text-[#888] leading-relaxed mb-6">
-            Your cloud dashboard for ambient life. Manage what appears on your
-            displays, sync with the tools you already use, and let AI handle the
-            rest.
-          </p>
           <span className="inline-flex items-center text-sm text-[#555] border border-[#333] px-6 py-3 rounded-full cursor-default select-none">
             Coming Soon
           </span>

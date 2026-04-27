@@ -1,4 +1,3 @@
-import StoreCountdown from "@/components/StoreCountdown";
 import StoreConfigurator from "@/components/StoreConfigurator";
 import StoreBundles from "@/components/StoreBundles";
 import StorePortalPricing from "@/components/StorePortalPricing";
@@ -14,7 +13,6 @@ export default function StorePage() {
     <div className="pt-24">
       {/* D1 Section */}
       <section className="max-w-6xl mx-auto px-6 pb-24">
-        <StoreCountdown />
         <StoreConfigurator />
       </section>
 

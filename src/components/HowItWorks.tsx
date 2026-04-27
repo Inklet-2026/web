@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { SiNotion, SiObsidian } from "react-icons/si";
 import { HiOutlineDocumentText } from "react-icons/hi";
 
@@ -74,6 +75,14 @@ export default function HowItWorks() {
                     + more
                   </span>
                 </div>
+              )}
+              {step.number === "01" && (
+                <Link
+                  href="/store"
+                  className="inline-block mt-4 text-xs text-[#aaa] hover:text-[#1a1a1a] transition-colors font-[family-name:var(--font-ibm-plex-mono)]"
+                >
+                  Learn more →
+                </Link>
               )}
             </motion.div>
           ))}
