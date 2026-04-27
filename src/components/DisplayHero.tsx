@@ -58,9 +58,11 @@ export default function DisplayHero() {
           className="lg:justify-end"
           style={{
             WebkitMaskImage:
-              "radial-gradient(ellipse 95% 90% at 55% 50%, black 55%, transparent 90%)",
+              "linear-gradient(to right, transparent, black 5%, black 95%, transparent), linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)",
+            WebkitMaskComposite: "destination-in",
             maskImage:
-              "radial-gradient(ellipse 95% 90% at 55% 50%, black 55%, transparent 90%)",
+              "linear-gradient(to right, transparent, black 5%, black 95%, transparent), linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)",
+            maskComposite: "intersect",
           }}
         >
           <Image
