@@ -21,7 +21,7 @@ const pillars = [
   { Icon: HiOutlineShieldCheck, text: "Private by design" },
 ];
 
-const SCREEN_BOTTOM_RATIO = 1 - 0.186;
+const SCREEN_BOTTOM_INSET = 0.186;
 
 export default function HomeHero() {
   const deviceRef = useRef<HTMLDivElement>(null);
@@ -30,15 +30,13 @@ export default function HomeHero() {
   const calcOffset = useCallback(() => {
     const el = deviceRef.current;
     if (!el) return;
-    const frameEl = el.querySelector("[style*='aspect-ratio']") as HTMLElement;
-    if (!frameEl) {
-      setOffset(el.offsetHeight * 0.25);
-      return;
-    }
+    const frameEl = el.querySelector(
+      "[style*='aspect-ratio']"
+    ) as HTMLElement | null;
+    if (!frameEl) return;
     const frameH = frameEl.offsetHeight;
-    const belowScreen = frameH * (1 - SCREEN_BOTTOM_RATIO);
     const labelH = el.offsetHeight - frameH;
-    setOffset(belowScreen + labelH);
+    setOffset(frameH * SCREEN_BOTTOM_INSET + labelH);
   }, []);
 
   useEffect(() => {
@@ -49,8 +47,9 @@ export default function HomeHero() {
 
   return (
     <section className="pt-16 mb-32">
-      <div className="h-[calc(100dvh-4rem)] flex flex-col">
-        <div className="flex-1 flex flex-col items-center justify-center px-6 pt-12 md:pt-16">
+      <div className="h-[calc(100dvh-4rem)] relative overflow-visible">
+        {/* Text — centered in full viewport height */}
+        <div className="relative z-10 flex flex-col items-center px-6 pt-16 md:pt-24">
           <motion.h1
             initial="hidden"
             animate="visible"
@@ -85,16 +84,17 @@ export default function HomeHero() {
           </motion.div>
         </div>
 
+        {/* Device — anchored to bottom, pushed down so screen bottom = container bottom */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex justify-center px-6"
+          className="absolute left-0 right-0 flex justify-center px-6"
+          style={{ bottom: `-${offset}px` }}
         >
           <div
             ref={deviceRef}
             className="w-full max-w-[780px] [&>div]:max-w-none"
-            style={{ transform: `translateY(${offset}px)` }}
           >
             <EInkDisplay screens={screens} />
           </div>
