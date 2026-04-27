@@ -13,13 +13,21 @@ export default function DisplayHero() {
     <section className="min-h-screen flex items-center pt-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20">
         <div>
+          <motion.p
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-3"
+          >
+            Display
+          </motion.p>
           <motion.h1
             initial="hidden"
             animate="visible"
             variants={fadeUp}
             className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] mb-6"
           >
-            inklet Display D1
+            inklet D1
           </motion.h1>
           <motion.p
             initial="hidden"

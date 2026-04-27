@@ -30,7 +30,7 @@ export default function HomeDisplay() {
             Display
           </p>
           <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mb-5">
-            inklet Display D1
+            inklet D1
           </h2>
           <p className="text-[#666] leading-relaxed mb-6 max-w-md">
             An e-ink ambient display that blends into your space. No glowing
