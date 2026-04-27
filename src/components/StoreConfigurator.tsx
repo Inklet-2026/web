@@ -51,7 +51,7 @@ export default function StoreConfigurator() {
             src={activeImage}
             alt="inklet Display D1"
             fill
-            className="object-contain p-6"
+            className="object-cover"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
         </div>

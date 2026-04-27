@@ -10,7 +10,7 @@ const fadeUp = {
 
 export default function DisplayHero() {
   return (
-    <section className="min-h-screen flex items-center pt-16">
+    <section className="min-h-screen flex items-center pt-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-20">
         <div>
           <motion.h1
@@ -47,14 +47,14 @@ export default function DisplayHero() {
               transition: { duration: 0.6, delay: 0.3 },
             },
           }}
-          className="flex justify-center lg:justify-end"
+          className="lg:justify-end"
         >
           <Image
             src="/inklet-v1-black.png"
             alt="inklet Display D1"
-            width={600}
-            height={450}
-            className="w-full max-w-lg"
+            width={900}
+            height={675}
+            className="w-[115%] max-w-none"
             priority
           />
         </motion.div>

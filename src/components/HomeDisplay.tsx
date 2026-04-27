@@ -40,14 +40,14 @@ export default function HomeDisplay() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
-          className="order-1 lg:order-2 flex justify-center"
+          className="order-1 lg:order-2"
         >
           <Image
             src="/inklet-v1-black.png"
             alt="inklet Display D1"
-            width={600}
-            height={450}
-            className="w-full max-w-lg"
+            width={900}
+            height={675}
+            className="w-[115%] max-w-none"
             priority
           />
         </motion.div>
