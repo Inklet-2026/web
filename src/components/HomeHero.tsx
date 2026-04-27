@@ -26,8 +26,15 @@ const SCREEN_BOTTOM_INSET = 0.186;
 export default function HomeHero() {
   const deviceRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const calcOffset = useCallback(() => {
+    const desktop = window.innerWidth >= 768;
+    setIsDesktop(desktop);
+    if (!desktop) {
+      setOffset(0);
+      return;
+    }
     const el = deviceRef.current;
     if (!el) return;
     const frameEl = el.querySelector(
@@ -47,14 +54,22 @@ export default function HomeHero() {
 
   return (
     <section className="pt-16 mb-32">
-      <div className="h-[calc(100dvh-4rem)] relative overflow-visible">
-        {/* Text — centered in full viewport height */}
+      <div
+        className={`relative overflow-visible ${
+          isDesktop ? "h-[calc(100dvh-4rem)]" : ""
+        }`}
+      >
+        {/* Text */}
         <div
           className="relative z-10 flex flex-col items-center px-6 pt-8 md:pt-16 pb-16"
-          style={{
-            background:
-              "linear-gradient(to bottom, #f5f3ed 60%, rgba(245,243,237,0) 100%)",
-          }}
+          style={
+            isDesktop
+              ? {
+                  background:
+                    "linear-gradient(to bottom, #f5f3ed 60%, rgba(245,243,237,0) 100%)",
+                }
+              : undefined
+          }
         >
           <motion.h1
             initial="hidden"
@@ -90,13 +105,15 @@ export default function HomeHero() {
           </motion.div>
         </div>
 
-        {/* Device — anchored to bottom, pushed down so screen bottom = container bottom */}
+        {/* Device */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="absolute left-0 right-0 flex justify-center px-6"
-          style={{ bottom: `-${offset}px` }}
+          className={`flex justify-center px-6 ${
+            isDesktop ? "absolute left-0 right-0" : "mt-8"
+          }`}
+          style={isDesktop ? { bottom: `-${offset}px` } : undefined}
         >
           <div
             ref={deviceRef}
