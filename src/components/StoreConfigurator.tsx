@@ -300,22 +300,36 @@ export default function StoreConfigurator() {
               </div>
             ) : (
               <div className="flex flex-col gap-2">
-                {STANDS.map((s) => (
-                  <button
-                    key={s.id}
-                    onClick={() => setStand(s.id)}
-                    className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition-colors ${
-                      stand === s.id
-                        ? "border-[#1a1a1a] bg-white/50"
-                        : "border-[#e8e5db] hover:border-[#ccc]"
-                    }`}
-                  >
-                    <span>{s.label}</span>
-                    <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa]">
-                      {s.price === 0 ? "Free" : `+$${s.price}`}
-                    </span>
-                  </button>
-                ))}
+                {STANDS.map((s) => {
+                  const isSelected = stand === s.id;
+                  const woodSelected = stand === "wood";
+                  let priceLabel = "";
+                  let priceColor = "text-[#aaa]";
+                  if (s.price > 0) {
+                    priceLabel = `+$${s.price}`;
+                    if (isSelected) priceColor = "text-[#1a1a1a]";
+                  } else if (woodSelected) {
+                    priceLabel = "-$10";
+                  }
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => setStand(s.id)}
+                      className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition-colors ${
+                        isSelected
+                          ? "border-[#1a1a1a] bg-white/50"
+                          : "border-[#e8e5db] hover:border-[#ccc]"
+                      }`}
+                    >
+                      <span>{s.label}</span>
+                      {priceLabel && (
+                        <span className={`font-[family-name:var(--font-ibm-plex-mono)] ${priceColor}`}>
+                          {priceLabel}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>
