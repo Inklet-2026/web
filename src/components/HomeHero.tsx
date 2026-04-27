@@ -22,51 +22,59 @@ const pillars = [
 
 export default function HomeHero() {
   return (
-    <section className="h-screen flex flex-col overflow-hidden pt-16">
-      <div className="flex-1 flex flex-col items-center justify-center px-6">
-        <motion.h1
-          initial="hidden"
-          animate="visible"
-          variants={fadeUp}
-          className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.15] mb-10 text-center"
-        >
-          Information should find you,
-          <br />
-          not the other way around.
-        </motion.h1>
+    <section className="pt-16">
+      {/* Text area fills viewport */}
+      <div className="min-h-[calc(100dvh-4rem)] flex flex-col">
+        <div className="flex-1 flex flex-col items-center justify-center px-6">
+          <motion.h1
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.15] mb-10 text-center"
+          >
+            Information should find you,
+            <br />
+            not the other way around.
+          </motion.h1>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              ...fadeUp,
+              visible: {
+                ...fadeUp.visible,
+                transition: { duration: 0.8, delay: 0.2 },
+              },
+            }}
+            className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-10"
+          >
+            {pillars.map(({ Icon, text }) => (
+              <div
+                key={text}
+                className="flex items-center gap-2.5 text-sm text-[#888]"
+              >
+                <Icon size={18} className="shrink-0 text-[#aaa]" />
+                <span>{text}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Device — screen bottom aligns with viewport bottom, bezel + label below fold */}
         <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            ...fadeUp,
-            visible: {
-              ...fadeUp.visible,
-              transition: { duration: 0.8, delay: 0.2 },
-            },
-          }}
-          className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-10"
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex justify-center px-6"
         >
-          {pillars.map(({ Icon, text }) => (
-            <div
-              key={text}
-              className="flex items-center gap-2.5 text-sm text-[#888]"
-            >
-              <Icon size={18} className="shrink-0 text-[#aaa]" />
-              <span>{text}</span>
-            </div>
-          ))}
+          <div
+            className="w-full max-w-[520px]"
+            style={{ transform: "translateY(32%)" }}
+          >
+            <EInkDisplay screens={screens} />
+          </div>
         </motion.div>
       </div>
-      <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="flex justify-center px-6 pb-0"
-      >
-        <div className="w-full max-w-[520px]">
-          <EInkDisplay screens={screens} showLabel={false} />
-        </div>
-      </motion.div>
     </section>
   );
 }
