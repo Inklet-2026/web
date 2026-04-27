@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Newsreader, Inter, IBM_Plex_Mono } from "next/font/google";
 import { getProductJsonLd, getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/structured-data";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -64,7 +66,9 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#f5f3ed] text-[#1a1a1a] font-[family-name:var(--font-inter)] antialiased">
-        {children}
+        <Nav />
+        <main>{children}</main>
+        <Footer />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
