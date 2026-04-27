@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   HiOutlineLightBulb,
@@ -20,10 +21,34 @@ const pillars = [
   { Icon: HiOutlineShieldCheck, text: "Private by design" },
 ];
 
+const SCREEN_BOTTOM_RATIO = 1 - 0.186;
+
 export default function HomeHero() {
+  const deviceRef = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+
+  const calcOffset = useCallback(() => {
+    const el = deviceRef.current;
+    if (!el) return;
+    const frameEl = el.querySelector("[style*='aspect-ratio']") as HTMLElement;
+    if (!frameEl) {
+      setOffset(el.offsetHeight * 0.25);
+      return;
+    }
+    const frameH = frameEl.offsetHeight;
+    const belowScreen = frameH * (1 - SCREEN_BOTTOM_RATIO);
+    const labelH = el.offsetHeight - frameH;
+    setOffset(belowScreen + labelH);
+  }, []);
+
+  useEffect(() => {
+    calcOffset();
+    window.addEventListener("resize", calcOffset);
+    return () => window.removeEventListener("resize", calcOffset);
+  }, [calcOffset]);
+
   return (
     <section className="pt-16 mb-32">
-      {/* Text area fills viewport */}
       <div className="min-h-[calc(100dvh-4rem)] flex flex-col">
         <div className="flex-1 flex flex-col items-center justify-center px-6 pt-12 md:pt-16">
           <motion.h1
@@ -60,7 +85,6 @@ export default function HomeHero() {
           </motion.div>
         </div>
 
-        {/* Device — screen bottom aligns with viewport bottom, bezel + label below fold */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
@@ -68,8 +92,9 @@ export default function HomeHero() {
           className="flex justify-center px-6"
         >
           <div
+            ref={deviceRef}
             className="w-full max-w-[780px] [&>div]:max-w-none"
-            style={{ transform: "translateY(32%)" }}
+            style={{ transform: `translateY(${offset}px)` }}
           >
             <EInkDisplay screens={screens} />
           </div>
