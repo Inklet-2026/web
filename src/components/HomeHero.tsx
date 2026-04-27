@@ -66,23 +66,6 @@ export default function HomeHero() {
             <br />
             not the other way around.
           </motion.h1>
-          <motion.p
-            initial="hidden"
-            animate="visible"
-            variants={{
-              ...fadeUp,
-              visible: {
-                ...fadeUp.visible,
-                transition: { duration: 0.8, delay: 0.15 },
-              },
-            }}
-            className="text-[#666] text-base md:text-lg leading-relaxed max-w-xl mx-auto text-center mb-8"
-          >
-            Modern technology competes for your attention. We believe the answer
-            to information fragmentation isn&apos;t to reject everything or
-            accept it all uncritically — it&apos;s to organize and surface what
-            matters, right where you need it.
-          </motion.p>
           <motion.div
             initial="hidden"
             animate="visible"
