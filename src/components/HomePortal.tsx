@@ -39,31 +39,13 @@ const features = [
 export default function HomePortal() {
   return (
     <section className="py-32 bg-[#1a1a1a] text-[#f5f3ed]">
-      <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-16">
-        {/* Left — feature grid */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={fadeUp}
-          className="grid grid-cols-2 gap-8 content-center"
-        >
-          {features.map(({ Icon, title, desc }) => (
-            <div key={title}>
-              <Icon size={24} className="text-[#555] mb-3" />
-              <h3 className="text-sm font-medium mb-1">{title}</h3>
-              <p className="text-xs text-[#666] leading-relaxed">{desc}</p>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Right — title + description */}
+      <div className="max-w-6xl mx-auto px-6 w-full">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
-          className="flex flex-col justify-center"
+          className="mb-16 max-w-md ml-auto text-right"
         >
           <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3">
             Software
@@ -71,12 +53,37 @@ export default function HomePortal() {
           <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mb-5">
             inklet Portal
           </h2>
-          <p className="text-[#888] leading-relaxed mb-8">
+          <p className="text-[#888] leading-relaxed">
             Your cloud dashboard for ambient life. Manage what appears on your
             displays, sync with the tools you already use, and let AI handle the
             rest.
           </p>
-          <span className="inline-flex items-center text-sm text-[#555] border border-[#333] px-6 py-3 rounded-full cursor-default select-none self-start">
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={fadeUp}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 text-right"
+        >
+          {features.map(({ Icon, title, desc }) => (
+            <div key={title}>
+              <Icon size={24} className="text-[#555] mb-3 ml-auto" />
+              <h3 className="text-sm font-medium mb-1">{title}</h3>
+              <p className="text-xs text-[#666] leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={fadeUp}
+          className="flex justify-end"
+        >
+          <span className="inline-flex items-center text-sm text-[#555] border border-[#333] px-6 py-3 rounded-full cursor-default select-none">
             Coming Soon
           </span>
         </motion.div>

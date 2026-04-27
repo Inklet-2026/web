@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function StorePage() {
   return (
-    <div className="pt-24">
+    <div className="pt-48">
       <section className="max-w-6xl mx-auto px-6 pb-24">
         <StoreConfigurator />
       </section>

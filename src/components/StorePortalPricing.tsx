@@ -3,6 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineCheck } from "react-icons/hi";
+import {
+  HiOutlineCalendar,
+  HiOutlineChartBar,
+  HiOutlinePencilAlt,
+  HiOutlineRefresh,
+} from "react-icons/hi";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -15,10 +21,32 @@ const pricing = {
 };
 
 const features = [
-  "Notion, Craft & Obsidian sync",
   "AI-powered content routing",
   "Cloud dashboard",
   "OTA firmware updates",
+];
+
+const capabilities = [
+  {
+    Icon: HiOutlineCalendar,
+    title: "Schedule",
+    desc: "Calendar synced to your walls",
+  },
+  {
+    Icon: HiOutlineChartBar,
+    title: "Dashboard",
+    desc: "Manage all displays from one place",
+  },
+  {
+    Icon: HiOutlinePencilAlt,
+    title: "Notes",
+    desc: "Notion, Craft & Obsidian sync",
+  },
+  {
+    Icon: HiOutlineRefresh,
+    title: "AI Routing",
+    desc: "Right info to the right room",
+  },
 ];
 
 export default function StorePortalPricing() {
@@ -95,7 +123,7 @@ export default function StorePortalPricing() {
           </span>
         </div>
 
-        {/* Right — title + description */}
+        {/* Right — title + description + feature grid */}
         <div className="flex flex-col justify-center lg:pl-8">
           <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3">
             Software
@@ -103,11 +131,20 @@ export default function StorePortalPricing() {
           <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mb-5">
             inklet Portal
           </h2>
-          <p className="text-[#888] leading-relaxed">
+          <p className="text-[#888] leading-relaxed mb-8">
             Your cloud dashboard for ambient life. Manage what appears on your
             displays, sync with the tools you already use, and let AI route the
             right content to the right room.
           </p>
+          <div className="grid grid-cols-2 gap-6">
+            {capabilities.map(({ Icon, title, desc }) => (
+              <div key={title}>
+                <Icon size={20} className="text-[#555] mb-2" />
+                <h3 className="text-sm font-medium mb-0.5">{title}</h3>
+                <p className="text-xs text-[#666] leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>

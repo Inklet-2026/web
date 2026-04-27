@@ -36,6 +36,14 @@ const PLANS = [
 ];
 
 const BUNDLE_DETAILS: Record<string, { features: string[]; shipping: string }> = {
+  single: {
+    features: [
+      "1 × inklet e-ink display",
+      "1 month free cloud subscription ($10)",
+      "AI-powered content routing",
+    ],
+    shipping: "Est. shipping by Q4 2026",
+  },
   home: {
     features: [
       "4 × inklet e-ink displays",
@@ -134,7 +142,7 @@ export default function StoreConfigurator() {
   const totalPrice = currentPlan.base + woodCount * 10;
   const totalOriginal = currentPlan.original + woodCount * 10;
 
-  const bundleInfo = BUNDLE_DETAILS[plan];
+  const planInfo = BUNDLE_DETAILS[plan];
 
   const standTotal = useMemo(
     () => Object.values(standQty).reduce((s, v) => s + v, 0),
@@ -215,11 +223,11 @@ export default function StoreConfigurator() {
             </div>
           </div>
 
-          {/* Bundle details */}
-          {bundleInfo && (
+          {/* Plan details */}
+          {planInfo && (
             <div className="mb-6 p-4 rounded-xl bg-white/30 border border-[#e8e5db]">
               <ul className="space-y-1.5">
-                {bundleInfo.features.map((f) => (
+                {planInfo.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-xs text-[#666]">
                     <HiOutlineCheck className="shrink-0 mt-0.5 text-[#aaa]" size={12} />
                     {f}
@@ -227,7 +235,7 @@ export default function StoreConfigurator() {
                 ))}
               </ul>
               <p className="text-[10px] text-[#bbb] font-[family-name:var(--font-ibm-plex-mono)] mt-3">
-                {bundleInfo.shipping}
+                {planInfo.shipping}
               </p>
             </div>
           )}
@@ -238,7 +246,7 @@ export default function StoreConfigurator() {
               Color
             </span>
             {isBundle ? (
-              <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 <QtyControl
                   label="Black"
                   value={colorQty.black}
