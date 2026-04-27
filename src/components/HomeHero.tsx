@@ -26,13 +26,15 @@ const SCREEN_BOTTOM_INSET = 0.186;
 export default function HomeHero() {
   const deviceRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
+  const [textSpace, setTextSpace] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
 
-  const calcOffset = useCallback(() => {
+  const calc = useCallback(() => {
     const desktop = window.innerWidth >= 768;
     setIsDesktop(desktop);
     if (!desktop) {
       setOffset(0);
+      setTextSpace(0);
       return;
     }
     const el = deviceRef.current;
@@ -41,16 +43,22 @@ export default function HomeHero() {
       "[style*='aspect-ratio']"
     ) as HTMLElement | null;
     if (!frameEl) return;
+
     const frameH = frameEl.offsetHeight;
     const labelH = el.offsetHeight - frameH;
-    setOffset(frameH * SCREEN_BOTTOM_INSET + labelH);
+    const deviceOffset = frameH * SCREEN_BOTTOM_INSET + labelH;
+    setOffset(deviceOffset);
+
+    const containerH = window.innerHeight - 64;
+    const deviceTop = containerH + deviceOffset - el.offsetHeight;
+    setTextSpace(Math.max(0, deviceTop));
   }, []);
 
   useEffect(() => {
-    calcOffset();
-    window.addEventListener("resize", calcOffset);
-    return () => window.removeEventListener("resize", calcOffset);
-  }, [calcOffset]);
+    calc();
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
+  }, [calc]);
 
   return (
     <section className="pt-16 mb-32">
@@ -59,16 +67,17 @@ export default function HomeHero() {
           isDesktop ? "h-[calc(100dvh-4rem)]" : ""
         }`}
       >
-        {/* Text */}
+        {/* Text — centered between nav and device top */}
         <div
-          className="relative z-10 flex flex-col items-center px-6 pt-8 md:pt-16 pb-16"
+          className="relative z-10 flex flex-col items-center justify-center px-6"
           style={
             isDesktop
               ? {
+                  height: textSpace || undefined,
                   background:
                     "linear-gradient(to bottom, #f5f3ed 60%, rgba(245,243,237,0) 100%)",
                 }
-              : undefined
+              : { paddingTop: 32, paddingBottom: 64 }
           }
         >
           <motion.h1
