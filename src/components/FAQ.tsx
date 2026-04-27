@@ -22,7 +22,7 @@ function FAQAccordionItem({
   return (
     <div className="border-b border-[#e8e5db]">
       <button
-        className="w-full flex items-center justify-between py-5 text-left gap-4"
+        className="w-full flex items-center justify-between py-5 text-left gap-4 rounded-lg px-3 -mx-3 transition-colors hover:bg-[#eae7df]/50"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
       >
