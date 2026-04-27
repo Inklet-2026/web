@@ -22,7 +22,7 @@ const pillars = [
 
 export default function HomeHero() {
   return (
-    <section className="pt-16">
+    <section className="pt-16 mb-32">
       {/* Text area fills viewport */}
       <div className="min-h-[calc(100dvh-4rem)] flex flex-col">
         <div className="flex-1 flex flex-col items-center justify-center px-6 pt-12 md:pt-16">
@@ -68,7 +68,7 @@ export default function HomeHero() {
           className="flex justify-center px-6"
         >
           <div
-            className="w-full max-w-[780px]"
+            className="w-full max-w-[780px] [&>div]:max-w-none"
             style={{ transform: "translateY(32%)" }}
           >
             <EInkDisplay screens={screens} />
