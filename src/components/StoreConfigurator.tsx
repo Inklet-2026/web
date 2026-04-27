@@ -185,11 +185,12 @@ export default function StoreConfigurator() {
               </button>
             ))}
           </div>
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa]">
-            <span>7.5" e-ink</span>
-            <span>800×480</span>
-            <span>2000mAh</span>
+          <div className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa]">
+            <span>7.5" e-ink · 800×480 · 2000mAh</span>
           </div>
+          <p className="text-[10px] text-[#bbb] font-[family-name:var(--font-ibm-plex-mono)] mt-2">
+            {planInfo?.shipping ?? "Est. shipping by Q4 2026"}
+          </p>
         </div>
 
         {/* Configuration */}
@@ -234,9 +235,6 @@ export default function StoreConfigurator() {
                   </li>
                 ))}
               </ul>
-              <p className="text-[10px] text-[#bbb] font-[family-name:var(--font-ibm-plex-mono)] mt-3">
-                {planInfo.shipping}
-              </p>
             </div>
           )}
 
