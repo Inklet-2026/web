@@ -62,9 +62,9 @@ export default function HomeHero() {
             variants={fadeUp}
             className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.15] mb-6 text-center"
           >
-            Information should find you,
+            Your second brain,
             <br />
-            not the other way around.
+            on e-ink display.
           </motion.h1>
           <motion.div
             initial="hidden"

@@ -14,7 +14,9 @@ export default function Home() {
       <section className="py-32 text-center">
         <div className="max-w-6xl mx-auto px-6">
           <p className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light mb-8">
-            Information that finds you.
+            Information should find you,
+            <br />
+            not the other way around.
           </p>
           <a
             href={KICKSTARTER_URL}
