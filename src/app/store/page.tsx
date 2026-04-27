@@ -1,5 +1,4 @@
 import StoreConfigurator from "@/components/StoreConfigurator";
-import StoreBundles from "@/components/StoreBundles";
 import StorePortalPricing from "@/components/StorePortalPricing";
 
 export const metadata = {
@@ -11,17 +10,10 @@ export const metadata = {
 export default function StorePage() {
   return (
     <div className="pt-24">
-      {/* D1 Section */}
       <section className="max-w-6xl mx-auto px-6 pb-24">
         <StoreConfigurator />
       </section>
 
-      {/* Bundles */}
-      <section className="max-w-6xl mx-auto px-6 pb-24">
-        <StoreBundles />
-      </section>
-
-      {/* Portal Subscription */}
       <section className="max-w-6xl mx-auto px-6 pb-32">
         <StorePortalPricing />
       </section>
