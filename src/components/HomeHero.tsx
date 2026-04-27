@@ -49,7 +49,7 @@ export default function HomeHero() {
 
   return (
     <section className="pt-16 mb-32">
-      <div className="min-h-[calc(100dvh-4rem)] flex flex-col">
+      <div className="h-[calc(100dvh-4rem)] flex flex-col">
         <div className="flex-1 flex flex-col items-center justify-center px-6 pt-12 md:pt-16">
           <motion.h1
             initial="hidden"
