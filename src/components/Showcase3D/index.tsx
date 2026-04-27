@@ -6,50 +6,58 @@ import { motion } from 'framer-motion'
 
 const Showcase3DInner = dynamic(() => import('./Showcase3DInner'), {
   ssr: false,
-  loading: () => (
-    <div
-      style={{
-        height: '500vh',
-        position: 'relative',
-      }}
-    >
+  loading: () => <LoadingUI />,
+})
+
+function LoadingUI() {
+  return (
+    <div style={{ height: '500vh', position: 'relative' }}>
       <div
         style={{
           position: 'sticky',
           top: 0,
           height: '100dvh',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          gap: 16,
           background: 'linear-gradient(180deg, #faf5e9 0%, #e8d8b3 100%)',
         }}
       >
         <div
           style={{
             fontFamily: 'var(--font-ibm-plex-mono)',
-            fontSize: 13,
+            fontSize: 12,
             color: '#7a6a4f',
-            letterSpacing: 1,
+            letterSpacing: 2,
           }}
         >
-          loading…
+          loading 3D view
+        </div>
+        <div
+          style={{
+            width: 120,
+            height: 2,
+            background: '#e0dac8',
+            borderRadius: 1,
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              width: '40%',
+              height: '100%',
+              background: '#7a6a4f',
+              borderRadius: 1,
+              animation: 'showcase-progress 1.5s ease-in-out infinite',
+            }}
+          />
         </div>
       </div>
     </div>
-  ),
-})
-
-const Placeholder = () => (
-  <div style={{ height: '500vh', position: 'relative' }}>
-    <div
-      style={{
-        position: 'sticky',
-        top: 0,
-        height: '100dvh',
-      }}
-    />
-  </div>
-)
+  )
+}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -70,7 +78,7 @@ export default function Showcase3D() {
           observer.disconnect()
         }
       },
-      { rootMargin: '200%' }
+      { rootMargin: '0px' }
     )
     observer.observe(el)
     return () => observer.disconnect()
@@ -103,7 +111,7 @@ export default function Showcase3D() {
       </div>
 
       <div ref={sentinelRef}>
-        {shouldLoad ? <Showcase3DInner /> : <Placeholder />}
+        {shouldLoad ? <Showcase3DInner /> : <LoadingUI />}
       </div>
     </section>
   )

@@ -50,3 +50,8 @@ html {
   0%, 80%, 100% { opacity: 0.85; }
   90% { opacity: 0.3; }
 }
+
+@keyframes showcase-progress {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
