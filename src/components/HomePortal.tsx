@@ -65,11 +65,11 @@ export default function HomePortal() {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={fadeUp}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 text-right"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 text-center"
         >
           {features.map(({ Icon, title, desc }) => (
             <div key={title}>
-              <Icon size={24} className="text-[#555] mb-3 ml-auto" />
+              <Icon size={24} className="text-[#555] mb-3 mx-auto" />
               <h3 className="text-sm font-medium mb-1">{title}</h3>
               <p className="text-xs text-[#666] leading-relaxed">{desc}</p>
             </div>
