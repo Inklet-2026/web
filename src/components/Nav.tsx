@@ -1,26 +1,29 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 
-const KICKSTARTER_URL = "https://www.kickstarter.com/projects/clckkkkk/315339880?ref=5bbouo&token=026dc52e";
-
 const navLinks = [
-  { label: "How it Works", href: "#how-it-works" },
-  { label: "Use Cases", href: "#use-cases" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Display", href: "/display" },
+  { label: "Store", href: "/store" },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <nav
@@ -31,36 +34,33 @@ export default function Nav() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo placeholder */}
-        <a
-          href="#"
+        <Link
+          href="/"
           className="font-[family-name:var(--font-newsreader)] text-xl text-[#1a1a1a] tracking-wide"
         >
           inklet
-        </a>
+        </Link>
 
-        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-[#666] hover:text-[#1a1a1a] transition-colors"
+              className={`text-sm transition-colors ${
+                pathname === link.href
+                  ? "text-[#1a1a1a]"
+                  : "text-[#666] hover:text-[#1a1a1a]"
+              }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href={KICKSTARTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm border border-[#1a1a1a] text-[#1a1a1a] px-4 py-2 rounded-full hover:bg-[#1a1a1a] hover:text-[#f5f3ed] transition-colors"
-          >
-            Back us on Kickstarter
-          </a>
+          <span className="text-sm text-[#bbb] cursor-default select-none">
+            Portal
+            <sup className="text-[10px] ml-0.5 text-[#aaa]">soon</sup>
+          </span>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           className="md:hidden text-[#1a1a1a]"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -70,27 +70,25 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-[#f5f3ed]/95 backdrop-blur-md border-t border-[#e8e5db] px-6 pb-6 pt-4 space-y-4">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="block text-sm text-[#666] hover:text-[#1a1a1a]"
-              onClick={() => setMenuOpen(false)}
+              className={`block text-sm ${
+                pathname === link.href
+                  ? "text-[#1a1a1a]"
+                  : "text-[#666] hover:text-[#1a1a1a]"
+              }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href={KICKSTARTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-sm text-center border border-[#1a1a1a] text-[#1a1a1a] px-4 py-2 rounded-full hover:bg-[#1a1a1a] hover:text-[#f5f3ed] transition-colors"
-          >
-            Back us on Kickstarter
-          </a>
+          <span className="block text-sm text-[#bbb]">
+            Portal
+            <sup className="text-[10px] ml-0.5 text-[#aaa]">soon</sup>
+          </span>
         </div>
       )}
     </nav>
