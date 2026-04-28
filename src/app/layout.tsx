@@ -35,14 +35,14 @@ export const metadata: Metadata = {
       "A family of e-ink displays that surface the right information in the right room — powered by AI.",
     type: "website",
     siteName: "inklet",
-    images: [{ url: "/inklet-v1-kitchen.png", width: 1440, height: 1440 }],
+    images: [{ url: "/social-image.png", width: 1920, height: 1008 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "inklet - Your Second Brain, On eInk Display",
     description:
       "A family of e-ink displays that surface the right information in the right room — powered by AI.",
-    images: ["/inklet-v1-kitchen.png"],
+    images: ["/social-image.png"],
   },
   robots: { index: true, follow: true },
 };
