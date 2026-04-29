@@ -195,6 +195,9 @@ export default function StoreConfigurator() {
 
         {/* Configuration */}
         <div className="flex flex-col">
+          <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-3">
+            Display
+          </p>
           <h2 className="font-[family-name:var(--font-newsreader)] text-3xl font-light mb-6">
             inklet D1
           </h2>
