@@ -63,7 +63,7 @@ export default function HomePortal() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
-          className="flex flex-col justify-center text-right"
+          className="flex flex-col justify-center"
         >
           <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3">
             Software
@@ -76,10 +76,11 @@ export default function HomePortal() {
             displays, sync with the tools you already use, and let AI handle the
             rest.
           </p>
-          <span className="inline-flex items-center text-sm text-[#555] border border-[#333] px-6 py-3 rounded-full cursor-default select-none self-end">
+          <span className="inline-flex items-center text-sm text-[#555] border border-[#333] px-6 py-3 rounded-full cursor-default select-none self-start">
             Coming Soon
           </span>
         </motion.div>
+
       </div>
     </section>
   );
