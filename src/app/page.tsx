@@ -1,6 +1,7 @@
 import HomeHero from "@/components/HomeHero";
 import HomeDisplay from "@/components/HomeDisplay";
 import HomePortal from "@/components/HomePortal";
+import HomeSDK from "@/components/HomeSDK";
 
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/315339880?ref=5bbouo&token=026dc52e";
@@ -11,6 +12,7 @@ export default function Home() {
       <HomeHero />
       <HomeDisplay />
       <HomePortal />
+      <HomeSDK />
       <section className="py-32 text-center">
         <div className="max-w-6xl mx-auto px-6">
           <p className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light mb-8">

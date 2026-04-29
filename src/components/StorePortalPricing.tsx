@@ -24,6 +24,7 @@ const features = [
   "AI-powered content routing",
   "Cloud dashboard",
   "OTA firmware updates",
+  "Developer SDK",
 ];
 
 const capabilities = [

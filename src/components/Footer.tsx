@@ -6,6 +6,7 @@ const KICKSTARTER_URL =
 const productLinks = [
   { label: "Display D1", href: "/display" },
   { label: "Portal", href: "/portal" },
+  { label: "Portal SDK", href: "/developers" },
   { label: "Store", href: "/store" },
 ];
 

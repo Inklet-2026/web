@@ -59,6 +59,10 @@ export default function Nav() {
             Portal
             <sup className="text-[10px] ml-0.5 text-[#aaa]">soon</sup>
           </span>
+          <span className="text-sm text-[#bbb] cursor-default select-none">
+            SDK
+            <sup className="text-[10px] ml-0.5 text-[#aaa]">soon</sup>
+          </span>
         </div>
 
         <button
@@ -87,6 +91,10 @@ export default function Nav() {
           ))}
           <span className="block text-sm text-[#bbb]">
             Portal
+            <sup className="text-[10px] ml-0.5 text-[#aaa]">soon</sup>
+          </span>
+          <span className="block text-sm text-[#bbb]">
+            SDK
             <sup className="text-[10px] ml-0.5 text-[#aaa]">soon</sup>
           </span>
         </div>
