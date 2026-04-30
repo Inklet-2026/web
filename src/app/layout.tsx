@@ -36,7 +36,7 @@ export const metadata: Metadata = {
       "A family of e-ink displays that surface the right information in the right room — powered by AI.",
     type: "website",
     url: "https://iminklet.com",
-    siteName: "inklet",
+    siteName: "inklet LLC",
     images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
   },
   other: {
