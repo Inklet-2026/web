@@ -120,40 +120,16 @@ function QtyControl({
   );
 }
 
-function HubPlaceholder() {
-  return (
-    <div className="aspect-[4/3] relative bg-white/50 rounded-2xl overflow-hidden flex items-center justify-center border border-[#e8e5db]">
-      <div className="text-center text-[#ccc]">
-        <div className="w-24 h-24 mx-auto mb-4 rounded-2xl bg-[#e8e5db]/60 flex items-center justify-center">
-          <svg
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <rect x="4" y="4" width="16" height="16" rx="2" />
-            <rect x="9" y="9" width="6" height="6" />
-            <line x1="9" y1="1" x2="9" y2="4" />
-            <line x1="15" y1="1" x2="15" y2="4" />
-            <line x1="9" y1="20" x2="9" y2="23" />
-            <line x1="15" y1="20" x2="15" y2="23" />
-            <line x1="20" y1="9" x2="23" y2="9" />
-            <line x1="20" y1="14" x2="23" y2="14" />
-            <line x1="1" y1="9" x2="4" y2="9" />
-            <line x1="1" y1="14" x2="4" y2="14" />
-          </svg>
-        </div>
-        <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)]">
-          Render coming soon
-        </p>
-      </div>
-    </div>
-  );
-}
+const HUB_COLOR_IMAGES: Record<string, string> = {
+  black: "/inklet-h1-black.png",
+  white: "/inklet-h1-white.png",
+};
+
+const HUB_GALLERY_IMAGES = [
+  "/inklet-h1-black.png",
+  "/inklet-h1-white.png",
+  "/inklet-h1-desk.jpg",
+];
 
 export default function StoreConfigurator() {
   const [tab, setTab] = useState<Tab>("display");
@@ -166,6 +142,7 @@ export default function StoreConfigurator() {
   // Hub state
   const [hubColor, setHubColor] = useState<"black" | "white">("black");
   const [hubRam, setHubRam] = useState<HubRam>("16");
+  const [hubActiveImage, setHubActiveImage] = useState(HUB_GALLERY_IMAGES[0]);
 
   // Bundle state
   const [bundle, setBundle] = useState<BundleId>("home");
@@ -225,7 +202,38 @@ export default function StoreConfigurator() {
         {/* Gallery */}
         <div>
           {tab === "hub" ? (
-            <HubPlaceholder />
+            <>
+              <div className="aspect-[4/3] relative bg-white/50 rounded-2xl overflow-hidden mb-4">
+                <Image
+                  src={hubActiveImage}
+                  alt={`inklet Compute Hub H1`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+              <div className="flex gap-2 mb-6">
+                {HUB_GALLERY_IMAGES.map((src) => (
+                  <button
+                    key={src}
+                    onClick={() => setHubActiveImage(src)}
+                    className={`relative w-16 h-12 rounded-lg overflow-hidden border-2 transition-colors ${
+                      hubActiveImage === src
+                        ? "border-[#1a1a1a]"
+                        : "border-[#e8e5db] hover:border-[#ccc]"
+                    }`}
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      className="object-contain p-1"
+                      sizes="64px"
+                    />
+                  </button>
+                ))}
+              </div>
+            </>
           ) : (
             <>
               <div className="aspect-[4/3] relative bg-white/50 rounded-2xl overflow-hidden mb-4">
@@ -408,14 +416,14 @@ export default function StoreConfigurator() {
                 </span>
                 <div className="flex gap-3">
                   <button
-                    onClick={() => setHubColor("black")}
+                    onClick={() => { setHubColor("black"); setHubActiveImage(HUB_COLOR_IMAGES.black); }}
                     className={`w-8 h-8 rounded-full bg-[#2a2a2a] ring-offset-2 ring-offset-[#f5f3ed] transition-shadow ${
                       hubColor === "black" ? "ring-2 ring-[#1a1a1a]" : ""
                     }`}
                     aria-label="Black"
                   />
                   <button
-                    onClick={() => setHubColor("white")}
+                    onClick={() => { setHubColor("white"); setHubActiveImage(HUB_COLOR_IMAGES.white); }}
                     className={`w-8 h-8 rounded-full bg-[#e8e5db] border border-[#ccc] ring-offset-2 ring-offset-[#f5f3ed] transition-shadow ${
                       hubColor === "white" ? "ring-2 ring-[#1a1a1a]" : ""
                     }`}

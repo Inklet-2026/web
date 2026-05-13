@@ -7,7 +7,7 @@ import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 
 const navLinks = [
   { label: "Display", href: "/display" },
-  { label: "Hub", href: "/store#hub" },
+  { label: "Hub", href: "/hub" },
   { label: "Store", href: "/store" },
 ];
 
