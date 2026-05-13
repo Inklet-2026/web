@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import StoreCountdown from "./StoreCountdown";
-import { HiOutlineCheck } from "react-icons/hi";
 
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/315339880?ref=5bbouo&token=026dc52e";
@@ -27,29 +26,40 @@ const STANDS = [
   { id: "wood", label: "Solid Wood Stand", price: 10 },
 ];
 
-type PlanId = "single" | "home" | "pro";
+type Tab = "display" | "hub" | "bundles";
+type BundleId = "home" | "pro";
+type HubRam = "16" | "32";
 
-const PLANS = [
-  { id: "single" as PlanId, label: "Single Display", count: 1, base: 179, original: 199 },
-  { id: "home" as PlanId, label: "Home Bundle", count: 4, base: 649, original: 749 },
-  { id: "pro" as PlanId, label: "Pro Bundle", count: 4, base: 1099, original: 1499 },
+const DISPLAY_SPECS_EXTRA = [
+  "1 × inklet e-ink display",
+  "1 month free cloud subscription ($10)",
 ];
 
-const BUNDLE_DETAILS: Record<string, { features: string[]; shipping: string }> = {
-  single: {
-    features: [
-      "1 × inklet e-ink display",
-      "1 month free cloud subscription ($10)",
-      "AI-powered content routing",
-    ],
-    shipping: "Est. shipping by Q4 2026",
-  },
+const HUB_SPECS: Record<HubRam, string[]> = {
+  "16": ["Orange Pi 6 Plus", "Gemma 4 E4B"],
+  "32": ["Orange Pi 6 Plus", "Gemma 4 26B A4B"],
+};
+
+const HUB_RAM_OPTIONS = [
+  { id: "16" as HubRam, label: "16GB", price: 0 },
+  { id: "32" as HubRam, label: "32GB", price: 450 },
+];
+
+const HUB_PRICING: Record<HubRam, { kickstarter: number; msrp: number }> = {
+  "16": { kickstarter: 749, msrp: 899 },
+  "32": { kickstarter: 1199, msrp: 1399 },
+};
+
+const BUNDLE_PLANS = [
+  { id: "home" as BundleId, label: "Home Bundle", count: 4, base: 649, original: 749 },
+  { id: "pro" as BundleId, label: "Pro Bundle", count: 4, base: 1099, original: 1499 },
+];
+
+const BUNDLE_DETAILS: Record<BundleId, { features: string[]; shipping: string }> = {
   home: {
     features: [
       "4 × inklet e-ink displays",
       "6 months free cloud subscription ($60)",
-      "Cover every room — kitchen, study, hallway, bedroom",
-      "AI-powered content routing",
     ],
     shipping: "Est. shipping by Q4 2026",
   },
@@ -57,12 +67,16 @@ const BUNDLE_DETAILS: Record<string, { features: string[]; shipping: string }> =
     features: [
       "4 × inklet e-ink displays",
       "1 × inklet compute hub",
-      "Fully local — no cloud required",
-      "All AI processing on your network",
     ],
     shipping: "Est. shipping by Q2 2027",
   },
 };
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: "display", label: "Display" },
+  { id: "hub", label: "Compute Hub" },
+  { id: "bundles", label: "Bundles" },
+];
 
 function QtyControl({
   label,
@@ -106,17 +120,60 @@ function QtyControl({
   );
 }
 
+function HubPlaceholder() {
+  return (
+    <div className="aspect-[4/3] relative bg-white/50 rounded-2xl overflow-hidden flex items-center justify-center border border-[#e8e5db]">
+      <div className="text-center text-[#ccc]">
+        <div className="w-24 h-24 mx-auto mb-4 rounded-2xl bg-[#e8e5db]/60 flex items-center justify-center">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <rect x="9" y="9" width="6" height="6" />
+            <line x1="9" y1="1" x2="9" y2="4" />
+            <line x1="15" y1="1" x2="15" y2="4" />
+            <line x1="9" y1="20" x2="9" y2="23" />
+            <line x1="15" y1="20" x2="15" y2="23" />
+            <line x1="20" y1="9" x2="23" y2="9" />
+            <line x1="20" y1="14" x2="23" y2="14" />
+            <line x1="1" y1="9" x2="4" y2="9" />
+            <line x1="1" y1="14" x2="4" y2="14" />
+          </svg>
+        </div>
+        <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)]">
+          Render coming soon
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function StoreConfigurator() {
-  const [plan, setPlan] = useState<PlanId>("single");
+  const [tab, setTab] = useState<Tab>("display");
+
+  // Display state
   const [color, setColor] = useState<"black" | "white">("black");
   const [stand, setStand] = useState("regular");
   const [activeImage, setActiveImage] = useState(GALLERY_IMAGES[0]);
 
+  // Hub state
+  const [hubColor, setHubColor] = useState<"black" | "white">("black");
+  const [hubRam, setHubRam] = useState<HubRam>("16");
+
+  // Bundle state
+  const [bundle, setBundle] = useState<BundleId>("home");
   const [colorQty, setColorQty] = useState({ black: 2, white: 2 });
   const [standQty, setStandQty] = useState({ regular: 4, magnet: 0, wood: 0 });
 
-  const currentPlan = PLANS.find((p) => p.id === plan)!;
-  const isBundle = plan !== "single";
+  const currentBundle = BUNDLE_PLANS.find((p) => p.id === bundle)!;
+  const hubPrice = HUB_PRICING[hubRam];
 
   function handleColorChange(c: "black" | "white") {
     setColor(c);
@@ -125,242 +182,408 @@ export default function StoreConfigurator() {
 
   function updateColorQty(key: "black" | "white", value: number) {
     const other = key === "black" ? "white" : "black";
-    const max = currentPlan.count;
+    const max = currentBundle.count;
     const clamped = Math.min(value, max);
     setColorQty({ [key]: clamped, [other]: max - clamped } as typeof colorQty);
   }
 
   function updateStandQty(key: string, value: number) {
-    const max = currentPlan.count;
+    const max = currentBundle.count;
     const others = Object.entries(standQty).filter(([k]) => k !== key);
     const othersTotal = others.reduce((s, [, v]) => s + v, 0);
     const clamped = Math.min(value, max - othersTotal + standQty[key as keyof typeof standQty]);
     setStandQty((prev) => ({ ...prev, [key]: Math.max(0, clamped) }));
   }
 
-  const woodCount = isBundle ? standQty.wood : (stand === "wood" ? 1 : 0);
-  const totalPrice = currentPlan.base + woodCount * 10;
-  const totalOriginal = currentPlan.original + woodCount * 10;
-
-  const planInfo = BUNDLE_DETAILS[plan];
-
   const standTotal = useMemo(
     () => Object.values(standQty).reduce((s, v) => s + v, 0),
     [standQty]
   );
-  const standValid = !isBundle || standTotal === currentPlan.count;
+  const standValid = standTotal === currentBundle.count;
+
+  const displayWoodCount = stand === "wood" ? 1 : 0;
+  const displayPrice = 179 + displayWoodCount * 10;
+  const displayOriginal = 199 + displayWoodCount * 10;
+
+  const bundleWoodCount = standQty.wood;
+  const bundlePrice = currentBundle.base + bundleWoodCount * 10;
+  const bundleOriginal = currentBundle.original + bundleWoodCount * 10;
+
+  const bundleInfo = BUNDLE_DETAILS[bundle];
+  const isProBundle = bundle === "pro";
+
+  const shippingText =
+    tab === "display"
+      ? "Est. shipping by Q4 2026"
+      : tab === "hub"
+        ? "Est. shipping by Q2 2027"
+        : bundleInfo.shipping;
 
   return (
     <div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         {/* Gallery */}
         <div>
-          <div className="aspect-[4/3] relative bg-white/50 rounded-2xl overflow-hidden mb-4">
-            <Image
-              src={activeImage}
-              alt="inklet D1"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-          </div>
-          <div className="flex gap-2 mb-6">
-            {GALLERY_IMAGES.map((src) => (
-              <button
-                key={src}
-                onClick={() => setActiveImage(src)}
-                className={`relative w-16 h-12 rounded-lg overflow-hidden border-2 transition-colors ${
-                  activeImage === src
-                    ? "border-[#1a1a1a]"
-                    : "border-[#e8e5db] hover:border-[#ccc]"
-                }`}
-              >
+          {tab === "hub" ? (
+            <HubPlaceholder />
+          ) : (
+            <>
+              <div className="aspect-[4/3] relative bg-white/50 rounded-2xl overflow-hidden mb-4">
                 <Image
-                  src={src}
-                  alt=""
+                  src={activeImage}
+                  alt="inklet D1"
                   fill
-                  className="object-contain p-1"
-                  sizes="64px"
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-              </button>
+              </div>
+              <div className="flex gap-2 mb-6">
+                {GALLERY_IMAGES.map((src) => (
+                  <button
+                    key={src}
+                    onClick={() => setActiveImage(src)}
+                    className={`relative w-16 h-12 rounded-lg overflow-hidden border-2 transition-colors ${
+                      activeImage === src
+                        ? "border-[#1a1a1a]"
+                        : "border-[#e8e5db] hover:border-[#ccc]"
+                    }`}
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      className="object-contain p-1"
+                      sizes="64px"
+                    />
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+          <div className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] mt-4 space-y-1">
+            {tab === "display" && DISPLAY_SPECS_EXTRA.map((s) => (
+              <span key={s} className="block">{s}</span>
             ))}
-          </div>
-          <div className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa]">
-            <span>7.5" e-ink · 800×480 · 2000mAh</span>
-          </div>
-          <div className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] mt-1">
-            {planInfo?.shipping ?? "Est. shipping by Q4 2026"}
+            {tab === "hub" && HUB_SPECS[hubRam].map((s) => (
+              <span key={s} className="block">{s}</span>
+            ))}
+            {tab === "bundles" && bundleInfo.features.map((s) => (
+              <span key={s} className="block">{s}</span>
+            ))}
+            {tab !== "hub" && (
+              <span className="block">7.5&quot; e-ink · 800×480 · 2000mAh</span>
+            )}
+            <span className="block">{shippingText}</span>
           </div>
         </div>
 
         {/* Configuration */}
         <div className="flex flex-col">
-          <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-3">
-            Display
-          </p>
-          <h2 className="font-[family-name:var(--font-newsreader)] text-3xl font-light mb-6">
-            inklet D1
-          </h2>
-
-          {/* Plan selector */}
-          <div className="mb-6">
-            <div className="grid grid-cols-3 gap-2">
-              {PLANS.map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => {
-                    setPlan(p.id);
-                    if (p.count === 4) {
-                      setColorQty({ black: 2, white: 2 });
-                      setStandQty({ regular: p.count, magnet: 0, wood: 0 });
-                    }
-                  }}
-                  className={`px-3 py-2.5 rounded-xl border text-xs font-medium text-center transition-colors ${
-                    plan === p.id
-                      ? "border-[#1a1a1a] bg-white/50"
-                      : "border-[#e8e5db] hover:border-[#ccc] text-[#666]"
-                  }`}
-                >
-                  {p.label}
-                </button>
-              ))}
-            </div>
+          {/* Tabs */}
+          <div className="grid grid-cols-3 mb-6 border-b border-[#e8e5db]">
+            {TABS.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={`pb-3 text-sm text-center transition-colors relative ${
+                  tab === t.id
+                    ? "text-[#1a1a1a]"
+                    : "text-[#aaa] hover:text-[#666]"
+                }`}
+              >
+                {t.label}
+                {tab === t.id && (
+                  <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#1a1a1a]" />
+                )}
+              </button>
+            ))}
           </div>
 
-          {/* Plan details */}
-          {planInfo && (
-            <div className="mb-6 p-4 rounded-xl bg-white/30 border border-[#e8e5db]">
-              <ul className="space-y-1.5">
-                {planInfo.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-[#666]">
-                    <HiOutlineCheck className="shrink-0 mt-0.5 text-[#aaa]" size={12} />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Display tab */}
+          {tab === "display" && (
+            <>
+              <h2 className="font-[family-name:var(--font-newsreader)] text-3xl font-light mb-6">
+                inklet D1
+              </h2>
+
+              {/* Color */}
+              <div className="mb-6">
+                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                  Color
+                </span>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => handleColorChange("black")}
+                    className={`w-8 h-8 rounded-full bg-[#2a2a2a] ring-offset-2 ring-offset-[#f5f3ed] transition-shadow ${
+                      color === "black" ? "ring-2 ring-[#1a1a1a]" : ""
+                    }`}
+                    aria-label="Black"
+                  />
+                  <button
+                    onClick={() => handleColorChange("white")}
+                    className={`w-8 h-8 rounded-full bg-[#e8e5db] border border-[#ccc] ring-offset-2 ring-offset-[#f5f3ed] transition-shadow ${
+                      color === "white" ? "ring-2 ring-[#1a1a1a]" : ""
+                    }`}
+                    aria-label="White"
+                  />
+                </div>
+              </div>
+
+              {/* Stand */}
+              <div className="mb-6">
+                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                  Stand
+                </span>
+                <div className="flex flex-col gap-2">
+                  {STANDS.map((s) => {
+                    const isSelected = stand === s.id;
+                    const woodSelected = stand === "wood";
+                    let priceLabel = "";
+                    let priceColor = "text-[#aaa]";
+                    if (s.price > 0) {
+                      priceLabel = `+$${s.price}`;
+                      if (isSelected) priceColor = "text-[#1a1a1a]";
+                    } else if (woodSelected) {
+                      priceLabel = "-$10";
+                    }
+                    return (
+                      <button
+                        key={s.id}
+                        onClick={() => setStand(s.id)}
+                        className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition-colors ${
+                          isSelected
+                            ? "border-[#1a1a1a] bg-white/50"
+                            : "border-[#e8e5db] hover:border-[#ccc]"
+                        }`}
+                      >
+                        <span>{s.label}</span>
+                        {priceLabel && (
+                          <span className={`font-[family-name:var(--font-ibm-plex-mono)] ${priceColor}`}>
+                            {priceLabel}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Price */}
+              <div className="mb-6">
+                <div className="flex items-baseline justify-between flex-wrap gap-2">
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-[family-name:var(--font-ibm-plex-mono)] text-4xl font-light">
+                      ${displayPrice}
+                    </span>
+                    <span className="text-[#aaa] line-through text-sm">
+                      ${displayOriginal}
+                    </span>
+                  </div>
+                  <StoreCountdown />
+                </div>
+              </div>
+
+              <a
+                href={KICKSTARTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-center px-8 py-4 bg-[#1a1a1a] text-[#f5f3ed] rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
+              >
+                Back on Kickstarter →
+              </a>
+            </>
           )}
 
-          {/* Color */}
-          <div className="mb-6">
-            <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
-              Color
-            </span>
-            {isBundle ? (
-              <div className="grid grid-cols-2 gap-2">
-                <QtyControl
-                  label="Black"
-                  value={colorQty.black}
-                  onChange={(v) => updateColorQty("black", v)}
-                />
-                <QtyControl
-                  label="White"
-                  value={colorQty.white}
-                  onChange={(v) => updateColorQty("white", v)}
-                />
-              </div>
-            ) : (
-              <div className="flex gap-3">
-                <button
-                  onClick={() => handleColorChange("black")}
-                  className={`w-8 h-8 rounded-full bg-[#2a2a2a] ring-offset-2 ring-offset-[#f5f3ed] transition-shadow ${
-                    color === "black" ? "ring-2 ring-[#1a1a1a]" : ""
-                  }`}
-                  aria-label="Black"
-                />
-                <button
-                  onClick={() => handleColorChange("white")}
-                  className={`w-8 h-8 rounded-full bg-[#e8e5db] border border-[#ccc] ring-offset-2 ring-offset-[#f5f3ed] transition-shadow ${
-                    color === "white" ? "ring-2 ring-[#1a1a1a]" : ""
-                  }`}
-                  aria-label="White"
-                />
-              </div>
-            )}
-          </div>
+          {/* Compute Hub tab */}
+          {tab === "hub" && (
+            <>
+              <h2 className="font-[family-name:var(--font-newsreader)] text-3xl font-light mb-6">
+                {hubRam === "32" ? "inklet H1 Pro" : "inklet H1"}
+              </h2>
 
-          {/* Stand */}
-          <div className="mb-6">
-            <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
-              Stand
-              {isBundle && !standValid && (
-                <span className="ml-2 text-[#c97] normal-case tracking-normal">
-                  ({standTotal}/{currentPlan.count} selected)
+              {/* Color */}
+              <div className="mb-6">
+                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                  Color
                 </span>
-              )}
-            </span>
-            {isBundle ? (
-              <div className="flex flex-col gap-2">
-                {STANDS.map((s) => (
-                  <QtyControl
-                    key={s.id}
-                    label={s.label}
-                    value={standQty[s.id as keyof typeof standQty]}
-                    onChange={(v) => updateStandQty(s.id, v)}
-                    suffix={s.price > 0 ? `+$${s.price}/ea` : undefined}
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setHubColor("black")}
+                    className={`w-8 h-8 rounded-full bg-[#2a2a2a] ring-offset-2 ring-offset-[#f5f3ed] transition-shadow ${
+                      hubColor === "black" ? "ring-2 ring-[#1a1a1a]" : ""
+                    }`}
+                    aria-label="Black"
                   />
-                ))}
+                  <button
+                    onClick={() => setHubColor("white")}
+                    className={`w-8 h-8 rounded-full bg-[#e8e5db] border border-[#ccc] ring-offset-2 ring-offset-[#f5f3ed] transition-shadow ${
+                      hubColor === "white" ? "ring-2 ring-[#1a1a1a]" : ""
+                    }`}
+                    aria-label="White"
+                  />
+                </div>
               </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                {STANDS.map((s) => {
-                  const isSelected = stand === s.id;
-                  const woodSelected = stand === "wood";
-                  let priceLabel = "";
-                  let priceColor = "text-[#aaa]";
-                  if (s.price > 0) {
-                    priceLabel = `+$${s.price}`;
-                    if (isSelected) priceColor = "text-[#1a1a1a]";
-                  } else if (woodSelected) {
-                    priceLabel = "-$10";
-                  }
-                  return (
+
+              {/* RAM */}
+              <div className="mb-6">
+                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                  Memory
+                </span>
+                <div className="flex flex-col gap-2">
+                  {HUB_RAM_OPTIONS.map((r) => {
+                    const isSelected = hubRam === r.id;
+                    const upgradeSelected = hubRam === "32";
+                    let priceLabel = "";
+                    let priceColor = "text-[#aaa]";
+                    if (r.price > 0) {
+                      priceLabel = `+$${r.price}`;
+                      if (isSelected) priceColor = "text-[#1a1a1a]";
+                    } else if (upgradeSelected) {
+                      priceLabel = `-$${HUB_RAM_OPTIONS[1].price}`;
+                    }
+                    return (
+                      <button
+                        key={r.id}
+                        onClick={() => setHubRam(r.id)}
+                        className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition-colors ${
+                          isSelected
+                            ? "border-[#1a1a1a] bg-white/50"
+                            : "border-[#e8e5db] hover:border-[#ccc]"
+                        }`}
+                      >
+                        <span>{r.label}</span>
+                        {priceLabel && (
+                          <span className={`font-[family-name:var(--font-ibm-plex-mono)] ${priceColor}`}>
+                            {priceLabel}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Price */}
+              <div className="mb-6">
+                <div className="flex items-baseline gap-3">
+                  <span className="font-[family-name:var(--font-ibm-plex-mono)] text-4xl font-light">
+                    ${hubPrice.kickstarter}
+                  </span>
+                  <span className="text-[#aaa] line-through text-sm">
+                    ${hubPrice.msrp}
+                  </span>
+                </div>
+              </div>
+
+              <span className="w-full text-center px-8 py-4 bg-[#ccc] text-[#888] rounded-full text-sm font-medium cursor-default">
+                Available Soon
+              </span>
+            </>
+          )}
+
+          {/* Bundles tab */}
+          {tab === "bundles" && (
+            <>
+              <h2 className="font-[family-name:var(--font-newsreader)] text-3xl font-light mb-6">
+                Save More with Bundles
+              </h2>
+
+              {/* Bundle selector */}
+              <div className="mb-6">
+                <div className="grid grid-cols-2 gap-2">
+                  {BUNDLE_PLANS.map((p) => (
                     <button
-                      key={s.id}
-                      onClick={() => setStand(s.id)}
-                      className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition-colors ${
-                        isSelected
+                      key={p.id}
+                      onClick={() => {
+                        setBundle(p.id);
+                        setColorQty({ black: 2, white: 2 });
+                        setStandQty({ regular: p.count, magnet: 0, wood: 0 });
+                      }}
+                      className={`px-3 py-2.5 rounded-xl border text-xs font-medium text-center transition-colors ${
+                        bundle === p.id
                           ? "border-[#1a1a1a] bg-white/50"
-                          : "border-[#e8e5db] hover:border-[#ccc]"
+                          : "border-[#e8e5db] hover:border-[#ccc] text-[#666]"
                       }`}
                     >
-                      <span>{s.label}</span>
-                      {priceLabel && (
-                        <span className={`font-[family-name:var(--font-ibm-plex-mono)] ${priceColor}`}>
-                          {priceLabel}
-                        </span>
-                      )}
+                      {p.label}
                     </button>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
-            )}
-          </div>
 
-          {/* Price + Countdown */}
-          <div className="mb-6">
-            <div className="flex items-baseline justify-between flex-wrap gap-2">
-              <div className="flex items-baseline gap-3">
-                <span className="font-[family-name:var(--font-ibm-plex-mono)] text-4xl font-light">
-                  ${totalPrice}
+              {/* Color qty */}
+              <div className="mb-6">
+                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                  Color
                 </span>
-                <span className="text-[#aaa] line-through text-sm">
-                  ${totalOriginal}
-                </span>
+                <div className="grid grid-cols-2 gap-2">
+                  <QtyControl
+                    label="Black"
+                    value={colorQty.black}
+                    onChange={(v) => updateColorQty("black", v)}
+                  />
+                  <QtyControl
+                    label="White"
+                    value={colorQty.white}
+                    onChange={(v) => updateColorQty("white", v)}
+                  />
+                </div>
               </div>
-              <StoreCountdown />
-            </div>
-          </div>
 
-          {/* CTA */}
-          <a
-            href={KICKSTARTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full text-center px-8 py-4 bg-[#1a1a1a] text-[#f5f3ed] rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
-          >
-            Back on Kickstarter →
-          </a>
+              {/* Stand qty */}
+              <div className="mb-6">
+                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                  Stand
+                  {!standValid && (
+                    <span className="ml-2 text-[#c97] normal-case tracking-normal">
+                      ({standTotal}/{currentBundle.count} selected)
+                    </span>
+                  )}
+                </span>
+                <div className="flex flex-col gap-2">
+                  {STANDS.map((s) => (
+                    <QtyControl
+                      key={s.id}
+                      label={s.label}
+                      value={standQty[s.id as keyof typeof standQty]}
+                      onChange={(v) => updateStandQty(s.id, v)}
+                      suffix={s.price > 0 ? `+$${s.price}/ea` : undefined}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Price */}
+              <div className="mb-6">
+                <div className="flex items-baseline justify-between flex-wrap gap-2">
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-[family-name:var(--font-ibm-plex-mono)] text-4xl font-light">
+                      ${bundlePrice}
+                    </span>
+                    <span className="text-[#aaa] line-through text-sm">
+                      ${bundleOriginal}
+                    </span>
+                  </div>
+                  {!isProBundle && <StoreCountdown />}
+                </div>
+              </div>
+
+              {isProBundle ? (
+                <span className="w-full text-center px-8 py-4 bg-[#ccc] text-[#888] rounded-full text-sm font-medium cursor-default">
+                  Available Soon
+                </span>
+              ) : (
+                <a
+                  href={KICKSTARTER_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center px-8 py-4 bg-[#1a1a1a] text-[#f5f3ed] rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
+                >
+                  Back on Kickstarter →
+                </a>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

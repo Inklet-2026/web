@@ -5,7 +5,7 @@ import { getStoreJsonLd } from "@/lib/structured-data";
 export const metadata = {
   title: "Store - inklet",
   description:
-    "Get the inklet Display D1 at early bird pricing. Choose your color, stand, and bundle.",
+    "Get the inklet Display D1 and Compute Hub at early bird pricing. Choose your configuration.",
 };
 
 export default function StorePage() {
