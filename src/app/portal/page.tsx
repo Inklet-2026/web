@@ -2,6 +2,20 @@ export const metadata = {
   title: "Portal - inklet",
   description:
     "inklet Portal — your cloud dashboard for ambient life. Coming soon.",
+  openGraph: {
+    title: "Portal - inklet",
+    description:
+      "Your cloud dashboard for ambient life. Manage all inklet displays from one place.",
+    url: "https://iminklet.com/portal",
+    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image" as const,
+    title: "Portal - inklet",
+    description:
+      "Your cloud dashboard for ambient life. Manage all inklet displays from one place.",
+    images: ["https://iminklet.com/social-image.png"],
+  },
 };
 
 export default function PortalPage() {

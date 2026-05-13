@@ -9,6 +9,20 @@ export const metadata = {
   title: "Display D1 - inklet",
   description:
     "inklet Display D1 is an ambient e-ink display that surfaces the right information in the right room — powered by AI.",
+  openGraph: {
+    title: "Display D1 - inklet",
+    description:
+      "An ambient e-ink display that surfaces the right information in the right room — powered by AI.",
+    url: "https://iminklet.com/display",
+    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image" as const,
+    title: "Display D1 - inklet",
+    description:
+      "An ambient e-ink display that surfaces the right information in the right room — powered by AI.",
+    images: ["https://iminklet.com/social-image.png"],
+  },
 };
 
 export default function DisplayPage() {

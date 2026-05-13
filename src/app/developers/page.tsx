@@ -2,6 +2,20 @@ export const metadata = {
   title: "Developers - inklet",
   description:
     "inklet Portal SDK — build custom integrations for your displays. Coming soon.",
+  openGraph: {
+    title: "Developers - inklet",
+    description:
+      "Build custom integrations for your inklet displays with the Portal SDK.",
+    url: "https://iminklet.com/developers",
+    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image" as const,
+    title: "Developers - inklet",
+    description:
+      "Build custom integrations for your inklet displays with the Portal SDK.",
+    images: ["https://iminklet.com/social-image.png"],
+  },
 };
 
 export default function DevelopersPage() {

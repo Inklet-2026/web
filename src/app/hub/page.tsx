@@ -6,6 +6,20 @@ export const metadata = {
   title: "Compute Hub H1 - inklet",
   description:
     "inklet Compute Hub H1 — on-device AI for your entire home. No cloud, no subscription. Powered by Orange Pi 6 Plus and Gemma 4.",
+  openGraph: {
+    title: "Compute Hub H1 - inklet",
+    description:
+      "On-device AI for your entire home. No cloud, no subscription. Privacy by design.",
+    url: "https://iminklet.com/hub",
+    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image" as const,
+    title: "Compute Hub H1 - inklet",
+    description:
+      "On-device AI for your entire home. No cloud, no subscription. Privacy by design.",
+    images: ["https://iminklet.com/social-image.png"],
+  },
 };
 
 export default function HubPage() {
