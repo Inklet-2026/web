@@ -13,9 +13,9 @@ export function getProductJsonLd() {
     offers: {
       "@type": "AggregateOffer",
       lowPrice: "179",
-      highPrice: "1099",
+      highPrice: "1199",
       priceCurrency: "USD",
-      offerCount: "3",
+      offerCount: "5",
       availability: "https://schema.org/PreOrder",
       offers: [
         {
@@ -36,6 +36,20 @@ export function getProductJsonLd() {
           "@type": "Offer",
           name: "Pro Bundle — Self-Hosted Edition",
           price: "1099",
+          priceCurrency: "USD",
+          availability: "https://schema.org/PreOrder",
+        },
+        {
+          "@type": "Offer",
+          name: "Compute Hub H1",
+          price: "749",
+          priceCurrency: "USD",
+          availability: "https://schema.org/PreOrder",
+        },
+        {
+          "@type": "Offer",
+          name: "Compute Hub H1 Pro",
+          price: "1199",
           priceCurrency: "USD",
           availability: "https://schema.org/PreOrder",
         },
@@ -148,6 +162,53 @@ export function getStoreJsonLd() {
       },
     },
   ];
+}
+
+export function getHubJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "inklet Compute Hub H1",
+    description:
+      "On-device AI for your entire home. Every note, every query, every decision — processed locally on your network. No cloud, no subscription. Privacy by design.",
+    brand: { "@type": "Brand", name: "inklet" },
+    category: "Smart Home Hub",
+    sku: "INKLET-H1",
+    color: ["Black", "White"],
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "SBC", value: "Orange Pi 6 Plus" },
+      { "@type": "PropertyValue", name: "Connectivity", value: "Wi-Fi 6, Bluetooth 5.3, Ethernet" },
+    ],
+    offers: {
+      "@type": "AggregateOffer",
+      lowPrice: "749",
+      highPrice: "1199",
+      priceCurrency: "USD",
+      offerCount: "2",
+      availability: "https://schema.org/PreOrder",
+      priceValidUntil: "2027-06-30",
+      offers: [
+        {
+          "@type": "Offer",
+          name: "inklet Compute Hub H1",
+          price: "749",
+          priceCurrency: "USD",
+          availability: "https://schema.org/PreOrder",
+          priceValidUntil: "2027-06-30",
+          description: "16GB unified memory, Gemma 4 E4B, fully local AI processing",
+        },
+        {
+          "@type": "Offer",
+          name: "inklet Compute Hub H1 Pro",
+          price: "1199",
+          priceCurrency: "USD",
+          availability: "https://schema.org/PreOrder",
+          priceValidUntil: "2027-06-30",
+          description: "32GB unified memory, Gemma 4 26B A4B, fully local AI processing, priority support",
+        },
+      ],
+    },
+  };
 }
 
 export function getOrganizationJsonLd() {

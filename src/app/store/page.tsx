@@ -1,6 +1,6 @@
 import StoreConfigurator from "@/components/StoreConfigurator";
 import StorePortalPricing from "@/components/StorePortalPricing";
-import { getStoreJsonLd } from "@/lib/structured-data";
+import { getStoreJsonLd, getHubJsonLd } from "@/lib/structured-data";
 
 export const metadata = {
   title: "Store - inklet",
@@ -40,6 +40,10 @@ export default function StorePage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getHubJsonLd()) }}
+      />
     </div>
   );
 }

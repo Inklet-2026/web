@@ -1,6 +1,7 @@
 import HubHero from "@/components/HubHero";
 import HubFeatures from "@/components/HubFeatures";
 import HubSpecs from "@/components/HubSpecs";
+import { getHubJsonLd } from "@/lib/structured-data";
 
 export const metadata = {
   title: "Compute Hub H1 - inklet",
@@ -38,6 +39,10 @@ export default function HubPage() {
           </span>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getHubJsonLd()) }}
+      />
     </>
   );
 }
