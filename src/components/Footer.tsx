@@ -7,7 +7,7 @@ const productLinks = [
   { label: "Display D1", href: "/display" },
   { label: "Compute Hub H1", href: "/store#hub" },
   { label: "Portal", href: "/portal" },
-  { label: "Portal SDK", href: "/developers" },
+  { label: "Portal SDK", href: "/developers", soon: true },
 ];
 
 const companyLinks = [
@@ -43,13 +43,20 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5">
                 {productLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-[#666] hover:text-[#1a1a1a] transition-colors"
-                    >
-                      {link.label}
-                    </Link>
+                  <li key={link.label}>
+                    {"soon" in link ? (
+                      <span className="text-sm text-[#bbb] cursor-default select-none">
+                        {link.label}
+                        <sup className="text-[10px] ml-0.5 text-[#aaa]">soon</sup>
+                      </span>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-[#666] hover:text-[#1a1a1a] transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
