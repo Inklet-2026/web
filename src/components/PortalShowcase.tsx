@@ -46,11 +46,11 @@ const items = [
     title: "One tab away",
     description:
       "Portal reads your active tab and auto-suggests pushing the current page to your displays. Press Tab to accept — articles, recipes, references, sent in one keystroke.",
-    src: "/portal/portal-extension.gif",
+    src: "/portal/portal-extension.mp4",
     alt: "Portal auto-suggesting current webpage, press Tab to accept",
     width: 1200,
     height: 750,
-    unoptimized: true,
+    video: true,
   },
 ];
 
@@ -70,14 +70,24 @@ export default function PortalShowcase() {
             }`}
           >
             <div className="lg:[direction:ltr]">
-              <Image
-                src={item.src}
-                alt={item.alt}
-                width={item.width}
-                height={item.height}
-                className="w-full h-auto rounded-2xl"
-                unoptimized={"unoptimized" in item}
-              />
+              {"video" in item ? (
+                <video
+                  src={item.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-auto rounded-2xl"
+                />
+              ) : (
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={item.width}
+                  height={item.height}
+                  className="w-full h-auto rounded-2xl"
+                />
+              )}
             </div>
 
             <div className="lg:[direction:ltr]">
