@@ -1,6 +1,7 @@
 import PortalHero from "@/components/PortalHero";
 import PortalFeatures from "@/components/PortalFeatures";
 import PortalShowcase from "@/components/PortalShowcase";
+import PortalDownload from "@/components/PortalDownload";
 
 export const metadata = {
   title: "Portal - inklet",
@@ -28,16 +29,7 @@ export default function PortalPage() {
       <PortalHero />
       <PortalFeatures />
       <PortalShowcase />
-      <section className="py-32 text-center">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light mb-8">
-            Ready to orchestrate your ambient life?
-          </p>
-          <span className="inline-flex items-center px-8 py-4 bg-[#333] text-[#888] rounded-full text-sm font-medium cursor-default">
-            Coming Soon
-          </span>
-        </div>
-      </section>
+      <PortalDownload />
     </div>
   );
 }

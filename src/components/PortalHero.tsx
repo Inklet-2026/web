@@ -131,6 +131,33 @@ export default function PortalHero() {
             display, sync with the tools you already use, and let AI handle the
             rest.
           </motion.p>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              ...fadeUp,
+              visible: {
+                ...fadeUp.visible,
+                transition: { duration: 0.6, delay: 0.25 },
+              },
+            }}
+            className="flex items-center gap-4 mt-8"
+          >
+            <a
+              href="https://portal.iminklet.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-7 py-3 bg-[#f5f3ed] text-[#1a1a1a] rounded-full text-sm font-medium hover:bg-[#e8e5db] transition-colors"
+            >
+              Get Started
+            </a>
+            <a
+              href="#download"
+              className="inline-flex items-center px-7 py-3 border border-[#333] text-[#888] rounded-full text-sm font-medium hover:border-[#555] hover:text-[#f5f3ed] transition-colors"
+            >
+              Download
+            </a>
+          </motion.div>
         </div>
         <motion.div
           initial="hidden"
