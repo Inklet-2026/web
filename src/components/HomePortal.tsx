@@ -76,9 +76,14 @@ export default function HomePortal() {
             displays, sync with the tools you already use, and let AI handle the
             rest.
           </p>
-          <span className="inline-flex items-center text-sm text-[#555] border border-[#333] px-6 py-3 rounded-full cursor-default select-none self-start">
-            Coming Soon
-          </span>
+          <a
+            href="https://portal.iminklet.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center self-start px-7 py-3 bg-[#f5f3ed] text-[#1a1a1a] rounded-full text-sm font-medium hover:bg-[#e8e5db] transition-colors"
+          >
+            Get Started
+          </a>
         </motion.div>
 
       </div>
