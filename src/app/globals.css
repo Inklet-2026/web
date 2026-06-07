@@ -41,6 +41,86 @@ html {
   filter: contrast(0.75) blur(0.2px);
 }
 
+/* Long-form legal copy (Privacy Policy, etc.) rendered from raw HTML */
+.legal {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.legal h2 {
+  font-family: var(--font-newsreader);
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #1a1a1a;
+  margin-top: 3.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid #e8e5db;
+}
+
+.legal h3 {
+  font-family: var(--font-newsreader);
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.legal h4 {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #222;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal p {
+  margin: 0.85rem 0;
+}
+
+.legal ul {
+  margin: 0.85rem 0;
+  padding-left: 1.35rem;
+  list-style: disc;
+}
+
+.legal ul ul {
+  margin: 0.4rem 0;
+  list-style: circle;
+}
+
+.legal li {
+  margin: 0.4rem 0;
+}
+
+.legal li::marker {
+  color: #c0bdb5;
+}
+
+.legal li > p {
+  margin: 0.35rem 0;
+}
+
+.legal strong {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.legal a {
+  color: #1a1a1a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: #c0bdb5;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+
+.legal a:hover {
+  color: #666;
+  text-decoration-color: #666;
+}
+
 @keyframes progress {
   from { width: 0%; }
   to { width: 100%; }

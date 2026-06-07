@@ -17,6 +17,11 @@ const companyLinks = [
   { label: "Contact Us", href: "mailto:core@iminklet.com" },
 ];
 
+const legalLinks = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Service", soon: true },
+];
+
 export default function Footer() {
   return (
     <footer className="border-t border-[#e8e5db] pt-16 pb-10">
@@ -35,7 +40,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex gap-24">
+          <div className="flex flex-wrap gap-x-16 gap-y-10 md:gap-24">
             {/* Products */}
             <div>
               <h4 className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[2px] uppercase mb-4">
@@ -86,6 +91,32 @@ export default function Footer() {
                       >
                         {link.label}
                       </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h4 className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[2px] uppercase mb-4">
+                Legal
+              </h4>
+              <ul className="space-y-2.5">
+                {legalLinks.map((link) => (
+                  <li key={link.label}>
+                    {"soon" in link ? (
+                      <span className="text-sm text-[#bbb] cursor-default select-none">
+                        {link.label}
+                        <sup className="text-[10px] ml-0.5 text-[#aaa]">soon</sup>
+                      </span>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-[#666] hover:text-[#1a1a1a] transition-colors"
+                      >
+                        {link.label}
+                      </Link>
                     )}
                   </li>
                 ))}
