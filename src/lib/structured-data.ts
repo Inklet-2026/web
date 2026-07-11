@@ -94,7 +94,7 @@ export function getStoreJsonLd() {
         offerCount: "3",
         availability: "https://schema.org/PreOrder",
         priceValidUntil: "2026-07-31",
-        url: "https://www.kickstarter.com/projects/clckkkkk/315339880",
+        url: "https://www.kickstarter.com/projects/clckkkkk/inklet",
         offers: [
           {
             "@type": "Offer",

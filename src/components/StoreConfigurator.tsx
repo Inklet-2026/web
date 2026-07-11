@@ -5,7 +5,7 @@ import Image from "next/image";
 import StoreCountdown from "./StoreCountdown";
 
 const KICKSTARTER_URL =
-  "https://www.kickstarter.com/projects/clckkkkk/315339880?ref=5bbouo&token=026dc52e";
+  "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
 const COLOR_IMAGES: Record<string, string> = {
   black: "/inklet-v1-black.png",

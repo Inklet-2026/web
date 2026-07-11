@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const KICKSTARTER_URL =
-  "https://www.kickstarter.com/projects/clckkkkk/315339880?ref=5bbouo&token=026dc52e";
+  "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
 const productLinks = [
   { label: "Display D1", href: "/display" },

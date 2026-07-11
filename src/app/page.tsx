@@ -4,7 +4,7 @@ import HomePortal from "@/components/HomePortal";
 import HomeSDK from "@/components/HomeSDK";
 
 const KICKSTARTER_URL =
-  "https://www.kickstarter.com/projects/clckkkkk/315339880?ref=5bbouo&token=026dc52e";
+  "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
 export default function Home() {
   return (
