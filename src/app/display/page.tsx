@@ -5,26 +5,30 @@ import RoomShowcase from "@/components/RoomShowcase";
 import Privacy from "@/components/Privacy";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
+import { getDisplayJsonLd } from "@/lib/structured-data";
 
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
+const TITLE =
+  "inklet Display D1 — 7.5″ Ambient E-Ink Display for Notes, PDFs & Tasks";
+const DESCRIPTION =
+  "inklet D1 is a 7.5-inch ambient e-ink display that surfaces notes, PDFs, tasks, and schedules in the right room — AI-routed, months of battery, from $179.";
+
 export const metadata = {
-  title: "Display D1 - inklet",
-  description:
-    "inklet Display D1 is an ambient e-ink display that surfaces the right information in the right room — powered by AI.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "https://iminklet.com/display" },
   openGraph: {
-    title: "Display D1 - inklet",
-    description:
-      "An ambient e-ink display that surfaces the right information in the right room — powered by AI.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: "https://iminklet.com/display",
     images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "Display D1 - inklet",
-    description:
-      "An ambient e-ink display that surfaces the right information in the right room — powered by AI.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: ["https://iminklet.com/social-image.png"],
   },
 };
@@ -54,13 +58,17 @@ export default function DisplayPage() {
               href={KICKSTARTER_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-4 border border-[#1a1a1a] text-[#1a1a1a] rounded-full text-sm font-medium hover:bg-[#1a1a1a] hover:text-[#f5f3ed] transition-colors"
+              className="inline-flex items-center px-8 py-4 border border-[#e8e5db] text-[#666] rounded-full text-sm font-medium hover:border-[#ccc] hover:text-[#1a1a1a] transition-colors"
             >
-              Back us on Kickstarter →
+              Back us on Kickstarter
             </a>
           </div>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getDisplayJsonLd()) }}
+      />
     </>
   );
 }

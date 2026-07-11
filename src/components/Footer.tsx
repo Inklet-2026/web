@@ -11,6 +11,7 @@ const productLinks = [
 ];
 
 const companyLinks = [
+  { label: "About", href: "/about" },
   { label: "Store", href: "/store" },
   { label: "Kickstarter", href: KICKSTARTER_URL, external: true },
   { label: "Product Hunt", href: "https://www.producthunt.com/products/inklet", external: true },

@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/hub`, lastModified: new Date(), priority: 0.9 },
     { url: `${baseUrl}/store`, lastModified: new Date(), priority: 0.9 },
     { url: `${baseUrl}/portal`, lastModified: new Date(), priority: 0.5 },
+    { url: `${baseUrl}/about`, lastModified: new Date(), priority: 0.6 },
     { url: `${baseUrl}/developers`, lastModified: new Date(), priority: 0.5 },
     { url: `${baseUrl}/privacy-policy`, lastModified: new Date(), priority: 0.3 },
   ];

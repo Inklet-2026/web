@@ -1,3 +1,7 @@
+import { faqItems } from "@/data/faq";
+
+const KICKSTARTER_URL = "https://www.kickstarter.com/projects/clckkkkk/inklet";
+
 export function getProductJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -219,5 +223,88 @@ export function getOrganizationJsonLd() {
     url: "https://iminklet.com",
     description:
       "Makers of distributed e-ink displays powered by AI.",
+    founder: {
+      "@type": "Person",
+      name: "Kevin Zhong",
+    },
+  };
+}
+
+export function getDisplayJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "inklet Display D1",
+    description:
+      "A 7.5-inch ambient e-ink display that surfaces notes, PDFs, tasks, and schedules in the right room — AI-routed, with months of battery life.",
+    brand: { "@type": "Brand", name: "inklet" },
+    category: "Smart Home Display",
+    sku: "INKLET-D1",
+    color: ["Black", "White"],
+    additionalProperty: [
+      { "@type": "PropertyValue", name: "Screen Size", value: "7.5 inches" },
+      { "@type": "PropertyValue", name: "Resolution", value: "800×480" },
+      { "@type": "PropertyValue", name: "Battery", value: "2000mAh" },
+      { "@type": "PropertyValue", name: "Display Type", value: "E-ink" },
+    ],
+    offers: {
+      "@type": "Offer",
+      name: "inklet D1 — early bird",
+      price: "179",
+      priceCurrency: "USD",
+      availability: "https://schema.org/PreOrder",
+      priceValidUntil: "2026-07-31",
+      url: KICKSTARTER_URL,
+    },
+  };
+}
+
+export function getPortalJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "inklet Portal",
+    applicationCategory: "ProductivityApplication",
+    operatingSystem: "Web, iOS, macOS",
+    description:
+      "Manage every inklet e-ink display from one dashboard — push notes and PDFs, sync Notion, Craft, and Obsidian, and let AI route content by room.",
+    offers: {
+      "@type": "AggregateOffer",
+      lowPrice: "10",
+      highPrice: "100",
+      priceCurrency: "USD",
+      offerCount: "2",
+      offers: [
+        {
+          "@type": "Offer",
+          name: "Monthly",
+          price: "10",
+          priceCurrency: "USD",
+          description: "inklet Portal monthly subscription",
+        },
+        {
+          "@type": "Offer",
+          name: "Annual",
+          price: "100",
+          priceCurrency: "USD",
+          description: "inklet Portal annual subscription — save 17%",
+        },
+      ],
+    },
+  };
+}
+
+export function getFaqJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 }

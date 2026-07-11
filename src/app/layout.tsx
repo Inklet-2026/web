@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Newsreader, Inter, IBM_Plex_Mono } from "next/font/google";
-import { getProductJsonLd, getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/structured-data";
+import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/structured-data";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -76,12 +76,6 @@ export default function RootLayout({
         <Nav />
         <main>{children}</main>
         <Footer />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getProductJsonLd()),
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

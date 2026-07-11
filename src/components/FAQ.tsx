@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiOutlinePlus, HiOutlineMinus } from "react-icons/hi";
-import { faqItems } from "@/data/faq";
+import { faqItems, type FAQItem } from "@/data/faq";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -48,11 +48,21 @@ function FAQAccordionItem({
   );
 }
 
-export default function FAQ() {
+export default function FAQ({
+  items = faqItems,
+  title = "Frequently asked questions",
+  id = "faq",
+  emitJsonLd = true,
+}: {
+  items?: FAQItem[];
+  title?: string;
+  id?: string;
+  emitJsonLd?: boolean;
+}) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
+    mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {
@@ -63,11 +73,13 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-32">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <section id={id} className="py-32">
+      {emitJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
       <div className="max-w-3xl mx-auto px-6">
         <motion.h2
           initial="hidden"
@@ -76,7 +88,7 @@ export default function FAQ() {
           variants={fadeUp}
           className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-center mb-16"
         >
-          Frequently asked questions
+          {title}
         </motion.h2>
 
         <motion.div
@@ -85,7 +97,7 @@ export default function FAQ() {
           viewport={{ once: true, margin: "-50px" }}
           variants={fadeUp}
         >
-          {faqItems.map((item) => (
+          {items.map((item) => (
             <FAQAccordionItem
               key={item.question}
               question={item.question}
