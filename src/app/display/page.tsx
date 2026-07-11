@@ -1,9 +1,13 @@
 import DisplayHero from "@/components/DisplayHero";
 import HowItWorks from "@/components/HowItWorks";
-import Showcase3D from "@/components/Showcase3D";
+import DisplayBento from "@/components/DisplayBento";
+import RoomShowcase from "@/components/RoomShowcase";
 import Privacy from "@/components/Privacy";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
+
+const KICKSTARTER_URL =
+  "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
 export const metadata = {
   title: "Display D1 - inklet",
@@ -29,8 +33,9 @@ export default function DisplayPage() {
   return (
     <>
       <DisplayHero />
+      <DisplayBento />
       <HowItWorks />
-      <Showcase3D />
+      <RoomShowcase />
       <Privacy />
       <FAQ />
       <section className="py-32 text-center">
@@ -38,12 +43,22 @@ export default function DisplayPage() {
           <p className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light mb-8">
             Ready to bring calm to every room?
           </p>
-          <Link
-            href="/store"
-            className="inline-flex items-center px-8 py-4 bg-[#1a1a1a] text-[#f5f3ed] rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
-          >
-            Build my own →
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/store"
+              className="inline-flex items-center px-8 py-4 bg-[#1a1a1a] text-[#f5f3ed] rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
+            >
+              Build my own →
+            </Link>
+            <a
+              href={KICKSTARTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-8 py-4 border border-[#1a1a1a] text-[#1a1a1a] rounded-full text-sm font-medium hover:bg-[#1a1a1a] hover:text-[#f5f3ed] transition-colors"
+            >
+              Back us on Kickstarter →
+            </a>
+          </div>
         </div>
       </section>
     </>
