@@ -37,7 +37,7 @@ export default function Footer() {
               inklet
             </Link>
             <p className="text-sm text-[#888] mt-3 leading-relaxed max-w-[240px]">
-              Your second brain, on e-ink display.
+              Ambient e-ink displays for your second brain.
             </p>
           </div>
 

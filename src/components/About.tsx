@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import FAQ from "@/components/FAQ";
+import SocialProof from "@/components/SocialProof";
 import { disambiguationFaq } from "@/data/about-faq";
 
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
 const TEAM = [
-  { name: "Kevin Zhong", role: "Founder & Frontend", initials: "KZ" },
-  { name: "Christian Wang", role: "Embedded Eng", initials: "CW" },
-  { name: "Tony Qiu", role: "Backend Eng", initials: "TQ" },
+  { name: "Kevin Zhong", role: "Founder & Software Engineer", initials: "KZ" },
+  { name: "Christian Wang", role: "Embedded Engineer", initials: "CW" },
+  { name: "Tony Qiu", role: "Backend Engineer", initials: "TQ" },
 ];
 
 const fadeUp = {
@@ -190,6 +191,9 @@ export default function About() {
           </motion.div>
         </div>
       </section>
+
+      {/* Social proof widgets */}
+      <SocialProof />
     </>
   );
 }
