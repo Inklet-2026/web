@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import FAQ from "@/components/FAQ";
 import SocialProof from "@/components/SocialProof";
@@ -7,10 +8,19 @@ const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
 const TEAM = [
-  { name: "Kevin Zhong", role: "Founder & Software Engineer", initials: "KZ" },
-  { name: "Christian Wang", role: "Embedded Engineer", initials: "CW" },
-  { name: "Tony Qiu", role: "Backend Engineer", initials: "TQ" },
+  { name: "Kevin Zhong", role: "Founder & Software Engineer", photo: "/yiz.png" },
+  { name: "Christian Wang", role: "Embedded Engineer", photo: "/ziqianw.png" },
+  { name: "Tony Qiu", role: "Backend Engineer", photo: "/fuyuq.png" },
 ];
+
+/*
+ * The portraits are pencil drawings on a dark vignette. `multiply` drops the
+ * white of the paper so the graphite sits straight on the page background —
+ * no frame, no card, the way a drawing would actually read — and the radial
+ * mask fades out the vignette that would otherwise show as a dark square.
+ */
+const PORTRAIT_MASK =
+  "radial-gradient(ellipse 62% 70% at 50% 44%, #000 62%, transparent 88%)";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -117,15 +127,24 @@ export default function About() {
               A small team, on purpose.
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#e2ded1]">
             {TEAM.map((m) => (
               <div
                 key={m.name}
-                className="flex flex-col items-center text-center border border-[#e0ddd6] rounded-2xl bg-[#fdfcf9] py-10 px-6"
+                className="flex flex-col items-center text-center px-6 py-10 sm:py-2"
               >
-                <span className="w-16 h-16 rounded-full bg-[#eceae4] flex items-center justify-center font-[family-name:var(--font-newsreader)] text-xl text-[#888] mb-5">
-                  {m.initials}
-                </span>
+                <Image
+                  src={m.photo}
+                  alt={`${m.name}, ${m.role}`}
+                  width={512}
+                  height={512}
+                  className="w-44 h-44 mb-4"
+                  style={{
+                    mixBlendMode: "multiply",
+                    maskImage: PORTRAIT_MASK,
+                    WebkitMaskImage: PORTRAIT_MASK,
+                  }}
+                />
                 <div className="text-base font-medium">{m.name}</div>
                 <div className="text-sm text-[#999] mt-1">{m.role}</div>
               </div>
