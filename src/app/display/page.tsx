@@ -1,6 +1,7 @@
 import DisplayHero from "@/components/DisplayHero";
 import HowItWorks from "@/components/HowItWorks";
 import DisplayBento from "@/components/DisplayBento";
+import DisplayVideo from "@/components/DisplayVideo";
 import RoomShowcase from "@/components/RoomShowcase";
 import Privacy from "@/components/Privacy";
 import FAQ from "@/components/FAQ";
@@ -40,6 +41,7 @@ export default function DisplayPage() {
       <DisplayBento />
       <HowItWorks />
       <RoomShowcase />
+      <DisplayVideo />
       <Privacy />
       <FAQ />
       <section className="py-32 text-center">
