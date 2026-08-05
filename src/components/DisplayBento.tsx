@@ -2,7 +2,10 @@ import Image from "next/image";
 
 export default function DisplayBento() {
   return (
-    <section className="max-w-6xl mx-auto px-6 pt-8 pb-12">
+    <section className="max-w-6xl mx-auto px-6 pt-8 pb-24 md:pb-32">
+      <h2 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-center mb-14">
+        Why inklet?
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[230px] gap-4">
         {/* Battery life */}
         <div className="bg-[#EFEDE7] rounded-[20px] p-8 flex flex-col justify-end min-h-[180px]">

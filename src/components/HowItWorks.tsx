@@ -5,23 +5,23 @@ import { HiOutlineDocumentText } from "react-icons/hi";
 const steps = [
   {
     number: "01",
-    title: "Capture from anywhere",
+    title: "Send what matters",
     description:
-      "Send a note, save a recipe, clip a task — from your phone, your laptop, or straight from Notion, Craft, and Obsidian. inklet meets you where your ideas already live.",
+      "Text, a URL, an image, a PDF, a file. From the share sheet, a widget, Siri, a Shortcut, or the Action button — wherever you already are when you save something.",
     icons: true,
   },
   {
     number: "02",
-    title: "AI sorts it for you",
+    title: "Choose a display",
     description:
-      "Our on-device AI reads what you saved and figures out where it belongs. Work tasks route to your study. Recipes land in the kitchen. You never have to organize a thing.",
+      "You pick the room. inklet can suggest one when it's confident about where something belongs — but it never moves things on its own.",
     icons: false,
   },
   {
     number: "03",
-    title: "It just appears",
+    title: "Let it stay visible",
     description:
-      "No notification. No buzz. The right screen quietly updates with exactly what you need, when you need it. e-ink means no backlight, no eye strain — it sits in your space like a picture frame, not a gadget.",
+      "It stays on the panel until you replace it. No notification, no badge, nothing asking to be dismissed. e-ink means no backlight and no eye strain — it sits in your space like a picture frame, not a gadget.",
     icons: false,
   },
 ];
@@ -30,9 +30,15 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="py-32">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-center mb-20">
-          Three steps to calm clarity.
-        </h2>
+        <div className="text-center mb-20">
+          <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-4">
+            Feature
+          </p>
+          <h2 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light">
+            Send once. Look up.
+          </h2>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
           {steps.map((step) => (
             <div key={step.number}>
@@ -45,6 +51,7 @@ export default function HowItWorks() {
               <p className="text-[#666] leading-relaxed text-[15px]">
                 {step.description}
               </p>
+
               {step.icons && (
                 <div className="flex items-center gap-4 mt-6 text-[#999]">
                   <SiNotion size={20} title="Notion" />
@@ -55,9 +62,10 @@ export default function HowItWorks() {
                   </span>
                 </div>
               )}
+
               {step.number === "01" && (
                 <Link
-                  href="/store"
+                  href="/portal"
                   className="inline-block mt-4 text-xs text-[#aaa] hover:text-[#1a1a1a] transition-colors font-[family-name:var(--font-ibm-plex-mono)]"
                 >
                   Learn more →

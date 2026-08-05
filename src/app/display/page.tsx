@@ -1,4 +1,5 @@
 import DisplayHero from "@/components/DisplayHero";
+import DisplayProblem from "@/components/DisplayProblem";
 import HowItWorks from "@/components/HowItWorks";
 import DisplayBento from "@/components/DisplayBento";
 import DisplayVideo from "@/components/DisplayVideo";
@@ -38,8 +39,9 @@ export default function DisplayPage() {
   return (
     <>
       <DisplayHero />
-      <DisplayBento />
+      <DisplayProblem />
       <HowItWorks />
+      <DisplayBento />
       <RoomShowcase />
       <DisplayVideo />
       <Privacy />

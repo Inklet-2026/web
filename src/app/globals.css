@@ -126,6 +126,28 @@ html {
   to { width: 100%; }
 }
 
+/*
+ * The saved-things column on /display drifts past while the panel beside it
+ * holds still. The movement is the argument, not decoration — so it is slow,
+ * silent, and stops outright when the reader asks for less motion.
+ */
+@keyframes drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+.drift-track {
+  animation: drift 34s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drift-track { animation: none; }
+
+  /* The day showcase stops cycling and simply shows all three at once. */
+  .day-moment { opacity: 1 !important; }
+  .day-progress { animation: none !important; width: 100% !important; }
+}
+
 @keyframes showcase-hint-pulse {
   0%, 80%, 100% { opacity: 0.85; }
   90% { opacity: 0.3; }
