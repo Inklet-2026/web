@@ -1,6 +1,5 @@
 import Link from "next/link";
 import HomeHero from "@/components/HomeHero";
-import HomeDisplay from "@/components/HomeDisplay";
 import HomePortal from "@/components/HomePortal";
 import HomeSDK from "@/components/HomeSDK";
 import { getFaqJsonLd } from "@/lib/structured-data";
@@ -36,7 +35,6 @@ export default function Home() {
   return (
     <>
       <HomeHero />
-      <HomeDisplay />
       <HomePortal />
       <HomeSDK />
       <section className="py-32 text-center">
