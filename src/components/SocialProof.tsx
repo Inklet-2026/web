@@ -50,6 +50,38 @@ export default function SocialProof() {
           />
         </a>
 
+        {/* Uneed — Product of the Day */}
+        <a
+          href="https://www.uneed.best/tool/inklet"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt="inklet — Daily winner on Uneed"
+            width={639}
+            height={171}
+            src="https://www.uneed.best/POTD1A.png"
+            className="h-10 w-auto"
+          />
+        </a>
+
+        {/* Uneed — Product of the Week, 3rd */}
+        <a
+          href="https://www.uneed.best/tool/inklet"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt="inklet — Weekly winner, 3rd place on Uneed"
+            width={702}
+            height={171}
+            src="https://www.uneed.best/POTW3A.png"
+            className="h-10 w-auto"
+          />
+        </a>
+
         {/* Trustpilot */}
         <div
           ref={trustboxRef}
