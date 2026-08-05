@@ -32,7 +32,7 @@ export default function Footer() {
           <div>
             <Link
               href="/"
-              className="font-[family-name:var(--font-newsreader)] text-xl text-[#1a1a1a] tracking-wide"
+              className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl text-[#1a1a1a] tracking-wide"
             >
               inklet
             </Link>
