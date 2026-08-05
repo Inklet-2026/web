@@ -1,15 +1,7 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { HiOutlineCheck } from "react-icons/hi";
 
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/inklet";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 const bundles = [
   {
@@ -45,12 +37,7 @@ const bundles = [
 
 export default function StoreBundles() {
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      variants={fadeUp}
-    >
+    <div>
       <div className="text-center mb-10">
         <h2 className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light mb-2">
           More displays, more savings
@@ -129,6 +116,6 @@ export default function StoreBundles() {
           </div>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }

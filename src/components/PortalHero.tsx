@@ -1,11 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
+import { rise, riseIn } from "@/lib/motion";
 
 function DashboardMockup() {
   return (
@@ -102,7 +98,7 @@ export default function PortalHero() {
           <motion.p
             initial="hidden"
             animate="visible"
-            variants={fadeUp}
+            variants={rise}
             className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3"
           >
             Software
@@ -110,7 +106,7 @@ export default function PortalHero() {
           <motion.h1
             initial="hidden"
             animate="visible"
-            variants={fadeUp}
+            variants={rise}
             className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] mb-6"
           >
             inklet Portal
@@ -118,13 +114,7 @@ export default function PortalHero() {
           <motion.p
             initial="hidden"
             animate="visible"
-            variants={{
-              ...fadeUp,
-              visible: {
-                ...fadeUp.visible,
-                transition: { duration: 0.6, delay: 0.15 },
-              },
-            }}
+            variants={riseIn(0.15)}
             className="text-lg text-[#888] leading-relaxed max-w-lg"
           >
             Your cloud dashboard for ambient life. Manage what appears on every
@@ -134,13 +124,7 @@ export default function PortalHero() {
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={{
-              ...fadeUp,
-              visible: {
-                ...fadeUp.visible,
-                transition: { duration: 0.6, delay: 0.25 },
-              },
-            }}
+            variants={riseIn(0.25)}
             className="flex items-center gap-4 mt-8"
           >
             <a
@@ -162,13 +146,7 @@ export default function PortalHero() {
         <motion.div
           initial="hidden"
           animate="visible"
-          variants={{
-            ...fadeUp,
-            visible: {
-              ...fadeUp.visible,
-              transition: { duration: 0.6, delay: 0.3 },
-            },
-          }}
+          variants={riseIn(0.3)}
         >
           <DashboardMockup />
         </motion.div>

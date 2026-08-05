@@ -1,23 +1,9 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 export default function DisplayBento() {
   return (
     <section className="max-w-6xl mx-auto px-6 pt-8 pb-12">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={fadeUp}
-        className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[230px] gap-4"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[230px] gap-4">
         {/* Battery life */}
         <div className="bg-[#EFEDE7] rounded-[20px] p-8 flex flex-col justify-end min-h-[180px]">
           <div className="font-[family-name:var(--font-newsreader)] font-light text-[44px] leading-none">
@@ -80,7 +66,7 @@ export default function DisplayBento() {
             Send anything to the right screen, straight from your phone or laptop.
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

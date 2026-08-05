@@ -1,17 +1,9 @@
-"use client";
-
-import { motion } from "framer-motion";
 import {
   HiOutlineCalendar,
   HiOutlineChartBar,
   HiOutlinePencilAlt,
   HiOutlineRefresh,
 } from "react-icons/hi";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 const features = [
   {
@@ -41,13 +33,7 @@ export default function HomePortal() {
     <section className="py-48 bg-[#1a1a1a] text-[#f5f3ed]">
       <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-20">
         {/* Left — 2x2 feature grid */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={fadeUp}
-          className="grid grid-cols-2 gap-10 content-center"
-        >
+        <div className="grid grid-cols-2 gap-10 content-center">
           {features.map(({ Icon, title, desc }) => (
             <div key={title}>
               <Icon size={24} className="text-[#555] mb-3" />
@@ -55,16 +41,10 @@ export default function HomePortal() {
               <p className="text-xs text-[#666] leading-relaxed">{desc}</p>
             </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Right — title + description + button */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-          className="flex flex-col justify-center"
-        >
+        <div className="flex flex-col justify-center">
           <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3">
             Software
           </p>
@@ -84,7 +64,7 @@ export default function HomePortal() {
           >
             Get Started
           </a>
-        </motion.div>
+        </div>
 
       </div>
     </section>

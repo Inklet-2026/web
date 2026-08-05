@@ -1,14 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { HiOutlinePlus, HiOutlineMinus } from "react-icons/hi";
 import { faqItems, type FAQItem } from "@/data/faq";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 function FAQAccordionItem({
   question,
@@ -35,8 +29,7 @@ function FAQAccordionItem({
           <HiOutlinePlus className="shrink-0 text-[#aaa]" size={18} />
         )}
       </button>
-      <div
-        className={`overflow-hidden transition-all duration-300 ${
+      <div className={`overflow-hidden transition-all duration-300 ${
           open ? "max-h-96 pb-5" : "max-h-0"
         }`}
       >
@@ -81,22 +74,11 @@ export default function FAQ({
         />
       )}
       <div className="max-w-3xl mx-auto px-6">
-        <motion.h2
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-          className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-center mb-16"
-        >
+        <h2 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-center mb-16">
           {title}
-        </motion.h2>
+        </h2>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={fadeUp}
-        >
+        <div>
           {items.map((item) => (
             <FAQAccordionItem
               key={item.question}
@@ -104,7 +86,7 @@ export default function FAQ({
               answer={item.answer}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

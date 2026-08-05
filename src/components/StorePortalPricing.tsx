@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { HiOutlineCheck } from "react-icons/hi";
 import {
   HiOutlineCalendar,
@@ -9,11 +8,6 @@ import {
   HiOutlinePencilAlt,
   HiOutlineRefresh,
 } from "react-icons/hi";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 const pricing = {
   yearly: { price: "$100", period: "/yr", note: "$8.33/mo" },
@@ -55,13 +49,7 @@ export default function StorePortalPricing() {
   const current = pricing[tab];
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      variants={fadeUp}
-      className="bg-[#1a1a1a] text-[#f5f3ed] rounded-3xl overflow-hidden"
-    >
+    <div className="bg-[#1a1a1a] text-[#f5f3ed] rounded-3xl overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 p-10 md:p-16">
         {/* Left — pricing */}
         <div>
@@ -153,6 +141,6 @@ export default function StorePortalPricing() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

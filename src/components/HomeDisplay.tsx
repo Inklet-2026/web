@@ -2,12 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 const highlights = [
   "E-ink — no backlight, no eye strain",
@@ -19,13 +13,7 @@ export default function HomeDisplay() {
   return (
     <section className="py-20 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-          className="order-2 lg:order-1"
-        >
+        <div className="order-2 lg:order-1">
           <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-3">
             Display
           </p>
@@ -54,12 +42,8 @@ export default function HomeDisplay() {
           >
             Discover more →
           </Link>
-        </motion.div>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
+        </div>
+        <div
           className="order-1 lg:order-2"
           style={{
             WebkitMaskImage:
@@ -78,7 +62,7 @@ export default function HomeDisplay() {
             className="w-[115%] max-w-none"
             priority
           />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { rise, riseIn } from "@/lib/motion";
 import {
   HiOutlineLightBulb,
   HiOutlineEye,
@@ -9,16 +10,6 @@ import {
 } from "react-icons/hi";
 import EInkDisplay from "@/components/EInkDisplay";
 import { screens } from "@/data/screens";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-};
-
-const delayed = (delay: number) => ({
-  ...fadeUp,
-  visible: { ...fadeUp.visible, transition: { duration: 0.8, delay } },
-});
 
 const pillars = [
   { Icon: HiOutlineLightBulb, text: "Contextual, not chaotic" },
@@ -38,7 +29,7 @@ export default function HomeHero() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Headline row — title on the left, award + tagline on the right */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-end pt-16 md:pt-28 pb-16 md:pb-24">
-          <motion.div initial="hidden" animate="visible" variants={fadeUp}>
+          <motion.div initial="hidden" animate="visible" variants={rise}>
             <h1 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.15]">
               Your second brain,
               <br />
@@ -60,7 +51,7 @@ export default function HomeHero() {
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={delayed(0.2)}
+            variants={riseIn(0.2)}
             className="flex flex-col items-start lg:items-end gap-4 shrink-0"
           >
             <a
@@ -96,7 +87,7 @@ export default function HomeHero() {
         <motion.div
           initial="hidden"
           animate="visible"
-          variants={delayed(0.35)}
+          variants={riseIn(0.35)}
           className="rounded-[28px] border border-[#e5e1d5] bg-[#efece4]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-10 lg:gap-14 items-center p-8 md:p-12 lg:p-14">

@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 
 const features = [
   {
@@ -23,33 +20,18 @@ const features = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
 export default function PortalFeatures() {
   return (
     <section className="py-32">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.h2
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-          className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-center mb-20"
-        >
+        <h2 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-center mb-20">
           Your displays, orchestrated.
-        </motion.h2>
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
           {features.map((feature) => (
-            <motion.div
+            <div
               key={feature.number}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              variants={fadeUp}
             >
               <span className="font-[family-name:var(--font-ibm-plex-mono)] text-sm text-[#555] tracking-wider">
                 {feature.number}
@@ -60,7 +42,7 @@ export default function PortalFeatures() {
               <p className="text-[#888] leading-relaxed text-[15px]">
                 {feature.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,15 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { SiApple } from "react-icons/si";
 import { TbBrandWindows, TbWorld } from "react-icons/tb";
 import type { IconType } from "react-icons";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 type PlatformId = "macos" | "ios" | "windows" | "web";
 
@@ -72,32 +66,14 @@ export default function PortalDownload() {
   return (
     <section id="download" className="py-32">
       <div className="max-w-4xl mx-auto px-6">
-        <motion.p
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-          className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light text-center mb-4"
-        >
+        <p className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light text-center mb-4">
           Ready to orchestrate your ambient life?
-        </motion.p>
-        <motion.p
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-          className="text-sm text-[#888] text-center mb-14 max-w-lg mx-auto leading-relaxed"
-        >
+        </p>
+        <p className="text-sm text-[#888] text-center mb-14 max-w-lg mx-auto leading-relaxed">
           Desktop apps push content and sync notes. The web dashboard manages all your devices and knowledge base. iOS adds display pairing.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={fadeUp}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6"
-        >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
           {platforms.map((p) => {
             const isPrimary = p.id === detected;
             return (
@@ -152,7 +128,7 @@ export default function PortalDownload() {
               </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

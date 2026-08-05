@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 interface Room {
   label: string;
@@ -118,41 +115,20 @@ export default function RoomShowcase() {
   return (
     <section id="use-cases" className="bg-[#1a1a1a] py-28">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.h2
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-          }}
-          className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-[#f5f3ed] text-center mb-16"
-        >
+        <h2 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-[#f5f3ed] text-center mb-16">
           One brain, every room.
-        </motion.h2>
-
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-8">
-          {ROOMS.map((room, i) => (
-            <motion.div
+          {ROOMS.map((room) => (
+            <div
               key={room.label}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.6, delay: i * 0.12 },
-                },
-              }}
               className="flex flex-col items-center"
             >
               <DeviceCard room={room} />
               <p className="mt-5 text-sm text-[#a8a39a] text-center">
                 {room.caption}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

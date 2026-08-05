@@ -1,14 +1,6 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { SiObsidian, SiLogseq, SiNotion } from "react-icons/si";
 import { TbBrandCraft } from "react-icons/tb";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 const items = [
   {
@@ -59,12 +51,8 @@ export default function PortalShowcase() {
     <section className="py-32">
       <div className="max-w-6xl mx-auto px-6 space-y-40">
         {items.map((item, i) => (
-          <motion.div
+          <div
             key={item.label}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUp}
             className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
               i % 2 === 1 ? "lg:[direction:rtl]" : ""
             }`}
@@ -121,7 +109,7 @@ export default function PortalShowcase() {
                 </div>
               )}
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

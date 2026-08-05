@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/structured-data";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -74,9 +75,11 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#f5f3ed] text-[#1a1a1a] font-[family-name:var(--font-inter)] antialiased">
-        <Nav />
-        <main>{children}</main>
-        <Footer />
+        <MotionProvider>
+          <Nav />
+          <main>{children}</main>
+          <Footer />
+        </MotionProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -1,11 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 const highlights = [
   "Push API — send content to any display",
@@ -80,12 +72,7 @@ export default function HomeSDK() {
   return (
     <section className="py-32">
       <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-        >
+        <div>
           <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-3">
             SDK
           </p>
@@ -111,16 +98,11 @@ export default function HomeSDK() {
           <span className="inline-flex items-center text-sm text-[#aaa] border border-[#e8e5db] px-6 py-3 rounded-full cursor-default select-none">
             Coming Soon
           </span>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-        >
+        <div>
           <CodePreview />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

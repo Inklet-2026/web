@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import FAQ from "@/components/FAQ";
 import SocialProof from "@/components/SocialProof";
 import { disambiguationFaq } from "@/data/about-faq";
@@ -14,18 +11,6 @@ const TEAM = [
   { name: "Christian Wang", role: "Embedded Engineer", initials: "CW" },
   { name: "Tony Qiu", role: "Backend Engineer", initials: "TQ" },
 ];
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
-const inView = {
-  initial: "hidden",
-  whileInView: "visible",
-  viewport: { once: true, margin: "-80px" },
-  variants: fadeUp,
-} as const;
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -41,7 +26,7 @@ export default function About() {
       {/* Hero — the story hook */}
       <section className="pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">
-          <motion.div {...inView} className="max-w-3xl">
+          <div className="max-w-3xl">
             <Eyebrow>Company</Eyebrow>
             <h1 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light leading-[1.12] mt-5 mb-8">
               Your information, out of your pocket — and into your space.
@@ -65,20 +50,20 @@ export default function About() {
               shows you the right thing at the right moment — and then gets out of
               the way.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Philosophy — heading left */}
       <section className="border-t border-[#e8e5db] py-24">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-12 gap-8 md:gap-12">
-          <motion.div {...inView} className="md:col-span-4">
+          <div className="md:col-span-4">
             <Eyebrow>Why we build this</Eyebrow>
             <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-[34px] font-light leading-[1.25] mt-4">
               Information should find you, not the other way around.
             </h2>
-          </motion.div>
-          <motion.div {...inView} className="md:col-span-8 md:pt-1">
+          </div>
+          <div className="md:col-span-8 md:pt-1">
             <p className="text-[#666] leading-[1.8] mb-5">
               Everything you need to know already exists somewhere — a note, a
               document, a calendar, a list. But it&apos;s trapped behind a glowing
@@ -93,20 +78,20 @@ export default function About() {
               where you already are — the kitchen, the desk, the hallway — without
               a notification, a feed, or a fight for your focus.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Vision — heading right (staggered) */}
       <section className="border-t border-[#e8e5db] py-24">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-12 gap-8 md:gap-12">
-          <motion.div {...inView} className="md:col-span-4 md:order-2">
+          <div className="md:col-span-4 md:order-2">
             <Eyebrow>Where we&apos;re headed</Eyebrow>
             <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-[34px] font-light leading-[1.25] mt-4">
               Ambient by default. Private by design.
             </h2>
-          </motion.div>
-          <motion.div {...inView} className="md:col-span-8 md:order-1 md:pt-1">
+          </div>
+          <div className="md:col-span-8 md:order-1 md:pt-1">
             <p className="text-[#666] leading-[1.8] mb-5">
               We&apos;re building toward a home where computing recedes into the
               background — where a handful of ambient displays, coordinated by AI
@@ -119,23 +104,20 @@ export default function About() {
               that last months on a charge. To us, privacy isn&apos;t a feature we
               add later — it&apos;s the foundation everything else is built on.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Team — a small team, on purpose */}
       <section className="border-t border-[#e8e5db] py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <motion.div {...inView} className="text-center mb-14">
+          <div className="text-center mb-14">
             <Eyebrow>Team</Eyebrow>
             <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mt-4">
               A small team, on purpose.
             </h2>
-          </motion.div>
-          <motion.div
-            {...inView}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-4"
-          >
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {TEAM.map((m) => (
               <div
                 key={m.name}
@@ -148,7 +130,7 @@ export default function About() {
                 <div className="text-sm text-[#999] mt-1">{m.role}</div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -164,16 +146,10 @@ export default function About() {
       {/* CTA */}
       <section className="border-t border-[#e8e5db] py-28 text-center">
         <div className="max-w-6xl mx-auto px-6">
-          <motion.p
-            {...inView}
-            className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light mb-8"
-          >
+          <p className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light mb-8">
             Love what we&apos;re making?
-          </motion.p>
-          <motion.div
-            {...inView}
-            className="flex flex-wrap items-center justify-center gap-4"
-          >
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href={KICKSTARTER_URL}
               target="_blank"
@@ -188,7 +164,7 @@ export default function About() {
             >
               Contact us
             </a>
-          </motion.div>
+          </div>
         </div>
       </section>
 
