@@ -1,72 +1,22 @@
+import Link from "next/link";
+import CodeBlock from "@/components/CodeBlock";
 
 const highlights = [
-  "Push API — send content to any display",
-  "TypeScript & Python SDKs",
-  "Works with Portal cloud and local compute hub",
+  "One call puts words on a wall",
+  "Server-side TypeScript, fully typed",
+  "Portal cloud, or your own Compute Hub",
 ];
 
-function CodePreview() {
-  return (
-    <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden">
-      {/* Terminal dots */}
-      <div className="flex items-center gap-1.5 px-4 py-3 border-b border-[#2a2a2a]">
-        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-      </div>
-      {/* Code */}
-      <pre className="p-5 text-[13px] leading-relaxed font-[family-name:var(--font-ibm-plex-mono)] overflow-x-auto">
-        <code>
-          <span className="text-[#7aa2f7]">import</span>
-          <span className="text-[#888]">{" { "}</span>
-          <span className="text-[#f5f3ed]">Inklet</span>
-          <span className="text-[#888]">{" } "}</span>
-          <span className="text-[#7aa2f7]">from</span>
-          <span className="text-[#9ece6a]"> &apos;@inklet/sdk&apos;</span>
-          {"\n\n"}
-          <span className="text-[#7aa2f7]">const</span>
-          <span className="text-[#f5f3ed]"> inklet </span>
-          <span className="text-[#888]">= </span>
-          <span className="text-[#7aa2f7]">new</span>
-          <span className="text-[#f5f3ed]"> Inklet</span>
-          <span className="text-[#888]">{"({ "}</span>
-          <span className="text-[#bb9af7]">apiKey</span>
-          <span className="text-[#888]">: </span>
-          <span className="text-[#9ece6a]">&apos;il_...&apos;</span>
-          <span className="text-[#888]">{" })"}</span>
-          {"\n\n"}
-          <span className="text-[#7aa2f7]">await</span>
-          <span className="text-[#f5f3ed]"> inklet.content.</span>
-          <span className="text-[#7aa2f7]">push</span>
-          <span className="text-[#888]">{"({"}</span>
-          {"\n"}
-          <span className="text-[#bb9af7]">  type</span>
-          <span className="text-[#888]">: </span>
-          <span className="text-[#9ece6a]">&apos;markdown&apos;</span>
-          <span className="text-[#888]">,</span>
-          {"\n"}
-          <span className="text-[#bb9af7]">  body</span>
-          <span className="text-[#888]">: </span>
-          <span className="text-[#9ece6a]">&apos;# Grocery List\n- Milk\n- Eggs&apos;</span>
-          <span className="text-[#888]">,</span>
-          {"\n"}
-          <span className="text-[#bb9af7]">  metadata</span>
-          <span className="text-[#888]">{": { "}</span>
-          <span className="text-[#bb9af7]">tags</span>
-          <span className="text-[#888]">: [</span>
-          <span className="text-[#9ece6a]">&apos;kitchen&apos;</span>
-          <span className="text-[#888]">{"] },"}</span>
-          {"\n"}
-          <span className="text-[#bb9af7]">  ttl</span>
-          <span className="text-[#888]">: </span>
-          <span className="text-[#9ece6a]">&apos;24h&apos;</span>
-          {"\n"}
-          <span className="text-[#888]">{"})"}</span>
-        </code>
-      </pre>
-    </div>
-  );
-}
+const EXAMPLE = `import { Inklet } from "@inklethq/sdk";
+
+const inklet = new Inklet({ pat: process.env.INKLET_PAT! });
+
+await inklet.push.auto({
+  title: "Grocery list",
+  assets: [
+    inklet.assets.text("Milk, eggs, coffee"),
+  ],
+});`;
 
 export default function HomeSDK() {
   return (
@@ -80,9 +30,9 @@ export default function HomeSDK() {
             inklet Portal SDK
           </h2>
           <p className="text-[#666] leading-relaxed mb-6 max-w-md">
-            Build custom integrations for your inklet displays. Push content from
-            any source through a simple API — your data, your workflow, your
-            displays.
+            Build custom integrations for your inklet displays. Hand the SDK
+            text, a link, an image, or a PDF — Inklet does the layout, picks the
+            room, and renders for the panel.
           </p>
           <ul className="space-y-2 mb-8">
             {highlights.map((h) => (
@@ -95,13 +45,16 @@ export default function HomeSDK() {
               </li>
             ))}
           </ul>
-          <span className="inline-flex items-center text-sm text-[#aaa] border border-[#e8e5db] px-6 py-3 rounded-full cursor-default select-none">
-            Coming Soon
-          </span>
+          <Link
+            href="/developers"
+            className="inline-flex items-center px-6 py-3 bg-[#1a1a1a] text-[#f5f3ed] rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
+          >
+            Explore the SDK
+          </Link>
         </div>
 
         <div>
-          <CodePreview />
+          <CodeBlock code={EXAMPLE} />
         </div>
       </div>
     </section>

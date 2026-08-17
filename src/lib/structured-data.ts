@@ -1,4 +1,5 @@
 import { faqItems } from "@/data/faq";
+import { GITHUB_URL, PACKAGE_NAME, SDK_VERSION } from "@/data/sdk";
 
 const KICKSTARTER_URL = "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
@@ -290,6 +291,27 @@ export function getPortalJsonLd() {
           description: "inklet Portal annual subscription — save 17%",
         },
       ],
+    },
+  };
+}
+
+export function getSdkJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "inklet Portal SDK",
+    alternateName: PACKAGE_NAME,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Node.js 20+",
+    softwareVersion: SDK_VERSION,
+    programmingLanguage: "TypeScript",
+    codeRepository: GITHUB_URL,
+    description:
+      "Server-side TypeScript SDK for inklet e-ink displays — push text, links, images, and PDFs, and let Inklet handle layout, routing, and rendering.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
     },
   };
 }

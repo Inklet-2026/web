@@ -9,7 +9,7 @@ const navLinks: { label: string; href?: string; soon?: boolean }[] = [
   { label: "Display", href: "/display" },
   { label: "Hub", href: "/hub" },
   { label: "Portal", href: "/portal" },
-  { label: "SDK", soon: true },
+  { label: "SDK", href: "/developers" },
   { label: "Store", href: "/store" },
   { label: "About", href: "/about" },
 ];
@@ -17,12 +17,15 @@ const navLinks: { label: string; href?: string; soon?: boolean }[] = [
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
+/** Pages that open on ink rather than paper, so the nav starts light on them. */
+const DARK_PAGES = ["/portal", "/developers"];
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const isDarkPage = pathname === "/portal";
+  const isDarkPage = DARK_PAGES.includes(pathname);
   const lightNav = isDarkPage && !scrolled;
 
   useEffect(() => {

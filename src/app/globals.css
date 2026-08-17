@@ -121,6 +121,20 @@ html {
   text-decoration-color: #666;
 }
 
+/*
+ * Shiki hands back the snippet as a string of markup, so its presentation is
+ * set here instead of in the component's classes. The theme's own background
+ * is stripped in CodeBlock; the container supplies one.
+ */
+.shiki-block .shiki {
+  background: transparent;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-family: var(--font-ibm-plex-mono);
+  font-size: 12.5px;
+  line-height: 1.8;
+}
+
 @keyframes progress {
   from { width: 0%; }
   to { width: 100%; }
