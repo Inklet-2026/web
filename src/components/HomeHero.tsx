@@ -27,7 +27,8 @@ export default function HomeHero() {
   return (
     <section className="pt-16 mb-32">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Headline row — title on the left, award + tagline on the right */}
+        {/* Headline row — title and what we build on the left,
+            award and the three pillars stacked on the right */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-end pt-16 md:pt-28 pb-16 md:pb-24">
           <motion.div initial="hidden" animate="visible" variants={rise}>
             <h1 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.15]">
@@ -35,24 +36,17 @@ export default function HomeHero() {
               <br />
               on e-ink displays.
             </h1>
-            <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3">
-              {pillars.map(({ Icon, text }) => (
-                <div
-                  key={text}
-                  className="flex items-center gap-2.5 text-sm text-[#888]"
-                >
-                  <Icon size={18} className="shrink-0 text-[#aaa]" />
-                  <span>{text}</span>
-                </div>
-              ))}
-            </div>
+            <p className="mt-7 max-w-xl text-[#666] leading-relaxed">
+              inklet builds connected e-ink displays and software that bring
+              useful information into the spaces where you live and work.
+            </p>
           </motion.div>
 
           <motion.div
             initial="hidden"
             animate="visible"
             variants={riseIn(0.2)}
-            className="flex flex-col items-start lg:items-end gap-4 shrink-0"
+            className="flex flex-col items-start lg:items-end gap-6 shrink-0"
           >
             <a
               href="https://www.uneed.best/tool/inklet"
@@ -69,10 +63,20 @@ export default function HomeHero() {
                 className="w-[160px] sm:w-[175px] h-auto"
               />
             </a>
-            <p className="text-sm text-[#aaa] leading-relaxed lg:text-right">
-              Information should find you,
-              <br className="hidden sm:block" /> not the other way around.
-            </p>
+
+            {/* Left-aligned inside, so the icons line up; the block itself
+                sits flush right under the badge. */}
+            <div className="flex flex-col items-start gap-3">
+              {pillars.map(({ Icon, text }) => (
+                <div
+                  key={text}
+                  className="flex items-center gap-2.5 text-sm text-[#888]"
+                >
+                  <Icon size={18} className="shrink-0 text-[#aaa]" />
+                  <span>{text}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
