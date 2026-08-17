@@ -1,13 +1,23 @@
 import Link from "next/link";
+import { SiX, SiDiscord, SiGithub } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa6";
+import type { IconType } from "react-icons";
 
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/inklet";
+
+const socialLinks: { label: string; href: string; Icon: IconType }[] = [
+  { label: "X", href: "https://x.com/inkletLLC", Icon: SiX },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/inklet", Icon: FaLinkedin },
+  { label: "Discord", href: "https://discord.gg/pEpJSqMP7V", Icon: SiDiscord },
+  { label: "GitHub", href: "https://github.com/inklethq", Icon: SiGithub },
+];
 
 const productLinks = [
   { label: "Display D1", href: "/display" },
   { label: "Compute Hub H1", href: "/store#hub" },
   { label: "Portal", href: "/portal" },
-  { label: "Portal SDK", href: "/developers", soon: true },
+  { label: "Portal SDK", href: "/developers" },
 ];
 
 const companyLinks = [
@@ -39,6 +49,21 @@ export default function Footer() {
             <p className="text-sm text-[#888] mt-3 leading-relaxed max-w-[240px]">
               Ambient e-ink displays for your second brain.
             </p>
+
+            <div className="flex items-center gap-4 mt-6">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-[#aaa] hover:text-[#1a1a1a] transition-colors"
+                >
+                  <Icon size={17} />
+                </a>
+              ))}
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-x-16 gap-y-10 md:gap-24">
