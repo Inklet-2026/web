@@ -8,7 +8,7 @@ import type { IconType } from "react-icons";
 type PlatformId = "macos" | "ios" | "windows" | "web";
 
 const RELEASE_VERSION = "0.1.0";
-const RELEASE_BASE = `https://github.com/Inklet-2026/app/releases/download/v${RELEASE_VERSION}`;
+const RELEASE_BASE = `https://github.com/inklethq/app/releases/download/v${RELEASE_VERSION}`;
 
 const platforms: {
   id: PlatformId;
