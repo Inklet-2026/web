@@ -178,10 +178,12 @@ export default function About() {
               Back us on Kickstarter →
             </a>
             <a
-              href="mailto:core@iminklet.com"
+              href="https://discord.gg/pEpJSqMP7V"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-4 border border-[#e8e5db] text-[#666] rounded-full text-sm font-medium hover:border-[#ccc] hover:text-[#1a1a1a] transition-colors"
             >
-              Contact us
+              Join us on Discord
             </a>
           </div>
         </div>
