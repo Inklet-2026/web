@@ -1,7 +1,17 @@
 export type JournalBlock =
   | { type: "paragraph"; text: string }
   | { type: "heading"; text: string }
-  | { type: "quote"; text: string };
+  | { type: "quote"; text: string }
+  | {
+      type: "code";
+      code: string;
+      lang?: string;
+      filename?: string;
+    }
+  | {
+      type: "links";
+      links: { label: string; href: string }[];
+    };
 
 export interface JournalPost {
   slug: string;
@@ -28,35 +38,150 @@ export interface JournalPost {
 export const journalPosts: JournalPost[] = [
   {
     slug: "v0-1-is-coming",
-    category: "Update",
-    title: "v0.1 is coming.",
+    category: "SDK release",
+    title: "Introducing inklet SDK v0.1",
     excerpt:
-      "A first look at what we are preparing for the next inklet SDK release. Placeholder copy for now — more details soon.",
-    publishedAt: "2026-08-25",
-    readingTime: "2 min read",
+      "@inklethq/sdk v0.1 is now available: a typed, server-side SDK for sending text, links, images, and files to inklet e-ink displays.",
+    publishedAt: "2026-08-26",
+    readingTime: "7 min read",
     author: "inklet team",
     featured: true,
     image: "/v0.1-pencil-sketch.png",
-    imageAlt: "inklet SDK v0.1 is coming",
+    imageAlt:
+      "The original pencil sketch announcing the inklet SDK v0.1 release",
     screen: {
       subtitle: "inklet SDK",
-      title: "v0.1 is coming.",
+      title: "v0.1 is here.",
       detail: "npm install @inklethq/sdk",
-      stamp: "Aug 25 16:16",
-      alt: "inklet SDK v0.1 release placeholder",
+      stamp: "Aug 26 09:00",
+      alt: "inklet SDK v0.1 release announcement",
     },
     blocks: [
       {
         type: "paragraph",
-        text: "We are preparing the next public version of the inklet SDK. This post is placeholder content while we finish the release notes and examples.",
-      },
-      {
-        type: "heading",
-        text: "What is coming",
+        text: "The pencil sketch above began as our way of saying v0.1 was coming. It is here now. @inklethq/sdk 0.1.0 is available on npm, with a new documentation site that covers the complete public surface from the first token to the frame a display confirms on the wall.",
       },
       {
         type: "paragraph",
-        text: "The final article will cover the release, the decisions behind it, and the quickest way to put useful information on an inklet display.",
+        text: "This is the first public developer-preview release of the inklet SDK: a typed, server-side JavaScript and TypeScript client for turning text, links, images, and files into content for inklet e-ink displays. It ships ESM and CommonJS builds together, includes its own TypeScript declarations, and supports Node.js 20 and newer.",
+      },
+      {
+        type: "code",
+        lang: "bash",
+        code: "npm install @inklethq/sdk",
+      },
+      {
+        type: "heading",
+        text: "One package, four nouns",
+      },
+      {
+        type: "paragraph",
+        text: "The API is built around four things. A Display is a physical panel bound to your account. An Asset is one raw input: text, a link, an image, or a file. A Content is the submission that holds those assets and your intent. A Presentation is the finished frame rendered for one Display, available as PNG, RAW2, or RAW4 when the panel supports it.",
+      },
+      {
+        type: "paragraph",
+        text: "The high-level push methods connect those pieces. They validate assets in your process, create the Content, upload binary files directly to temporary storage, retry a failed upload once, confirm the Content, and return an idempotency key you can safely reuse. What remains is choosing how much of the decision belongs to inklet and how much belongs to you.",
+      },
+      {
+        type: "code",
+        lang: "ts",
+        filename: "brief.ts",
+        code: `import { Inklet } from "@inklethq/sdk";
+
+const inklet = new Inklet({ pat: process.env.INKLET_PAT! });
+
+const result = await inklet.push.auto({
+  title: "Daily brief",
+  intent: "Make the key update easy to scan",
+  assets: [
+    inklet.assets.text("Revenue is up 12% week over week."),
+    inklet.assets.link("https://example.com/report"),
+  ],
+});
+
+console.log(result.contentId, result.state);`,
+      },
+      {
+        type: "heading",
+        text: "Three ways to push",
+      },
+      {
+        type: "paragraph",
+        text: "Auto Push lets inklet choose both the compatible displays and the layout. It is the shortest path from useful source material to the right room: send between one and fifty assets, add an optional sentence of intent, and let inklet route and typeset the result. Auto uses inklet AI and requires Pro.",
+      },
+      {
+        type: "paragraph",
+        text: "Manual Push keeps the routing decision with you. You provide a display ID, while inklet still fetches links, understands and summarizes the assets, and builds the layout. Because that processing still uses inklet AI, Manual also requires Pro.",
+      },
+      {
+        type: "paragraph",
+        text: "Hardcode Push is the direct path. You provide exactly one finished PNG or JPEG and the target display; inklet scales it to the panel output without summarizing or redesigning it. Hardcode is available on both Free and Pro, which makes it the starting point for custom renderers, generated dashboards, and pixel-controlled experiments.",
+      },
+      {
+        type: "quote",
+        text: "Auto chooses the room and the layout. Manual lets you choose the room. Hardcode lets you choose the pixels.",
+      },
+      {
+        type: "heading",
+        text: "Server-only by design",
+      },
+      {
+        type: "paragraph",
+        text: "The SDK authenticates with a personal access token issued in the inklet Portal. A PAT is a server credential, so the client refuses to construct in a browser environment before any request is made. The same guard runs again for requests and uploads, helping stop an accidental client import from turning into a leaked token.",
+      },
+      {
+        type: "paragraph",
+        text: "Authenticated requests are restricted to relative paths on the configured inklet service, and redirects are refused. Binary assets travel directly to short-lived presigned storage URLs without the PAT attached. If a backend message contains the token, the SDK redacts it before exposing the error. The default address is the developer-preview cloud service, while baseUrl can point the same client at a local Compute Hub.",
+      },
+      {
+        type: "heading",
+        text: "A push is a request, not a render",
+      },
+      {
+        type: "paragraph",
+        text: "A successful push usually returns while its Content is still processing, before Presentation IDs exist. That is intentional. Summarizing, routing, typesetting, rendering, and delivery happen asynchronously, and the physical display shows the frame the next time it wakes and asks for work.",
+      },
+      {
+        type: "paragraph",
+        text: "v0.1 exposes that lifecycle instead of hiding it. Contents move from pending to processing and then ready or failed. Presentations move from preparing to queued, published, and confirmed. You can inspect processing stages, poll for the finished frame, read a display's next sync time, and distinguish a rendered image from one the panel has actually confirmed.",
+      },
+      {
+        type: "heading",
+        text: "Small enough to understand, complete enough to build with",
+      },
+      {
+        type: "paragraph",
+        text: "Beyond push, the release includes read APIs for Displays, their queues and current frames, Contents, and Presentations. Asset builders validate inputs before a network request: up to 50 assets per Content and 10 MiB for each binary. Presentation images can be requested as PNG, RAW2, or RAW4 according to a display's capabilities.",
+      },
+      {
+        type: "paragraph",
+        text: "Every SDK error extends InkletError and preserves the backend code, HTTP status, request ID, and structured details. Configuration and browser-environment mistakes fail locally. Authentication, permissions, subscription requirements, rate limits, upload failures, and network errors remain distinct classes so an integration can decide what to fix, what to surface, and what is safe to retry.",
+      },
+      {
+        type: "paragraph",
+        text: "The surface is deliberately compact, and 0.x means it can still evolve. Our goal for v0.1 is not to predict every integration. It is to make the path from a useful idea to a quiet physical frame clear, typed, observable, and open enough for other people to build on.",
+      },
+      {
+        type: "heading",
+        text: "Start with one useful thing",
+      },
+      {
+        type: "paragraph",
+        text: "Install the package, create a PAT in Portal, and send the one piece of information you wish already had a place in the room. The full guides cover authentication, plans, lifecycle, every push mode, and the lower-level resource APIs when you are ready to go further.",
+      },
+      {
+        type: "links",
+        links: [
+          { label: "Read the docs", href: "https://docs.iminklet.com" },
+          {
+            label: "View on npm",
+            href: "https://www.npmjs.com/package/@inklethq/sdk",
+          },
+          {
+            label: "Explore on GitHub",
+            href: "https://github.com/inklethq/sdk",
+          },
+        ],
       },
     ],
   },

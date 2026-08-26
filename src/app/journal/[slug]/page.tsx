@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import CodeBlock from "@/components/CodeBlock";
 import JournalArtwork from "@/components/JournalArtwork";
 import {
   formatJournalDate,
@@ -263,6 +264,43 @@ export default async function JournalPostPage({ params }: JournalPostPageProps) 
                 >
                   {block.text}
                 </blockquote>
+              );
+            }
+
+            if (block.type === "code") {
+              return (
+                <CodeBlock
+                  key={`${block.type}-${index}`}
+                  code={block.code}
+                  lang={block.lang}
+                  filename={block.filename}
+                  className="my-8 md:my-10"
+                />
+              );
+            }
+
+            if (block.type === "links") {
+              return (
+                <div
+                  key={`${block.type}-${index}`}
+                  className="flex flex-wrap gap-3 mt-8 mb-4"
+                >
+                  {block.links.map((link, linkIndex) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center rounded-full px-6 py-3 text-sm font-medium transition-colors ${
+                        linkIndex === 0
+                          ? "bg-[#1a1a1a] text-[#f5f3ed] hover:bg-[#333]"
+                          : "border border-[#dedbd2] text-[#666] hover:border-[#bbb] hover:text-[#1a1a1a]"
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
               );
             }
 
