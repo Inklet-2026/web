@@ -3,9 +3,6 @@ import { SiX, SiDiscord, SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
 import type { IconType } from "react-icons";
 
-const KICKSTARTER_URL =
-  "https://www.kickstarter.com/projects/clckkkkk/inklet";
-
 const socialLinks: { label: string; href: string; Icon: IconType }[] = [
   { label: "X", href: "https://x.com/inkletLLC", Icon: SiX },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/inklet", Icon: FaLinkedin },
@@ -22,9 +19,8 @@ const productLinks = [
 
 const companyLinks = [
   { label: "About", href: "/about" },
+  { label: "Journal", href: "/journal" },
   { label: "Store", href: "/store" },
-  { label: "Kickstarter", href: KICKSTARTER_URL, external: true },
-  { label: "Product Hunt", href: "https://www.producthunt.com/products/inklet", external: true },
   { label: "Contact Us", href: "mailto:core@iminklet.com" },
 ];
 
@@ -101,15 +97,13 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {companyLinks.map((link) => (
                   <li key={link.href}>
-                    {"external" in link ? (
-                      <a
+                    {link.href.startsWith("/") ? (
+                      <Link
                         href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="text-sm text-[#666] hover:text-[#1a1a1a] transition-colors"
                       >
                         {link.label}
-                      </a>
+                      </Link>
                     ) : (
                       <a
                         href={link.href}

@@ -11,6 +11,7 @@ const navLinks: { label: string; href?: string; soon?: boolean }[] = [
   { label: "Portal", href: "/portal" },
   { label: "SDK", href: "/developers" },
   { label: "Store", href: "/store" },
+  { label: "Journal", href: "/journal" },
   { label: "About", href: "/about" },
 ];
 
@@ -34,10 +35,6 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -49,6 +46,7 @@ export default function Nav() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link
           href="/"
+          onClick={() => setMenuOpen(false)}
           className={`font-[family-name:var(--font-newsreader)] text-xl tracking-wide transition-colors ${
             lightNav ? "text-[#f5f3ed]" : "text-[#1a1a1a]"
           }`}
@@ -57,8 +55,12 @@ export default function Nav() {
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) =>
-            link.soon ? (
+          {navLinks.map((link) => {
+            const active =
+              pathname === link.href ||
+              (link.href !== "/" && pathname.startsWith(`${link.href}/`));
+
+            return link.soon ? (
               <span
                 key={link.label}
                 className={`text-sm cursor-default select-none ${
@@ -78,8 +80,9 @@ export default function Nav() {
               <Link
                 key={link.label}
                 href={link.href!}
+                onClick={() => setMenuOpen(false)}
                 className={`text-sm transition-colors ${
-                  pathname === link.href
+                  active
                     ? lightNav
                       ? "text-[#f5f3ed]"
                       : "text-[#1a1a1a]"
@@ -90,12 +93,13 @@ export default function Nav() {
               >
                 {link.label}
               </Link>
-            )
-          )}
+            );
+          })}
           <a
             href={KICKSTARTER_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
             className={`rounded-full px-5 py-2 text-[13px] font-medium transition-colors ${
               lightNav
                 ? "bg-[#f5f3ed] text-[#1a1a1a] hover:bg-white"
@@ -119,8 +123,12 @@ export default function Nav() {
 
       {menuOpen && (
         <div className="md:hidden bg-[#f5f3ed]/95 backdrop-blur-md border-t border-[#e8e5db] px-6 pb-6 pt-4 space-y-4">
-          {navLinks.map((link) =>
-            link.soon ? (
+          {navLinks.map((link) => {
+            const active =
+              pathname === link.href ||
+              (link.href !== "/" && pathname.startsWith(`${link.href}/`));
+
+            return link.soon ? (
               <span key={link.label} className="block text-sm text-[#bbb]">
                 {link.label}
                 <sup className="text-[10px] ml-0.5 text-[#aaa]">soon</sup>
@@ -129,20 +137,22 @@ export default function Nav() {
               <Link
                 key={link.label}
                 href={link.href!}
+                onClick={() => setMenuOpen(false)}
                 className={`block text-sm ${
-                  pathname === link.href
+                  active
                     ? "text-[#1a1a1a]"
                     : "text-[#666] hover:text-[#1a1a1a]"
                 }`}
               >
                 {link.label}
               </Link>
-            )
-          )}
+            );
+          })}
           <a
             href={KICKSTARTER_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
             className="inline-flex items-center rounded-full px-5 py-2.5 bg-[#1a1a1a] text-[#f5f3ed] text-sm font-medium hover:bg-[#333] transition-colors"
           >
             Back on Kickstarter →

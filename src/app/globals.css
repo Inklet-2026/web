@@ -2,6 +2,11 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #f5f3ed;
+}
+
+body {
+  background-color: #f5f3ed;
 }
 
 @theme {
@@ -18,6 +23,16 @@ html {
   --font-newsreader: var(--font-newsreader);
   --font-inter: var(--font-inter);
   --font-ibm-plex-mono: var(--font-ibm-plex-mono);
+}
+
+/* Quiet section labels: readable at a glance, without display-letter spacing. */
+.eyebrow {
+  font-family: var(--font-ibm-plex-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* E-ink text rendering — used inside EInkDisplay */

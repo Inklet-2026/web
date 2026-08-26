@@ -62,9 +62,11 @@ const SIZES = {
 export default function StaticPanel({
   screen,
   size = "compact",
+  eager = false,
 }: {
   screen: PanelScreen;
   size?: keyof typeof SIZES;
+  eager?: boolean;
 }) {
   const s = SIZES[size];
   return (
@@ -109,6 +111,12 @@ export default function StaticPanel({
         alt={screen.alt}
         fill
         className="relative z-[20] pointer-events-none object-contain"
+        sizes={
+          size === "large"
+            ? "(min-width: 768px) 720px, calc(100vw - 48px)"
+            : "(min-width: 768px) 510px, calc(100vw - 64px)"
+        }
+        loading={eager ? "eager" : "lazy"}
       />
     </div>
   );
