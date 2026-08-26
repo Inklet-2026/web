@@ -12,6 +12,10 @@ type JournalPostPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+const SITE_URL = "https://iminklet.com";
+const JOURNAL_URL = `${SITE_URL}/journal`;
+const DEFAULT_SOCIAL_IMAGE = `${SITE_URL}/social-image.png`;
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -28,29 +32,61 @@ export async function generateMetadata({
     return { title: "Journal post not found — inklet" };
   }
 
-  const url = `https://iminklet.com/journal/${post.slug}`;
+  const url = `${JOURNAL_URL}/${post.slug}`;
   const image = post.image
-    ? `https://iminklet.com${post.image}`
-    : "https://iminklet.com/social-image.png";
+    ? `${SITE_URL}${post.image}`
+    : DEFAULT_SOCIAL_IMAGE;
+  const publishedTime = `${post.publishedAt}T12:00:00Z`;
 
   return {
     title: `${post.title} — inklet Journal`,
     description: post.excerpt,
+    authors: [{ name: post.author, url: `${SITE_URL}/about` }],
+    creator: post.author,
+    publisher: "inklet LLC",
+    category: post.category,
+    keywords: [post.category, "inklet", "e-ink", "ambient computing"],
     alternates: { canonical: url },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     openGraph: {
       type: "article",
       title: post.title,
       description: post.excerpt,
       url,
-      publishedTime: `${post.publishedAt}T12:00:00Z`,
+      siteName: "inklet",
+      locale: "en_US",
+      publishedTime,
+      modifiedTime: publishedTime,
       authors: [post.author],
-      images: [{ url: image, width: 1200, height: 630 }],
+      section: post.category,
+      tags: [post.category, "e-ink", "ambient computing"],
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: post.imageAlt ?? post.title,
+          type: "image/png",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: [image],
+      site: "@inkletLLC",
+      creator: "@inkletLLC",
+      images: [{ url: image, alt: post.imageAlt ?? post.title }],
     },
   };
 }
@@ -61,27 +97,98 @@ export default async function JournalPostPage({ params }: JournalPostPageProps) 
 
   if (!post) notFound();
 
-  const url = `https://iminklet.com/journal/${post.slug}`;
+  const url = `${JOURNAL_URL}/${post.slug}`;
   const image = post.image
-    ? `https://iminklet.com${post.image}`
-    : "https://iminklet.com/social-image.png";
-  const articleJsonLd = {
+    ? `${SITE_URL}${post.image}`
+    : DEFAULT_SOCIAL_IMAGE;
+  const publishedTime = `${post.publishedAt}T12:00:00Z`;
+  const authorJsonLd = {
+    "@type": post.authorType ?? "Organization",
+    name: post.author,
+    url: post.authorType === "Person" ? `${SITE_URL}/about` : SITE_URL,
+  };
+  const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: `${post.publishedAt}T12:00:00Z`,
-    author: {
-      "@type": post.authorType ?? "Organization",
-      name: post.author,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "inklet LLC",
-      url: "https://iminklet.com",
-    },
-    mainEntityOfPage: url,
-    image,
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: `${post.title} — inklet Journal`,
+        description: post.excerpt,
+        inLanguage: "en-US",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        primaryImageOfPage: { "@id": `${url}#primaryimage` },
+        datePublished: publishedTime,
+        dateModified: publishedTime,
+      },
+      {
+        "@type": "ImageObject",
+        "@id": `${url}#primaryimage`,
+        url: image,
+        contentUrl: image,
+        width: 1200,
+        height: 630,
+        caption: post.imageAlt ?? post.title,
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": `${url}#article`,
+        url,
+        headline: post.title,
+        name: post.title,
+        description: post.excerpt,
+        image: { "@id": `${url}#primaryimage` },
+        datePublished: publishedTime,
+        dateModified: publishedTime,
+        inLanguage: "en-US",
+        articleSection: post.category,
+        keywords: [post.category, "inklet", "e-ink", "ambient computing"],
+        author: authorJsonLd,
+        publisher: {
+          "@type": "Organization",
+          "@id": `${SITE_URL}/#organization`,
+          name: "inklet LLC",
+          url: SITE_URL,
+          logo: {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/logo.png`,
+          },
+        },
+        mainEntityOfPage: { "@id": `${url}#webpage` },
+        isPartOf: {
+          "@type": "Blog",
+          "@id": `${JOURNAL_URL}#blog`,
+          name: "inklet Journal",
+          url: JOURNAL_URL,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Journal",
+            item: JOURNAL_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: url,
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -182,7 +289,9 @@ export default async function JournalPostPage({ params }: JournalPostPageProps) 
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+        }}
       />
     </>
   );

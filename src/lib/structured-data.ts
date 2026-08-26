@@ -67,9 +67,14 @@ export function getWebSiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://iminklet.com/#website",
     name: "inklet LLC",
     alternateName: ["inklet display", "iminklet"],
     url: "https://iminklet.com",
+    inLanguage: "en-US",
+    publisher: {
+      "@id": "https://iminklet.com/#organization",
+    },
   };
 }
 
@@ -220,10 +225,20 @@ export function getOrganizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://iminklet.com/#organization",
     name: "inklet LLC",
     url: "https://iminklet.com",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://iminklet.com/logo.png",
+    },
     description:
       "Makers of distributed e-ink displays powered by AI.",
+    sameAs: [
+      "https://x.com/inkletLLC",
+      "https://www.linkedin.com/company/inklet",
+      "https://github.com/inklethq",
+    ],
     founder: {
       "@type": "Person",
       name: "Kevin Zhong",
