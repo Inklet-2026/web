@@ -316,7 +316,7 @@ export default function StoreConfigurator() {
 
               {/* Color */}
               <div className="mb-6">
-                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                <span className="eyebrow text-[#aaa] mb-2 block">
                   Color
                 </span>
                 <div className="flex gap-3">
@@ -339,7 +339,7 @@ export default function StoreConfigurator() {
 
               {/* Stand */}
               <div className="mb-6">
-                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                <span className="eyebrow text-[#aaa] mb-2 block">
                   Stand
                 </span>
                 <div className="flex flex-col gap-2">
@@ -411,7 +411,7 @@ export default function StoreConfigurator() {
 
               {/* Color */}
               <div className="mb-6">
-                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                <span className="eyebrow text-[#aaa] mb-2 block">
                   Color
                 </span>
                 <div className="flex gap-3">
@@ -434,7 +434,7 @@ export default function StoreConfigurator() {
 
               {/* RAM */}
               <div className="mb-6">
-                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                <span className="eyebrow text-[#aaa] mb-2 block">
                   Memory
                 </span>
                 <div className="flex flex-col gap-2">
@@ -521,7 +521,7 @@ export default function StoreConfigurator() {
 
               {/* Color qty */}
               <div className="mb-6">
-                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                <span className="eyebrow text-[#aaa] mb-2 block">
                   Color
                 </span>
                 <div className="grid grid-cols-2 gap-2">
@@ -540,7 +540,7 @@ export default function StoreConfigurator() {
 
               {/* Stand qty */}
               <div className="mb-6">
-                <span className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-wider uppercase mb-2 block">
+                <span className="eyebrow text-[#aaa] mb-2 block">
                   Stand
                   {!standValid && (
                     <span className="ml-2 text-[#c97] normal-case tracking-normal">

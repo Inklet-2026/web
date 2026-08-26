@@ -96,7 +96,7 @@ export default function HomeHero() {
         >
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-10 lg:gap-14 items-center p-8 md:p-12 lg:p-14">
             <div className="order-2 lg:order-1">
-              <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-3">
+              <p className="eyebrow text-[#aaa] mb-3">
                 Display
               </p>
               <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mb-5">

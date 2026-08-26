@@ -31,7 +31,7 @@ export default function HowItWorks() {
     <section id="how-it-works" className="py-32">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-20">
-          <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-4">
+          <p className="eyebrow text-[#aaa] mb-4">
             Feature
           </p>
           <h2 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light">

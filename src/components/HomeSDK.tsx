@@ -23,7 +23,7 @@ export default function HomeSDK() {
     <section className="py-32">
       <div className="max-w-6xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
-          <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-3">
+          <p className="eyebrow text-[#aaa] mb-3">
             SDK
           </p>
           <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mb-5">

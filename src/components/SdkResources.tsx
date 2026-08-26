@@ -42,7 +42,7 @@ export default function SdkResources() {
   return (
     <section className="py-32 border-t border-[#2a2a2a]">
       <div className="max-w-6xl mx-auto px-6">
-        <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3">
+        <p className="eyebrow text-[#777] mb-3">
           Reference
         </p>
         <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mb-16 max-w-2xl leading-snug">

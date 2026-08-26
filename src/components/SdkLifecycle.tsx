@@ -43,7 +43,7 @@ export default function SdkLifecycle() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <div>
-            <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3">
+            <p className="eyebrow text-[#777] mb-3">
               Lifecycle
             </p>
             <h2 className="font-[family-name:var(--font-newsreader)] text-3xl md:text-4xl font-light mb-5 leading-snug">
@@ -60,7 +60,7 @@ export default function SdkLifecycle() {
               {states.map((row) => (
                 <div key={row.label}>
                   <div className="flex items-baseline gap-3 mb-3">
-                    <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[11px] text-[#888] tracking-[2px] uppercase">
+                    <span className="text-sm font-[family-name:var(--font-ibm-plex-mono)] text-[#999] uppercase">
                       {row.label}
                     </span>
                     <span className="text-[13px] text-[#555]">{row.note}</span>
@@ -81,7 +81,7 @@ export default function SdkLifecycle() {
               ))}
 
               <div>
-                <p className="font-[family-name:var(--font-ibm-plex-mono)] text-[11px] text-[#888] tracking-[2px] uppercase mb-3">
+                <p className="text-sm font-[family-name:var(--font-ibm-plex-mono)] text-[#999] uppercase mb-3">
                   Processing stages
                 </p>
                 <p className="font-[family-name:var(--font-ibm-plex-mono)] text-[11.5px] text-[#555] leading-relaxed">

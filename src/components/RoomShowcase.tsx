@@ -75,7 +75,7 @@ export default function RoomShowcase() {
     <section id="use-cases" className="bg-[#1a1a1a] py-28">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
-          <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#6e6961] tracking-[3px] uppercase mb-4">
+          <p className="eyebrow text-[#6e6961] mb-4">
             Showcase
           </p>
           <h2 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-[#f5f3ed]">
@@ -97,7 +97,7 @@ export default function RoomShowcase() {
                   <span className="font-[family-name:var(--font-ibm-plex-mono)] text-sm text-[#f5f3ed] tabular-nums">
                     {m.time}
                   </span>
-                  <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[11px] tracking-[2px] uppercase text-[#6e6961]">
+                  <span className="text-sm font-[family-name:var(--font-ibm-plex-mono)] text-[#6e6961] uppercase">
                     {m.place}
                   </span>
                 </div>

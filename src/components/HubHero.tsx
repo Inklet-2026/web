@@ -13,7 +13,7 @@ export default function HubHero() {
             initial="hidden"
             animate="visible"
             variants={rise}
-            className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase mb-3"
+            className="eyebrow text-[#aaa] mb-3"
           >
             Compute Hub
           </motion.p>

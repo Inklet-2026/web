@@ -79,7 +79,7 @@ export default function PortalShowcase() {
             </div>
 
             <div className="lg:[direction:ltr]">
-              <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3">
+              <p className="eyebrow text-[#777] mb-3">
                 {item.label}
               </p>
               <h3 className="font-[family-name:var(--font-newsreader)] text-2xl md:text-3xl font-light mb-4">

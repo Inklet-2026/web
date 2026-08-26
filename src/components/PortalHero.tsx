@@ -99,7 +99,7 @@ export default function PortalHero() {
             initial="hidden"
             animate="visible"
             variants={rise}
-            className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#555] tracking-[3px] uppercase mb-3"
+            className="eyebrow text-[#777] mb-3"
           >
             Software
           </motion.p>

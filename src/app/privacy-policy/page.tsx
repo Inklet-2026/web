@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
     <section className="pt-32 pb-24">
       <div className="max-w-3xl mx-auto px-6">
         <header className="mb-12 pb-8 border-b border-[#e8e5db]">
-          <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[2px] uppercase mb-4">
+          <p className="eyebrow text-[#aaa] mb-4">
             Legal
           </p>
           <h1 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light text-[#1a1a1a] mb-4">

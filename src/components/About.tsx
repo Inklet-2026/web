@@ -1,11 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import FAQ from "@/components/FAQ";
+import Rise from "@/components/Rise";
 import SocialProof from "@/components/SocialProof";
 import { disambiguationFaq } from "@/data/about-faq";
-
-const KICKSTARTER_URL =
-  "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
 const TEAM = [
   { name: "Kevin Zhong", role: "Founder & Software Engineer", photo: "/yiz.png" },
@@ -24,7 +22,7 @@ const PORTRAIT_MASK =
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-[family-name:var(--font-ibm-plex-mono)] text-[#aaa] tracking-[3px] uppercase">
+    <p className="eyebrow text-[#aaa]">
       {children}
     </p>
   );
@@ -34,32 +32,36 @@ export default function About() {
   return (
     <>
       {/* Hero — the story hook */}
-      <section className="pt-32 pb-20">
+      <section className="pt-40 pb-28 md:pt-52 md:pb-36">
         <div className="max-w-6xl mx-auto px-6">
           <div className="max-w-3xl">
-            <Eyebrow>Company</Eyebrow>
-            <h1 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl font-light leading-[1.12] mt-5 mb-8">
-              Your information, out of your pocket — and into your space.
-            </h1>
-            <p className="text-lg text-[#666] leading-relaxed mb-5">
-              inklet is built by <strong className="font-medium text-[#1a1a1a]">inklet LLC</strong>. We
-              design ambient e-ink displays — hardware and software that surface
-              your notes, PDFs, tasks, and schedules on quiet, paper-like screens
-              throughout your home.
-            </p>
-            <p className="text-lg text-[#666] leading-relaxed">
-              Our first product, the{" "}
-              <Link
-                href="/display"
-                className="underline underline-offset-[3px] hover:text-[#1a1a1a] transition-colors"
-              >
-                inklet D1
-              </Link>
-              , isn&apos;t a phone, a tablet, or another glowing rectangle asking
-              for your attention. It&apos;s a screen that lives in your space,
-              shows you the right thing at the right moment — and then gets out of
-              the way.
-            </p>
+            <Rise>
+              <Eyebrow>Company</Eyebrow>
+              <h1 className="font-[family-name:var(--font-newsreader)] text-4xl md:text-5xl lg:text-6xl font-light leading-[1.08] mt-5">
+                Your information, out of your pocket — and into your space.
+              </h1>
+            </Rise>
+            <Rise delay={0.15} className="mt-7">
+              <p className="text-lg text-[#666] leading-relaxed mb-5">
+                inklet is built by <strong className="font-medium text-[#1a1a1a]">inklet LLC</strong>. We
+                design ambient e-ink displays — hardware and software that surface
+                your notes, PDFs, tasks, and schedules on quiet, paper-like screens
+                throughout your home.
+              </p>
+              <p className="text-lg text-[#666] leading-relaxed">
+                Our first product, the{" "}
+                <Link
+                  href="/display"
+                  className="underline underline-offset-[3px] hover:text-[#1a1a1a] transition-colors"
+                >
+                  inklet D1
+                </Link>
+                , isn&apos;t a phone, a tablet, or another glowing rectangle asking
+                for your attention. It&apos;s a screen that lives in your space,
+                shows you the right thing at the right moment — and then gets out of
+                the way.
+              </p>
+            </Rise>
           </div>
         </div>
       </section>
@@ -170,21 +172,19 @@ export default function About() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
-              href={KICKSTARTER_URL}
+              href="https://discord.gg/pEpJSqMP7V"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-4 bg-[#1a1a1a] text-[#f5f3ed] rounded-full text-sm font-medium hover:bg-[#333] transition-colors"
             >
-              Back us on Kickstarter →
-            </a>
-            <a
-              href="https://discord.gg/pEpJSqMP7V"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-4 border border-[#e8e5db] text-[#666] rounded-full text-sm font-medium hover:border-[#ccc] hover:text-[#1a1a1a] transition-colors"
-            >
               Join us on Discord
             </a>
+            <Link
+              href="/journal"
+              className="inline-flex items-center px-8 py-4 border border-[#e8e5db] text-[#666] rounded-full text-sm font-medium hover:border-[#ccc] hover:text-[#1a1a1a] transition-colors"
+            >
+              Read our Journal
+            </Link>
           </div>
         </div>
       </section>

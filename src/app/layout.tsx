@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { Newsreader, Inter, IBM_Plex_Mono } from "next/font/google";
+import {
+  Newsreader,
+  Inter,
+  IBM_Plex_Mono,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/structured-data";
 import Nav from "@/components/Nav";
