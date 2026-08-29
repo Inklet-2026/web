@@ -39,9 +39,9 @@ export const journalPosts: JournalPost[] = [
   {
     slug: "v0-1-is-coming",
     category: "SDK release",
-    title: "Introducing inklet SDK v0.1",
+    title: "inklet SDK v0.1: from your data to the wall",
     excerpt:
-      "@inklethq/sdk v0.1 is now available: a typed, server-side SDK for sending text, links, images, and files to inklet e-ink displays.",
+      "Turn a script, feed, or workflow into a quiet e-ink display—and follow it from source material to a frame confirmed in the room.",
     publishedAt: "2026-08-26",
     readingTime: "7 min read",
     author: "inklet team",
@@ -59,11 +59,23 @@ export const journalPosts: JournalPost[] = [
     blocks: [
       {
         type: "paragraph",
-        text: "The pencil sketch above began as our way of saying v0.1 was coming. It is here now. @inklethq/sdk 0.1.0 is available on npm, with a new documentation site that covers the complete public surface from the first token to the frame a display confirms on the wall.",
+        text: "The pencil sketch above began as our way of saying v0.1 was coming. It is here now. But the useful part is not that there is a package on npm. It is that a developer can now take something their software already knows, decide how much control to keep, and carry it all the way to a frame an inklet display confirms in the room.",
       },
       {
         type: "paragraph",
-        text: "This is the first public developer-preview release of the inklet SDK: a typed, server-side JavaScript and TypeScript client for turning text, links, images, and files into content for inklet e-ink displays. It ships ESM and CommonJS builds together, includes its own TypeScript declarations, and supports Node.js 20 and newer.",
+        text: "That complete path is what v0.1 releases: source material, intent, routing, layout, rendering, delivery, and confirmation, exposed through one server-side TypeScript SDK. You can use it from a cron job, a backend route, a webhook, or a worker. The screen can become the quiet last step of a workflow you already have.",
+      },
+      {
+        type: "heading",
+        text: "Picture one useful thing",
+      },
+      {
+        type: "paragraph",
+        text: "Imagine a small script that runs every weekday at eight. It already knows today's three priorities, one number the team should watch, and the link behind that number. Today, the output might end up in a log, an inbox, or another dashboard someone has to remember to open. With the SDK, that same output can become a daily brief waiting on the right desk when the day begins.",
+      },
+      {
+        type: "paragraph",
+        text: "The input does not have to begin as a polished screen. It can be a sentence from your database, a link to a report, a chart your job just rendered, or a PDF another system produced. Build those pieces as Assets, add one sentence describing what matters, and let inklet turn them into something made for a glance instead of another session.",
       },
       {
         type: "code",
@@ -71,30 +83,20 @@ export const journalPosts: JournalPost[] = [
         code: "npm install @inklethq/sdk",
       },
       {
-        type: "heading",
-        text: "One package, four nouns",
-      },
-      {
-        type: "paragraph",
-        text: "The API is built around four things. A Display is a physical panel bound to your account. An Asset is one raw input: text, a link, an image, or a file. A Content is the submission that holds those assets and your intent. A Presentation is the finished frame rendered for one Display, available as PNG, RAW2, or RAW4 when the panel supports it.",
-      },
-      {
-        type: "paragraph",
-        text: "The high-level push methods connect those pieces. They validate assets in your process, create the Content, upload binary files directly to temporary storage, retry a failed upload once, confirm the Content, and return an idempotency key you can safely reuse. What remains is choosing how much of the decision belongs to inklet and how much belongs to you.",
-      },
-      {
         type: "code",
         lang: "ts",
-        filename: "brief.ts",
+        filename: "daily-brief.ts",
         code: `import { Inklet } from "@inklethq/sdk";
 
 const inklet = new Inklet({ pat: process.env.INKLET_PAT! });
 
 const result = await inklet.push.auto({
+  idempotencyKey: "daily-brief-" + new Date().toISOString().slice(0, 10),
   title: "Daily brief",
-  intent: "Make the key update easy to scan",
+  intent: "Lead with today's priorities; keep the metric secondary",
   assets: [
-    inklet.assets.text("Revenue is up 12% week over week."),
+    inklet.assets.text("Ship onboarding, review the pilot, call Sam."),
+    inklet.assets.text("Weekly activation is up 12%."),
     inklet.assets.link("https://example.com/report"),
   ],
 });
@@ -103,71 +105,75 @@ console.log(result.contentId, result.state);`,
       },
       {
         type: "heading",
-        text: "Three ways to push",
+        text: "Choose the part you want to own",
       },
       {
         type: "paragraph",
-        text: "Auto Push lets inklet choose both the compatible displays and the layout. It is the shortest path from useful source material to the right room: send between one and fifty assets, add an optional sentence of intent, and let inklet route and typeset the result. Auto uses inklet AI and requires Pro.",
+        text: "For the daily brief, Auto is the shortest path. You provide the material and the intent; inklet chooses compatible displays and builds the layout. It works when the information matters more than the exact room or typography—team updates, a changing reading list, a report that should find the people who need it.",
       },
       {
         type: "paragraph",
-        text: "Manual Push keeps the routing decision with you. You provide a display ID, while inklet still fetches links, understands and summarizes the assets, and builds the layout. Because that processing still uses inklet AI, Manual also requires Pro.",
+        text: "Manual is for the moment when place is part of the meaning. Send a dinner plan to the kitchen, a visitor note to the front desk, or a project status to the display beside the team working on it. You choose the Display; inklet still reads, summarizes, and lays out what you send.",
       },
       {
         type: "paragraph",
-        text: "Hardcode Push is the direct path. You provide exactly one finished PNG or JPEG and the target display; inklet scales it to the panel output without summarizing or redesigning it. Hardcode is available on both Free and Pro, which makes it the starting point for custom renderers, generated dashboards, and pixel-controlled experiments.",
+        text: "Hardcode is for the cases where your software already made the picture. A custom renderer, generative artwork, a carefully dithered dashboard, or a status board can send one finished PNG or JPEG to one Display. inklet handles delivery and panel scaling without changing the composition. Hardcode works on Free and Pro; Auto and Manual use inklet AI and require Pro.",
       },
       {
         type: "quote",
-        text: "Auto chooses the room and the layout. Manual lets you choose the room. Hardcode lets you choose the pixels.",
+        text: "Bring the information. Choose the room if it matters. Choose every pixel if that matters more.",
       },
       {
         type: "heading",
-        text: "Server-only by design",
+        text: "The whole path is now visible",
       },
       {
         type: "paragraph",
-        text: "The SDK authenticates with a personal access token issued in the inklet Portal. A PAT is a server credential, so the client refuses to construct in a browser environment before any request is made. The same guard runs again for requests and uploads, helping stop an accidental client import from turning into a leaked token.",
+        text: "A call to push is the beginning of the physical journey, not the end of an HTTP request. The text, links, images, and files you send are Assets. Together with your intent, they become Content: the durable job inklet can fetch, summarize, route, and process. When that work is ready, the Content points to one or more Presentations—one rendered frame for each Display it should reach.",
       },
       {
         type: "paragraph",
-        text: "Authenticated requests are restricted to relative paths on the configured inklet service, and redirects are refused. Binary assets travel directly to short-lived presigned storage URLs without the PAT attached. If a backend message contains the token, the SDK redacts it before exposing the error. The default address is the developer-preview cloud service, while baseUrl can point the same client at a local Compute Hub.",
+        text: "From there, a Presentation moves from preparing to queued, then published when the Display asks for work, and finally confirmed when the panel reports that it is showing the frame. That last state closes a gap most software integrations leave open: your application can know the difference between 'the API accepted it,' 'the image exists,' and 'it is actually on the wall.'",
       },
       {
         type: "heading",
-        text: "A push is a request, not a render",
+        text: "Build around what happens next",
       },
       {
         type: "paragraph",
-        text: "A successful push usually returns while its Content is still processing, before Presentation IDs exist. That is intentional. Summarizing, routing, typesetting, rendering, and delivery happen asynchronously, and the physical display shows the frame the next time it wakes and asks for work.",
+        text: "The initial push normally returns while the Content is still processing. That makes the SDK fit naturally into real background work: save the returned Content ID, let your job continue, and check the lifecycle when your product needs to show progress or react to failure. Once the Content is ready, read its Presentation IDs to see where Auto routed it or to inspect each finished frame.",
       },
       {
         type: "paragraph",
-        text: "v0.1 exposes that lifecycle instead of hiding it. Contents move from pending to processing and then ready or failed. Presentations move from preparing to queued, published, and confirmed. You can inspect processing stages, poll for the finished frame, read a display's next sync time, and distinguish a rendered image from one the panel has actually confirmed.",
+        text: "A Display wakes on its own sync interval, so physical confirmation may arrive minutes after rendering. Your integration can read the next sync time, show a useful status, retry safely with the same idempotency key, or alert only when something truly fails. Re-running the daily brief with the same date-based key replays the same push instead of creating a duplicate.",
       },
       {
         type: "heading",
-        text: "Small enough to understand, complete enough to build with",
+        text: "What you can make with it",
       },
       {
         type: "paragraph",
-        text: "Beyond push, the release includes read APIs for Displays, their queues and current frames, Contents, and Presentations. Asset builders validate inputs before a network request: up to 50 assets per Content and 10 MiB for each binary. Presentation images can be requested as PNG, RAW2, or RAW4 according to a display's capabilities.",
+        text: "A company can turn a scheduled query into a morning metric that appears without opening a dashboard. A household app can place tonight's plan in the kitchen and tomorrow's departures by the door. A personal tool can pull one idea out of a notes archive each day. A home-automation workflow can render its own compact status image and send it exactly as designed.",
       },
       {
         type: "paragraph",
-        text: "Every SDK error extends InkletError and preserves the backend code, HTTP status, request ID, and structured details. Configuration and browser-environment mistakes fail locally. Authentication, permissions, subscription requirements, rate limits, upload failures, and network errors remain distinct classes so an integration can decide what to fix, what to surface, and what is safe to retry.",
+        text: "These are different stories, but the integration is the same shape: take a signal from software, turn it into a quiet visual object, put it where it becomes useful, and keep enough state to know whether it arrived. The SDK does not prescribe the source. It gives the last mile a stable vocabulary and a complete lifecycle.",
       },
       {
         type: "paragraph",
-        text: "The surface is deliberately compact, and 0.x means it can still evolve. Our goal for v0.1 is not to predict every integration. It is to make the path from a useful idea to a quiet physical frame clear, typed, observable, and open enough for other people to build on.",
+        text: "v0.1 ships with typed ESM and CommonJS builds for Node.js 20 and newer. Asset builders validate inputs locally, binary uploads retry failed tickets once, PAT authentication stays in trusted server environments, and distinct error classes preserve the details an integration needs to decide what is safe to retry. Those mechanics are there to support the story, not become the story.",
       },
       {
         type: "heading",
-        text: "Start with one useful thing",
+        text: "The loop is closed",
       },
       {
         type: "paragraph",
-        text: "Install the package, create a PAT in Portal, and send the one piece of information you wish already had a place in the room. The full guides cover authentication, plans, lifecycle, every push mode, and the lower-level resource APIs when you are ready to go further.",
+        text: "This is what feels new to us about the release. v0.1 is not only a way to send a request toward a display. It is a complete main path from something your software knows to something a person can notice in the right place: source, intent, layout, render, delivery, confirmation.",
+      },
+      {
+        type: "paragraph",
+        text: "Start with one useful thing your application already produces. Create a PAT in Portal, install the package, and give that thing a place in the room. The guides cover the first push, all three control levels, and every state between accepted and actually on the wall.",
       },
       {
         type: "links",
