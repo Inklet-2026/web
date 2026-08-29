@@ -1,14 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { SiApple } from "react-icons/si";
 import { TbBrandWindows, TbWorld } from "react-icons/tb";
 import type { IconType } from "react-icons";
 
 type PlatformId = "macos" | "ios" | "windows" | "web";
 
-const RELEASE_VERSION = "0.1.0";
-const RELEASE_BASE = `https://github.com/inklethq/app/releases/download/v${RELEASE_VERSION}`;
+const MAC_RELEASE_URL =
+  "https://github.com/inklethq/app/releases/latest/download/inklet-macOS.dmg";
+const WINDOWS_RELEASE_VERSION = "0.1.1";
+const WINDOWS_RELEASE_BASE = `https://github.com/inklethq/app/releases/download/v${WINDOWS_RELEASE_VERSION}`;
 
 const platforms: {
   id: PlatformId;
@@ -22,15 +24,15 @@ const platforms: {
     id: "macos",
     label: "macOS",
     Icon: SiApple,
-    href: `${RELEASE_BASE}/InkletPortal-${RELEASE_VERSION}-mac-arm64.dmg`,
-    version: `v${RELEASE_VERSION}`,
+    href: MAC_RELEASE_URL,
+    version: "Universal · macOS 26+",
   },
   {
     id: "windows",
     label: "Windows",
     Icon: TbBrandWindows,
-    href: `${RELEASE_BASE}/InkletPortal-${RELEASE_VERSION}-win-x64-setup.exe`,
-    version: `v${RELEASE_VERSION}`,
+    href: `${WINDOWS_RELEASE_BASE}/InkletPortal-${WINDOWS_RELEASE_VERSION}-win-x64-setup.exe`,
+    version: `v${WINDOWS_RELEASE_VERSION}`,
   },
   {
     id: "web",
@@ -56,12 +58,16 @@ function detectPlatform(): PlatformId {
   return "web";
 }
 
-export default function PortalDownload() {
-  const [detected, setDetected] = useState<PlatformId>("macos");
+function subscribeToPlatform() {
+  return () => {};
+}
 
-  useEffect(() => {
-    setDetected(detectPlatform());
-  }, []);
+export default function PortalDownload() {
+  const detected = useSyncExternalStore(
+    subscribeToPlatform,
+    detectPlatform,
+    () => "macos",
+  );
 
   return (
     <section id="download" className="py-32">
@@ -70,7 +76,7 @@ export default function PortalDownload() {
           Ready to orchestrate your ambient life?
         </p>
         <p className="text-sm text-[#888] text-center mb-14 max-w-lg mx-auto leading-relaxed">
-          Desktop apps push content and sync notes. The web dashboard manages all your devices and knowledge base. iOS adds display pairing.
+          The native macOS app sends content from any app and manages your displays and knowledge base. The web dashboard works everywhere. iOS adds display pairing.
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
@@ -107,23 +113,6 @@ export default function PortalDownload() {
                   <p className="text-[10px] text-[#888] font-[family-name:var(--font-ibm-plex-mono)] mt-2.5">
                     {p.version}
                   </p>
-                )}
-                {p.id === "macos" && (
-                  <div className="flex items-center justify-center gap-2 mt-1">
-                    <a
-                      href={`${RELEASE_BASE}/InkletPortal-${RELEASE_VERSION}-mac-arm64.dmg`}
-                      className="text-[10px] text-[#888] hover:text-[#ccc] font-[family-name:var(--font-ibm-plex-mono)] transition-colors"
-                    >
-                      Apple Silicon
-                    </a>
-                    <span className="text-[#888] text-[10px]">·</span>
-                    <a
-                      href={`${RELEASE_BASE}/InkletPortal-${RELEASE_VERSION}-mac-x64.dmg`}
-                      className="text-[10px] text-[#888] hover:text-[#ccc] font-[family-name:var(--font-ibm-plex-mono)] transition-colors"
-                    >
-                      Intel
-                    </a>
-                  </div>
                 )}
               </div>
             );
