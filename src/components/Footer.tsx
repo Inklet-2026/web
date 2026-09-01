@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SiX, SiDiscord, SiGithub } from "react-icons/si";
-import { FaLinkedin } from "react-icons/fa6";
+import { FaLinkedin, FaRss } from "react-icons/fa6";
 import type { IconType } from "react-icons";
 
 const socialLinks: { label: string; href: string; Icon: IconType }[] = [
@@ -8,6 +8,7 @@ const socialLinks: { label: string; href: string; Icon: IconType }[] = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/inklet", Icon: FaLinkedin },
   { label: "Discord", href: "https://discord.gg/pEpJSqMP7V", Icon: SiDiscord },
   { label: "GitHub", href: "https://github.com/inklethq", Icon: SiGithub },
+  { label: "RSS", href: "/rss.xml", Icon: FaRss },
 ];
 
 const productLinks = [

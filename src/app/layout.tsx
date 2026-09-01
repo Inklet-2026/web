@@ -71,6 +71,12 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/logo_light.png" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="/logo_dark.png" media="(prefers-color-scheme: dark)" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="inklet Journal"
+          href="/rss.xml"
+        />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-D0LYSP1FQL" />
         <script
           dangerouslySetInnerHTML={{
