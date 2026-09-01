@@ -192,6 +192,225 @@ console.log(result.contentId, result.state);`,
     ],
   },
   {
+    slug: "designing-a-reliable-last-mile-from-typescript-to-an-e-ink-panel",
+    category: "Engineering",
+    title: "Designing a reliable last mile from TypeScript to an e-ink panel",
+    excerpt:
+      "How inklet turns one TypeScript call into a retry-safe, observable delivery pipeline that ends only when the physical panel confirms the frame.",
+    publishedAt: "2026-09-01",
+    readingTime: "9 min read",
+    author: "inklet team",
+    screen: {
+      subtitle: "Engineering note",
+      title: "A reliable last mile\nfor e-ink.",
+      detail: "idempotent · observable · confirmed",
+      stamp: "Sep 01 09:00",
+      alt: "An inklet display describing a reliable TypeScript to e-ink delivery pipeline",
+    },
+    blocks: [
+      {
+        type: "paragraph",
+        text: "A server can accept a request in milliseconds. An e-ink panel may be asleep, offline, or halfway through showing an older frame. Between those two moments sit asset uploads, background processing, routing, rendering, a device queue, a network handoff, and the physical refresh itself.",
+      },
+      {
+        type: "paragraph",
+        text: "That makes the last mile different from an ordinary API call. A 200 response can mean the intent was accepted, but it cannot honestly mean the pixels are already on glass. We designed the inklet SDK around that distinction: every boundary has an identity, every asynchronous step has a state, and the final truth comes from the panel.",
+      },
+      {
+        type: "quote",
+        text: "Reliable delivery is not one successful request. It is a chain of facts that can survive retries, delays, and partial failure.",
+      },
+      {
+        type: "heading",
+        text: "Make the logical write repeatable",
+      },
+      {
+        type: "paragraph",
+        text: "The first problem appears before rendering: callers retry. A worker times out after the service commits, a process restarts before saving the response, or a scheduler runs the same job twice. Without an application-level identity, each retry can create another Content and eventually another frame.",
+      },
+      {
+        type: "code",
+        lang: "ts",
+        filename: "daily-brief.ts",
+        code: `import { Inklet } from "@inklethq/sdk";
+
+const inklet = new Inklet({ pat: process.env.INKLET_PAT! });
+const runDate = new Date().toISOString().slice(0, 10);
+
+const result = await inklet.push.auto({
+  idempotencyKey: "daily-brief-" + runDate,
+  title: "Daily brief",
+  intent: "Lead with the number; keep the source secondary",
+  assets: [
+    inklet.assets.text("Activation is up 12% week over week."),
+    inklet.assets.link("https://example.com/report"),
+  ],
+});
+
+console.log(result.contentId, result.state);`,
+      },
+      {
+        type: "paragraph",
+        text: "Every high-level push carries an idempotency key. Reusing the same key with the same request replays the original result instead of creating a second Content. Reusing it with a different body is rejected as a conflict. The key is scoped to the authenticated caller and route, so it describes one logical write rather than a global name.",
+      },
+      {
+        type: "paragraph",
+        text: "Confirmation is retry-safe as well. The service claims a processing run atomically, which means simultaneous or repeated confirms do not enqueue duplicate work. The useful rule for an integration is simple: derive the key from a stable fact in your own domain—a date, record ID, or job ID—and keep it when you retry.",
+      },
+      {
+        type: "heading",
+        text: "Move bytes without moving credentials",
+      },
+      {
+        type: "paragraph",
+        text: "Text and links fit in the Content request. Images and files do not. For binary Assets, the service first records the metadata and returns a short-lived upload ticket for each file. The SDK then uploads those bytes directly to storage in parallel before confirming that the Content is complete.",
+      },
+      {
+        type: "code",
+        lang: "text",
+        code: `create Content
+  → upload binary Assets in parallel
+  → refresh failed tickets once
+  → confirm the Content
+  → enqueue processing once`,
+      },
+      {
+        type: "paragraph",
+        text: "This split keeps the personal access token on the inklet API origin. Presigned storage uploads carry only their ticket fields; the PAT is never attached. If one upload fails, the SDK asks for fresh tickets only for the failed asset indexes and retries them once. A partial confirmation gets one more targeted refresh-and-confirm cycle before becoming an AssetUploadError that names the indexes still missing.",
+      },
+      {
+        type: "paragraph",
+        text: "The orchestration is deliberately in the high-level push methods. Most applications should not need to coordinate create, upload, refresh, and confirm themselves, but each lower-level Content operation remains available when an integration needs control over the boundary.",
+      },
+      {
+        type: "heading",
+        text: "Let state machines tell the truth",
+      },
+      {
+        type: "paragraph",
+        text: "After confirmation, the synchronous part is over. A Content moves from pending to processing, then to ready or failed. While it is processing, its stage can report fetching links, summarizing, routing, or creating Presentations. Those stages are useful for observability; the top-level state is what application control flow should trust.",
+      },
+      {
+        type: "code",
+        lang: "ts",
+        filename: "wait-for-content.ts",
+        code: `async function waitForContent(contentId: string, timeoutMs = 60_000) {
+  const deadline = Date.now() + timeoutMs;
+  let delay = 500;
+
+  while (Date.now() < deadline) {
+    const content = await inklet.contents.retrieve(contentId);
+
+    if (content.state === "ready" || content.state === "failed") {
+      return content;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, delay));
+    delay = Math.min(delay * 2, 5_000);
+  }
+
+  throw new Error("Content did not settle before the deadline");
+}`,
+      },
+      {
+        type: "paragraph",
+        text: "Backoff and a deadline matter. Processing is asynchronous by design, so a fixed, endless poll loop turns normal latency into unnecessary load. A ready Content means its Presentation IDs have been persisted. It does not promise that every output file is already finished, and it definitely does not mean a physical panel has displayed one.",
+      },
+      {
+        type: "heading",
+        text: "Do not confuse rendered with displayed",
+      },
+      {
+        type: "paragraph",
+        text: "A Presentation is the immutable frame for one Display. Its lifecycle crosses the physical boundary: preparing while render workers produce PNG, RAW2, and RAW4 outputs; queued while it waits for the Display; published after the frame has been handed over; and confirmed only after the panel reports that it is showing it. A Presentation can also expire or fail without ever becoming current.",
+      },
+      {
+        type: "paragraph",
+        text: "We keep pending and current separate on the Display for exactly this reason. pendingPresentationId means a frame has been published but not confirmed. currentPresentationId means the last frame the device confirmed is on the glass. An offline Display keeps its last known values, so an application can distinguish a stale panel from a render that never left the queue.",
+      },
+      {
+        type: "code",
+        lang: "ts",
+        filename: "physical-state.ts",
+        code: `const display = await inklet.displays.retrieve("display_123");
+const current = await inklet.displays.current(display.id, { format: "png" });
+
+console.log({
+  pending: display.pendingPresentationId,
+  confirmed: display.currentPresentationId,
+  nextSyncAt: display.nextSyncAt,
+  currentFrame: current?.image?.url ?? null,
+});`,
+      },
+      {
+        type: "paragraph",
+        text: "The Display controls the last clock. It may wake on a multi-minute sync interval to preserve battery, so a frame can be rendered and queued well before it is confirmed. nextSyncAt tells the application when the next handoff should happen. The confirmation, not elapsed wall time, is the authoritative signal.",
+      },
+      {
+        type: "heading",
+        text: "Fail closed where trust changes",
+      },
+      {
+        type: "paragraph",
+        text: "Reliability also means refusing ambiguous behavior. A PAT is a server credential, so the SDK rejects browser environments at construction and checks again before requests and uploads. Authenticated calls accept only relative SDK API paths, and redirects are refused instead of risking a credential crossing origins.",
+      },
+      {
+        type: "paragraph",
+        text: "Responses are parsed just as strictly. If a successful HTTP response does not match the shape the SDK expects, it becomes an InvalidResponseError rather than a half-valid object moving deeper into the application. Token values are redacted from backend error messages before they can reach logs.",
+      },
+      {
+        type: "heading",
+        text: "Give every failure a useful identity",
+      },
+      {
+        type: "paragraph",
+        text: "Every SDK error extends InkletError and preserves the backend code, HTTP status, request ID, and structured details. Configuration and browser-environment failures are local programming errors. Authentication, permissions, subscription state, rate limits, transport failures, and upload failures remain distinct classes because they demand different responses.",
+      },
+      {
+        type: "paragraph",
+        text: "A retry policy can therefore be narrow. Retry a NetworkError or RateLimitError with the same idempotency key. Surface an authentication or subscription problem to an operator. Treat invalid configuration as code that needs fixing. When support needs to trace a backend failure, pass the request ID rather than a token or an entire log dump.",
+      },
+      {
+        type: "heading",
+        text: "The chain of identities",
+      },
+      {
+        type: "paragraph",
+        text: "The system becomes debuggable because each layer answers a different question. The idempotency key identifies the caller's logical attempt. The Content ID identifies the accepted submission. Presentation IDs identify the immutable frames produced from it. The Display's pending and current Presentation IDs show what was offered and what was confirmed. A request ID ties an individual failure back to the service.",
+      },
+      {
+        type: "quote",
+        text: "From TypeScript to e-ink, reliability comes from never asking one status to mean more than it can prove.",
+      },
+      {
+        type: "heading",
+        text: "What reliable means here",
+      },
+      {
+        type: "paragraph",
+        text: "The SDK cannot make a sleeping panel synchronous, and it should not pretend to. What it can do is make every transition explicit and safe to repeat: accept one logical write, move its bytes without leaking credentials, process it once, render immutable Presentations, publish them to the right Display, and wait for the physical device to confirm the result.",
+      },
+      {
+        type: "paragraph",
+        text: "That is the last mile we wanted from v0.1—not a shorter distance, but one an application can observe, reason about, and recover across all the way to the glass.",
+      },
+      {
+        type: "links",
+        links: [
+          { label: "Read the lifecycle guide", href: "https://docs.iminklet.com/lifecycle" },
+          {
+            label: "View the SDK",
+            href: "https://github.com/inklethq/sdk",
+          },
+          {
+            label: "Open the API reference",
+            href: "https://docs.iminklet.com/api/client",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "saving-was-only-half-the-problem",
     category: "Founder story",
     title: "Saving was only half the problem",
