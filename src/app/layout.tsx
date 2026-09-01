@@ -75,7 +75,7 @@ export default function RootLayout({
           rel="alternate"
           type="application/rss+xml"
           title="inklet Journal"
-          href="/rss.xml"
+          href="/journal/rss.xml"
         />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-D0LYSP1FQL" />
         <script

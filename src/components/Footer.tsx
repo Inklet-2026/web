@@ -8,7 +8,7 @@ const socialLinks: { label: string; href: string; Icon: IconType }[] = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/inklet", Icon: FaLinkedin },
   { label: "Discord", href: "https://discord.gg/pEpJSqMP7V", Icon: SiDiscord },
   { label: "GitHub", href: "https://github.com/inklethq", Icon: SiGithub },
-  { label: "RSS", href: "/rss.xml", Icon: FaRss },
+  { label: "RSS", href: "/journal/rss.xml", Icon: FaRss },
 ];
 
 const productLinks = [
