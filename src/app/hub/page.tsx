@@ -1,29 +1,18 @@
+import { createPageMetadata } from "@/lib/metadata";
 import HubHero from "@/components/HubHero";
 import HubFeatures from "@/components/HubFeatures";
 import HubSpecs from "@/components/HubSpecs";
 import { getHubJsonLd } from "@/lib/structured-data";
 
-const TITLE = "inklet Compute Hub H1 — Local, Private AI for Your E-Ink Displays";
+const TITLE = "inklet H1 - Private AI Hub for E-Ink Displays";
 const DESCRIPTION =
   "inklet H1 runs Gemma 4 locally on your home network to route notes, PDFs, and tasks to your inklet e-ink displays. No cloud, no subscription.";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "https://iminklet.com/hub" },
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: "https://iminklet.com/hub",
-    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image" as const,
-    title: TITLE,
-    description: DESCRIPTION,
-    images: ["https://iminklet.com/social-image.png"],
-  },
-};
+  path: "/hub",
+});
 
 export default function HubPage() {
   return (

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import CodeBlock from "@/components/CodeBlock";
 import JournalArtwork from "@/components/JournalArtwork";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 import {
   formatJournalDate,
   getJournalPost,
@@ -13,7 +14,6 @@ type JournalPostPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-const SITE_URL = "https://iminklet.com";
 const JOURNAL_URL = `${SITE_URL}/journal`;
 const DEFAULT_SOCIAL_IMAGE = `${SITE_URL}/social-image.png`;
 
@@ -30,7 +30,7 @@ export async function generateMetadata({
   const post = getJournalPost(slug);
 
   if (!post) {
-    return { title: "Journal post not found — inklet" };
+    notFound();
   }
 
   const url = `${JOURNAL_URL}/${post.slug}`;
@@ -40,7 +40,7 @@ export async function generateMetadata({
   const publishedTime = `${post.publishedAt}T12:00:00Z`;
 
   return {
-    title: `${post.title} — inklet Journal`,
+    title: `${post.seoTitle ?? post.title} - inklet`,
     description: post.excerpt,
     authors: [{ name: post.author, url: `${SITE_URL}/about` }],
     creator: post.author,
@@ -64,7 +64,7 @@ export async function generateMetadata({
       title: post.title,
       description: post.excerpt,
       url,
-      siteName: "inklet",
+      siteName: SITE_NAME,
       locale: "en_US",
       publishedTime,
       modifiedTime: publishedTime,
@@ -115,7 +115,7 @@ export default async function JournalPostPage({ params }: JournalPostPageProps) 
         "@type": "WebPage",
         "@id": `${url}#webpage`,
         url,
-        name: `${post.title} — inklet Journal`,
+        name: `${post.seoTitle ?? post.title} - inklet`,
         description: post.excerpt,
         inLanguage: "en-US",
         isPartOf: { "@id": `${SITE_URL}/#website` },
@@ -150,7 +150,8 @@ export default async function JournalPostPage({ params }: JournalPostPageProps) 
         publisher: {
           "@type": "Organization",
           "@id": `${SITE_URL}/#organization`,
-          name: "inklet LLC",
+          name: SITE_NAME,
+          legalName: "inklet LLC",
           url: SITE_URL,
           logo: {
             "@type": "ImageObject",

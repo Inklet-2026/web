@@ -1,3 +1,4 @@
+import { createPageMetadata } from "@/lib/metadata";
 import DisplayHero from "@/components/DisplayHero";
 import DisplayProblem from "@/components/DisplayProblem";
 import HowItWorks from "@/components/HowItWorks";
@@ -12,28 +13,15 @@ import { getDisplayJsonLd } from "@/lib/structured-data";
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/inklet";
 
-const TITLE =
-  "inklet Display D1 — 7.5″ Ambient E-Ink Display for Notes, PDFs & Tasks";
+const TITLE = "inklet D1 - 7.5-Inch E-Ink Display for Notes & PDFs";
 const DESCRIPTION =
-  "inklet D1 is a 7.5-inch ambient e-ink display that surfaces notes, PDFs, tasks, and schedules in the right room — AI-routed, months of battery, from $179.";
+  "Bring notes, PDFs, tasks, and schedules into the right room with the inklet D1, a 7.5-inch ambient e-ink display with AI routing and months of battery life.";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "https://iminklet.com/display" },
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: "https://iminklet.com/display",
-    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image" as const,
-    title: TITLE,
-    description: DESCRIPTION,
-    images: ["https://iminklet.com/social-image.png"],
-  },
-};
+  path: "/display",
+});
 
 export default function DisplayPage() {
   return (

@@ -1,3 +1,4 @@
+import { createPageMetadata } from "@/lib/metadata";
 import SdkHero from "@/components/SdkHero";
 import SdkPush from "@/components/SdkPush";
 import SdkLifecycle from "@/components/SdkLifecycle";
@@ -6,27 +7,15 @@ import SdkGuardrails from "@/components/SdkGuardrails";
 import SdkStart from "@/components/SdkStart";
 import { getSdkJsonLd } from "@/lib/structured-data";
 
-const TITLE = "inklet Portal SDK — Push Content to E-Ink Displays from Code";
+const TITLE = "inklet SDK - TypeScript for E-Ink Displays";
 const DESCRIPTION =
-  "The server-side TypeScript SDK for inklet displays. Push text, links, images, and PDFs with one call — Inklet handles layout, routing, and rendering for the panel.";
+  "Push text, links, images, and PDFs to inklet e-ink displays with the TypeScript SDK. inklet handles layout, room routing, and rendering.";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "https://iminklet.com/developers" },
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: "https://iminklet.com/developers",
-    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image" as const,
-    title: TITLE,
-    description: DESCRIPTION,
-    images: ["https://iminklet.com/social-image.png"],
-  },
-};
+  path: "/developers",
+});
 
 export default function DevelopersPage() {
   return (

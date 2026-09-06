@@ -1,30 +1,33 @@
 import type { MetadataRoute } from "next";
 import { journalPosts } from "@/data/journal";
+import { siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://iminklet.com";
+  const latestJournalDate = journalPosts
+    .map((post) => post.publishedAt)
+    .sort()
+    .at(-1);
+
+  // Omit dates where no reliable content modification date is recorded.
+  // A new build does not mean every page's content changed.
   const pages: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: new Date(), priority: 1.0 },
-    { url: `${baseUrl}/display`, lastModified: new Date(), priority: 0.9 },
-    { url: `${baseUrl}/hub`, lastModified: new Date(), priority: 0.9 },
-    { url: `${baseUrl}/store`, lastModified: new Date(), priority: 0.9 },
-    { url: `${baseUrl}/portal`, lastModified: new Date(), priority: 0.5 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), priority: 0.6 },
+    { url: siteUrl() },
+    { url: siteUrl("/display") },
+    { url: siteUrl("/hub") },
+    { url: siteUrl("/store") },
+    { url: siteUrl("/portal") },
+    { url: siteUrl("/about") },
     {
-      url: `${baseUrl}/journal`,
-      lastModified: new Date(`${journalPosts[0].publishedAt}T12:00:00Z`),
-      changeFrequency: "monthly",
-      priority: 0.6,
+      url: siteUrl("/journal"),
+      lastModified: latestJournalDate,
     },
-    { url: `${baseUrl}/developers`, lastModified: new Date(), priority: 0.5 },
-    { url: `${baseUrl}/privacy-policy`, lastModified: new Date(), priority: 0.3 },
+    { url: siteUrl("/developers") },
+    { url: siteUrl("/privacy-policy") },
   ];
 
   const posts: MetadataRoute.Sitemap = journalPosts.map((post) => ({
-    url: `${baseUrl}/journal/${post.slug}`,
-    lastModified: new Date(`${post.publishedAt}T12:00:00Z`),
-    changeFrequency: "yearly",
-    priority: 0.5,
+    url: siteUrl(`/journal/${post.slug}`),
+    lastModified: post.publishedAt,
   }));
 
   return [...pages, ...posts];

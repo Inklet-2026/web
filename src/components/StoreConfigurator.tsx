@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import StoreCountdown from "./StoreCountdown";
+import StoreLaunchNotice from "./StoreLaunchNotice";
 
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/inklet";
@@ -387,7 +387,7 @@ export default function StoreConfigurator() {
                       ${displayOriginal}
                     </span>
                   </div>
-                  <StoreCountdown />
+                  <StoreLaunchNotice />
                 </div>
               </div>
 
@@ -572,7 +572,7 @@ export default function StoreConfigurator() {
                       ${bundleOriginal}
                     </span>
                   </div>
-                  {!isProBundle && <StoreCountdown />}
+                  {!isProBundle && <StoreLaunchNotice />}
                 </div>
               </div>
 

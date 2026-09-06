@@ -6,6 +6,8 @@ import {
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/structured-data";
+import { createPageMetadata } from "@/lib/metadata";
+import { HOME_DESCRIPTION, HOME_TITLE, SITE_URL } from "@/lib/site";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MotionProvider from "@/components/MotionProvider";
@@ -32,30 +34,25 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://iminklet.com"),
-  title: "inklet - Your Second Brain, On eInk Display",
-  description:
-    "inklet is a distributed e-ink display system that surfaces your notes, tasks, and ideas in the right room — powered by AI, with an option for fully private, local processing.",
-  openGraph: {
-    title: "inklet - Your Second Brain, On eInk Display",
-    description:
-      "A family of e-ink displays that surface the right information in the right room — powered by AI.",
-    type: "website",
-    url: "https://iminklet.com",
-    siteName: "inklet LLC",
-    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
+  ...createPageMetadata({
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    path: "/",
+  }),
+  metadataBase: new URL(SITE_URL),
+  // Individual pages declare their own canonical URL.
+  alternates: undefined,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
-  other: {
-    "og:logo": "https://iminklet.com/logo.png",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "inklet - Your Second Brain, On eInk Display",
-    description:
-      "A family of e-ink displays that surface the right information in the right room — powered by AI.",
-    images: ["https://iminklet.com/social-image.png"],
-  },
-  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

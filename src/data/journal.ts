@@ -17,6 +17,7 @@ export interface JournalPost {
   slug: string;
   category: string;
   title: string;
+  seoTitle?: string;
   excerpt: string;
   publishedAt: string;
   readingTime: string;
@@ -195,6 +196,7 @@ console.log(result.contentId, result.state);`,
     slug: "designing-a-reliable-last-mile-from-typescript-to-an-e-ink-panel",
     category: "Engineering",
     title: "Designing a reliable last mile from TypeScript to an e-ink panel",
+    seoTitle: "TypeScript to E-Ink: Reliable Content Delivery",
     excerpt:
       "How inklet turns one TypeScript call into a retry-safe, observable delivery pipeline that ends only when the physical panel confirms the frame.",
     publishedAt: "2026-09-01",

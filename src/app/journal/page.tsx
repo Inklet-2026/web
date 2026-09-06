@@ -1,30 +1,18 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import JournalArtwork from "@/components/JournalArtwork";
 import Rise from "@/components/Rise";
 import { formatJournalDate, journalPosts } from "@/data/journal";
 
-const TITLE = "Journal — Notes from inklet";
+const TITLE = "inklet Journal - E-Ink, Product & Engineering Notes";
 const DESCRIPTION =
   "Product stories, field notes, and ideas from inklet about ambient computing, e-ink, and bringing useful information into the spaces where we live and work.";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "https://iminklet.com/journal" },
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: "https://iminklet.com/journal",
-    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: ["https://iminklet.com/social-image.png"],
-  },
-};
+  path: "/journal",
+});
 
 export default function JournalPage() {
   const featuredPost = journalPosts.find((post) => post.featured) ?? journalPosts[0];

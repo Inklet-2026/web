@@ -1,6 +1,6 @@
 import { journalPosts, type JournalBlock } from "@/data/journal";
+import { SITE_URL } from "@/lib/site";
 
-const SITE_URL = "https://iminklet.com";
 const JOURNAL_URL = `${SITE_URL}/journal`;
 const FEED_URL = `${JOURNAL_URL}/rss.xml`;
 
@@ -78,6 +78,9 @@ export function GET() {
   const items = posts
     .map((post) => {
       const url = `${JOURNAL_URL}/${post.slug}`;
+      // Preserve existing item IDs so the canonical-host correction does not
+      // re-deliver every article to current feed subscribers.
+      const guid = `https://iminklet.com/journal/${post.slug}`;
       const publishedAt = new Date(
         `${post.publishedAt}T12:00:00Z`,
       ).toUTCString();
@@ -86,7 +89,7 @@ export function GET() {
     <item>
       <title>${cdata(post.title)}</title>
       <link>${escapeXml(url)}</link>
-      <guid isPermaLink="true">${escapeXml(url)}</guid>
+      <guid isPermaLink="true">${escapeXml(guid)}</guid>
       <pubDate>${publishedAt}</pubDate>
       <dc:creator>${cdata(post.author)}</dc:creator>
       <category>${cdata(post.category)}</category>

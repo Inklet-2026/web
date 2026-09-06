@@ -2,7 +2,8 @@ import Link from "next/link";
 import HomeHero from "@/components/HomeHero";
 import HomePortal from "@/components/HomePortal";
 import HomeSDK from "@/components/HomeSDK";
-import { getFaqJsonLd } from "@/lib/structured-data";
+import { createPageMetadata } from "@/lib/metadata";
+import { HOME_TITLE, HOME_DESCRIPTION } from "@/lib/site";
 
 const KICKSTARTER_URL =
   "https://www.kickstarter.com/projects/clckkkkk/inklet";
@@ -15,29 +16,11 @@ const BLUR_STEPS = [
   { blur: 26, reach: 20 },
 ];
 
-export const metadata = {
-  title:
-    "inklet — Ambient E-Ink Display for Notes, PDFs, and Your Second Brain",
-  description:
-    "inklet is an ambient e-ink display system that brings notes, PDFs, tasks, and useful information into the right room without another glowing screen.",
-  alternates: { canonical: "https://iminklet.com" },
-  openGraph: {
-    title:
-      "inklet — Ambient E-Ink Display for Notes, PDFs, and Your Second Brain",
-    description:
-      "inklet is an ambient e-ink display system that brings notes, PDFs, tasks, and useful information into the right room without another glowing screen.",
-    url: "https://iminklet.com",
-    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image" as const,
-    title:
-      "inklet — Ambient E-Ink Display for Notes, PDFs, and Your Second Brain",
-    description:
-      "inklet is an ambient e-ink display system that brings notes, PDFs, tasks, and useful information into the right room without another glowing screen.",
-    images: ["https://iminklet.com/social-image.png"],
-  },
-};
+export const metadata = createPageMetadata({
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+  path: "/",
+});
 
 export default function Home() {
   return (
@@ -136,10 +119,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(getFaqJsonLd()) }}
-      />
     </>
   );
 }

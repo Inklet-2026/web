@@ -1,18 +1,12 @@
+import { createPageMetadata } from "@/lib/metadata";
 import { LAST_UPDATED, PRIVACY_POLICY_HTML } from "@/data/privacy-policy";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Privacy Policy - inklet",
   description:
     "How inklet LLC collects, uses, and protects your information when you use inklet products and the inklet Portal.",
-  alternates: { canonical: "https://iminklet.com/privacy-policy" },
-  openGraph: {
-    title: "Privacy Policy - inklet",
-    description:
-      "How inklet LLC collects, uses, and protects your information when you use inklet products and the inklet Portal.",
-    url: "https://iminklet.com/privacy-policy",
-    images: [{ url: "https://iminklet.com/social-image.png", width: 1200, height: 630 }],
-  },
-};
+  path: "/privacy-policy",
+});
 
 export default function PrivacyPolicyPage() {
   return (
